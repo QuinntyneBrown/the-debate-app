@@ -1,3 +1,10 @@
+html,body {
+    width:100%;
+}
+
 :host {
-    font-family:Lato;
+    display:block;
+    font-family: Lato;
+    max-width:780px;
+    margin: 0 auto;
 }

@@ -3,6 +3,7 @@ import { RouterComponent } from "./router";
 let customElements: any;
 let template = require("./app.component.html");
 let styles = require("./app.component.scss");
+
 const prefix: string = "ce";
 const selector: string = "app";
 let customInnerHTML = `<style>${styles}</style> ${template}`;
