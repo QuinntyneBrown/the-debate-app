@@ -14,7 +14,8 @@ namespace TheDebateApp.Migrations
 
         protected override void Seed(TheDebateApp.Data.DataContext context)
         {
-
+            UserConfiguration.Seed(context);
+            MeetingConfiguration.Seed(context);
         }
     }
 }

@@ -230,6 +230,8 @@
     <Compile Include="Dtos\MeetingDto.cs" />
     <Compile Include="Dtos\MeetingAddOrUpdateRequestDto.cs" />
     <Compile Include="Dtos\MeetingAddOrUpdateResponseDto.cs" />
+    <Compile Include="Migrations\MeetingConfiguration.cs" />
+    <Compile Include="Migrations\UserConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
