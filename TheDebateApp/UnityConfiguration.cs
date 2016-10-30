@@ -21,6 +21,7 @@ namespace TheDebateApp
             container.RegisterType<IEncryptionService, EncryptionService>();
             container.RegisterType<ILogger, Logger>();
             container.RegisterType<IUserService, UserService>();
+            container.RegisterType<IMeetingService, MeetingService>();
             container.RegisterInstance(AuthConfiguration.LazyConfig);            
             return container;
         }

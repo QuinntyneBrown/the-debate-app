@@ -224,6 +224,12 @@
     <Compile Include="Utilities\LoggerFactory.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Meeting.cs" />
+    <Compile Include="Services\MeetingService.cs" />
+    <Compile Include="Services\IMeetingService.cs" />
+    <Compile Include="Controllers\MeetingController.cs" />
+    <Compile Include="Dtos\MeetingDto.cs" />
+    <Compile Include="Dtos\MeetingAddOrUpdateRequestDto.cs" />
+    <Compile Include="Dtos\MeetingAddOrUpdateResponseDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

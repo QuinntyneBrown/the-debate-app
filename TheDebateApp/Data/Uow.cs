@@ -1,4 +1,5 @@
 using System;
+using TheDebateApp.Models;
 
 namespace TheDebateApp.Data
 {
@@ -25,8 +26,8 @@ namespace TheDebateApp.Data
             RepositoryProvider = repositoryProvider;
         }
 
-        public IRepository<Models.User> Users { get { return GetStandardRepo<Models.User>(); } }
-        
+        public IRepository<User> Users { get { return GetStandardRepo<User>(); } }
+        public IRepository<Meeting> Meetings { get { return GetStandardRepo<Meeting>(); } }
 
         protected void ConfigureDbContext(IDbContext dbContext)
         {

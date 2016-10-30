@@ -17,6 +17,8 @@ export class HeaderComponent extends HTMLElement {
     connectedCallback() {
         this._root = (this as any).attachShadow({mode: 'open'});
         this._root.innerHTML = customInnerHTML; 
+        this._heading = this._root.querySelector("h2");
+        this._heading.addEventListener("click", this.onHeaderClick.bind(this));
     }
 
     disconnectedCallback() {
@@ -27,7 +29,12 @@ export class HeaderComponent extends HTMLElement {
 
     }
 
-	private _root;
+    onHeaderClick() {
+        history.pushState({ route: "/" },null, "/");
+    }
+
+    private _root;
+    private _heading: HTMLElement;
 }
 
 document.addEventListener("DOMContentLoaded",function() {

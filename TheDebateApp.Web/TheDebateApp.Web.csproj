@@ -6,7 +6,8 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion></ProductVersion>
+    <ProductVersion>
+    </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{658DA84D-AD6C-414A-9333-B89232911187}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -21,7 +22,8 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
     <TypeScriptEmitDecoratorMetadata>true</TypeScriptEmitDecoratorMetadata>
     <TypeScriptModuleKind>commonjs</TypeScriptModuleKind>
@@ -217,21 +219,40 @@
     <Content Include="src\app\home\home-page.component.scss">
       <DependentUpon>home-page.component.ts</DependentUpon>
     </Content>
-    <Content Include="src\app\router\route-link.component.html">
-      <DependentUpon>route-link.component.ts</DependentUpon>
+    <Content Include="src\app\meeting\meeting-page.component.html">
+      <DependentUpon>meeting-page.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\meeting\meeting-page.component.scss">
+      <DependentUpon>meeting-page.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\meeting\meetings-page.component.html">
+      <DependentUpon>meetings-page.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\meeting\meetings-page.component.scss">
+      <DependentUpon>meetings-page.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\router\router-link.component.html">
+      <DependentUpon>router-link.component.ts</DependentUpon>
     </Content>
     <Content Include="src\app\router\router.component.html">
       <DependentUpon>router.component.ts</DependentUpon>
     </Content>
+    <Content Include="src\app\shared\header.component.html">
+      <DependentUpon>header.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\shared\header.component.scss">
+      <DependentUpon>header.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\user\login-page.component.html">
+      <DependentUpon>login-page.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\user\login-page.component.scss">
+      <DependentUpon>login-page.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\images\logo.jpg" />
     <Content Include="webpack.config.js" />
     <Content Include="tsconfig.json" />
     <Content Include="typings.json" />
-    <Content Include="src\app\meeting\meeting-page.component.scss" />
-    <Content Include="src\app\meeting\meeting-page.component.html" />
-    <Content Include="src\app\user\login-page.component.scss" />
-    <Content Include="src\app\user\login-page.component.html" />
-    <Content Include="src\app\shared\header.component.scss" />
-    <Content Include="src\app\shared\header.component.html" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html" />
@@ -250,9 +271,6 @@
   <ItemGroup>
     <Folder Include="dist\" />
     <Folder Include="lib\" />
-    <Folder Include="src\app\meeting\" />
-    <Folder Include="src\app\shared\" />
-    <Folder Include="src\app\user\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -272,7 +290,8 @@
           <IISUrl>http://localhost:56622/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl></CustomServerUrl>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
@@ -294,13 +313,27 @@
   -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <ItemGroup>
+    <TypeScriptCompile Include="src\app\meeting\meeting.service.ts" />
     <TypeScriptCompile Include="src\app\router\index.ts" />
     <TypeScriptCompile Include="src\app\router\login-redirect.ts" />
-    <TypeScriptCompile Include="src\app\router\route-link.component.ts" />
+    <TypeScriptCompile Include="src\app\router\router-link.component.ts" />
     <TypeScriptCompile Include="src\app\router\router.component.ts" />
+    <TypeScriptCompile Include="src\app\utilities\add-or-update.ts" />
+    <TypeScriptCompile Include="src\app\utilities\append-to-body-async.ts" />
+    <TypeScriptCompile Include="src\app\utilities\create-element.ts" />
+    <TypeScriptCompile Include="src\app\utilities\extend-css-async.ts" />
+    <TypeScriptCompile Include="src\app\utilities\form-encode.ts" />
+    <TypeScriptCompile Include="src\app\utilities\fetch.ts" />
+    <TypeScriptCompile Include="src\app\utilities\guid.ts" />
+    <TypeScriptCompile Include="src\app\utilities\index.ts" />
+    <TypeScriptCompile Include="src\app\utilities\pluck-out.ts" />
+    <TypeScriptCompile Include="src\app\utilities\pluck.ts" />
+    <TypeScriptCompile Include="src\app\utilities\remove-element.ts" />
+    <TypeScriptCompile Include="src\app\utilities\set-opacity-async.ts" />
+    <TypeScriptCompile Include="src\app\utilities\target-value.ts" />
+    <TypeScriptCompile Include="src\app\utilities\translate-x.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\app\app.component.ts" />
-    <TypeScriptCompile Include="src\app\index.ts" />
     <TypeScriptCompile Include="src\app\home\home-page.component.ts" />
     <TypeScriptCompile Include="src\app\home\index.ts" />
     <TypeScriptCompile Include="src\app\meeting\meeting-page.component.ts" />
@@ -309,6 +342,7 @@
     <TypeScriptCompile Include="src\app\user\index.ts" />
     <TypeScriptCompile Include="src\app\shared\header.component.ts" />
     <TypeScriptCompile Include="src\app\shared\index.ts" />
+    <TypeScriptCompile Include="src\app\meeting\meetings-page.component.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>

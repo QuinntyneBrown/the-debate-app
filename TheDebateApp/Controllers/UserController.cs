@@ -41,6 +41,17 @@ namespace TheDebateApp.Controllers
         [ResponseType(typeof(int))]
         public IHttpActionResult Remove(int id) { return Ok(_userService.Remove(id)); }
 
+        [Route("current")]
+        [AllowAnonymous]
+        [HttpGet]
+        [ResponseType(typeof(UserDto))]
+        public IHttpActionResult Current()
+        {
+            if (!User.Identity.IsAuthenticated)
+                return Ok();
+            return Ok(_userService.Current(User.Identity.Name));
+        }
+
         protected readonly IUserService _userService;
 
 

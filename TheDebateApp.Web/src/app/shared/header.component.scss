@@ -1,3 +1,18 @@
-:host {
+:host ul {
+     
+        list-style-type: none;
+        padding:0;
+        margin:0; 
+        width: 100%;   
+}
 
+:host li {
+    display: inline;
+    cursor:pointer;
+}
+
+:host {
+    h2 {
+        cursor:pointer;
+    }
 }

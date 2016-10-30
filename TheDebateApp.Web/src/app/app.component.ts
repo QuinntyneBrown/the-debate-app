@@ -1,9 +1,12 @@
-let customElements:any;
+import { RouterComponent } from "./router";
+
+let customElements: any;
 let template = require("./app.component.html");
 let styles = require("./app.component.scss");
 const prefix: string = "ce";
 const selector: string = "app";
 let customInnerHTML = `<style>${styles}</style> ${template}`;
+
 
 export class AppComponent extends HTMLElement {
     constructor() {
@@ -17,6 +20,17 @@ export class AppComponent extends HTMLElement {
     connectedCallback() {
         this._root = (this as any).attachShadow({mode: 'open'});
         this._root.innerHTML = customInnerHTML; 
+        this._router = new RouterComponent(this._root, [
+            { path: "/", selector: "ce-home-page" },
+            { path: "/login", selector: "ce-login-page", authRequired: true },
+            { path: "/meetings", selector: "ce-meetings-page", authRequired: true },
+            { path: "/meeting", selector: "ce-meeting-page", authRequired: true }
+        ], this._onRouteChanged);
+        
+    }
+
+    private _onRouteChanged() {
+        
     }
 
     disconnectedCallback() {
@@ -27,7 +41,9 @@ export class AppComponent extends HTMLElement {
 
     }
 
-	private _root;
+    private _root;
+    private _router: RouterComponent;
+
 }
 
 document.addEventListener("DOMContentLoaded",function() {

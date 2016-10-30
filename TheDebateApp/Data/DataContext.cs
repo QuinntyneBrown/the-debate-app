@@ -1,4 +1,5 @@
 using System.Data.Entity;
+using TheDebateApp.Models;
 
 namespace TheDebateApp.Data
 {
@@ -12,7 +13,8 @@ namespace TheDebateApp.Data
             Configuration.AutoDetectChangesEnabled = true;
         }
 
-        public DbSet<Models.User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Meeting> Meetings { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

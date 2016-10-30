@@ -1,10 +1,10 @@
 ﻿let customElements: any;
-let template = require("./route-link.component.html");
+let template = require("./router-link.component.html");
 
 const prefix: string = "ce";
-const selector: string = "route-link";
+const selector: string = "router-link";
 
-export class RouteLink extends HTMLElement {
+export class RouterLinkComponent extends HTMLElement {
     constructor() {
         super();
     }
@@ -38,5 +38,5 @@ export class RouteLink extends HTMLElement {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    (window as any).customElements.define(`${prefix}-${selector}`, RouteLink);
+    (window as any).customElements.define(`${prefix}-${selector}`, RouterLinkComponent);
 });

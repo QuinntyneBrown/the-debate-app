@@ -46,6 +46,10 @@ namespace TheDebateApp.Services
             return id;
         }
 
+        public UserDto Current(string username)
+            => new UserDto(_repository.GetAll().Single(x => x.IsDeleted == false && x.Username == username));
+
+
         protected readonly IUow _uow;
         protected readonly IRepository<Models.User> _repository;
         protected readonly ICache _cache;

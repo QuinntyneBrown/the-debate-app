@@ -9,5 +9,6 @@ namespace TheDebateApp.Services
         ICollection<UserDto> Get();
         UserDto GetById(int id);
         dynamic Remove(int id);
+        UserDto Current(string username);
     }
 }

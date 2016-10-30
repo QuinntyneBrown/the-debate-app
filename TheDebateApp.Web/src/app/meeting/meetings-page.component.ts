@@ -1,11 +1,13 @@
-let customElements:any;
-let template = require("./home-page.component.html");
-let styles = require("./home-page.component.scss");
+import { MeetingService } from "./meeting.service";
+
+let customElements: any;
+let template = require("./meetings-page.component.html");
+let styles = require("./meetings-page.component.scss");
 const prefix: string = "ce";
-const selector: string = "home-page";
+const selector: string = "meetings-page";
 let customInnerHTML = `<style>${styles}</style> ${template}`;
 
-export class HomePageComponent extends HTMLElement {
+export class MeetingsPageComponent extends HTMLElement {
     constructor() {
         super();
     }
@@ -17,8 +19,9 @@ export class HomePageComponent extends HTMLElement {
     connectedCallback() {
         this._root = (this as any).attachShadow({mode: 'open'});
         this._root.innerHTML = customInnerHTML; 
-        this._image = this._root.querySelector("img");
-        this._image.setAttribute("src", "/src/images/logo.jpg");
+        MeetingService.get().then(results => {
+            
+        });
     }
 
     disconnectedCallback() {
@@ -29,10 +32,9 @@ export class HomePageComponent extends HTMLElement {
 
     }
 
-    private _root;
-    private _image: HTMLImageElement;
+	private _root;
 }
 
 document.addEventListener("DOMContentLoaded",function() {
-    (window as any).customElements.define(`${prefix}-${selector}`,HomePageComponent);
+    (window as any).customElements.define(`${prefix}-${selector}`,MeetingsPageComponent);
 });
