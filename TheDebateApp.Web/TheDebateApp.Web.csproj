@@ -314,6 +314,7 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <ItemGroup>
     <TypeScriptCompile Include="src\app\meeting\meeting.service.ts" />
+    <TypeScriptCompile Include="src\app\router\history-shim.ts" />
     <TypeScriptCompile Include="src\app\router\index.ts" />
     <TypeScriptCompile Include="src\app\router\login-redirect.ts" />
     <TypeScriptCompile Include="src\app\router\router-link.component.ts" />
@@ -330,6 +331,7 @@
     <TypeScriptCompile Include="src\app\utilities\pluck.ts" />
     <TypeScriptCompile Include="src\app\utilities\remove-element.ts" />
     <TypeScriptCompile Include="src\app\utilities\set-opacity-async.ts" />
+    <TypeScriptCompile Include="src\app\utilities\store.ts" />
     <TypeScriptCompile Include="src\app\utilities\target-value.ts" />
     <TypeScriptCompile Include="src\app\utilities\translate-x.ts" />
     <TypeScriptCompile Include="src\main.ts" />

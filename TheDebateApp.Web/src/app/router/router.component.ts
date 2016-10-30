@@ -1,23 +1,15 @@
-let customElements:any;
-let template = require("./router.component.html");
+import { LoginRedirect } from "./login-redirect";
+import "./history-shim";
 
-const prefix: string = "ce";
-const selector: string = "router";
 
-let pushState = history.pushState;
-history.pushState = function (state) {
-    if (typeof (history as any).onpushstate == "function") {
-        (history as any).onpushstate({ state: state });
-    }
-    return pushState.apply(history, arguments);
+interface RouterConfig {
+
 }
 
 export class RouterComponent {
-    constructor(private _root:any, private _routes:Array<{ path:string, selector:string, authRequired?:boolean }>, private routeChangedCallback) {        
-        
+    constructor(private _root:any, private _routes:Array<{ path:string, selector:string, authRequired?:boolean }>, private routeChangedCallback) {                
         (history as any).onpushstate = (e) => { this._onChanged(e.state); }        
         this._onChanged({ route: window.location.pathname});
-
         window.onpopstate = () => { this._onChanged({ route: window.location.pathname}); }
     }
     
@@ -37,6 +29,7 @@ export class RouterComponent {
         this._root.innerHTML = this._rootAsHTML.innerHTML;
     }    
 
+    private _loginRedirect;
     private _rootAsHTML;
 }
 
