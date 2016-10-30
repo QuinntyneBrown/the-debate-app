@@ -32,11 +32,11 @@ export class AppComponent extends HTMLElement {
             { path: "/login", selector: "ce-login-page", authRequired: false },
             { path: "/meetings", selector: "ce-meetings-page", authRequired: true },
             { path: "/meeting", selector: "ce-meeting-page", authRequired: true }
-        ], this._onRouteChanged);                
+        ], this._onRouteChanged);         
     }
 
     private _onRouteChanged() {
-        
+        document.dispatchEvent(new CustomEvent("routeChanged", {}));
     }
 
     disconnectedCallback() {

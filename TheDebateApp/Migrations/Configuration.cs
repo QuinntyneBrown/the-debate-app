@@ -1,10 +1,8 @@
 namespace TheDebateApp.Migrations
 {
-    using System;
-    using System.Data.Entity;
+    using Data;
     using System.Data.Entity.Migrations;
-    using System.Linq;
-
+    
     internal sealed class Configuration : DbMigrationsConfiguration<TheDebateApp.Data.DataContext>
     {
         public Configuration()
@@ -12,7 +10,7 @@ namespace TheDebateApp.Migrations
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(TheDebateApp.Data.DataContext context)
+        protected override void Seed(DataContext context)
         {
             UserConfiguration.Seed(context);
             MeetingConfiguration.Seed(context);

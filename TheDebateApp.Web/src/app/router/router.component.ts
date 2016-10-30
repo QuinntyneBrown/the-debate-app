@@ -1,9 +1,13 @@
+import { Store } from "../utilities";
 import { LoginRedirect } from "./login-redirect";
 import "./history-shim";
 
 
 interface RouterConfig {
-
+    root: HTMLElement,
+    routes: Array<{ path: string, selector: string, authRequired?: boolean }>,
+    routeChangedCallback: Function,
+    store:Store
 }
 
 export class RouterComponent {
@@ -13,13 +17,19 @@ export class RouterComponent {
         window.onpopstate = () => { this._onChanged({ route: window.location.pathname}); }
     }
     
-    private _onChanged(state: { route: string }) {                              
+    private _onChanged(state: { route: string }) {  
+        if (state.route === this._location)
+            return;
+
+        this._location = state.route;
+
         for (var i = 0; i < this._routes.length; i++) {
             if(state.route === this._routes[i].path) {
-                this._setRouterElement(`<${this._routes[i].selector}></${this._routes[i].selector}>`);  
-                this.routeChangedCallback();
+                this._setRouterElement(`<${this._routes[i].selector}></${this._routes[i].selector}>`);                  
             }
         }
+        
+        this.routeChangedCallback();
     }
 
     private _setRouterElement(html:string) {
@@ -31,5 +41,6 @@ export class RouterComponent {
 
     private _loginRedirect;
     private _rootAsHTML;
+    private _location: string;
 }
 
