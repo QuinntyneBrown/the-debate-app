@@ -1,0 +1,25 @@
+{
+  "name": "the-debate-app",
+  "description": "The Debate App",
+  "main": "index.html",
+  "authors": [
+    "Quinntyne Brown"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "Webpack",
+    "TypeScript"
+  ],
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "custom-elements": "webcomponents/custom-elements#^1.0.0-alpha.3"
+  }
+}
