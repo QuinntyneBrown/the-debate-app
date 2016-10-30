@@ -31,7 +31,8 @@ export class AppComponent extends HTMLElement {
             { path: "/", selector: "ce-home-page" },
             { path: "/login", selector: "ce-login-page", authRequired: false },
             { path: "/meetings", selector: "ce-meetings-page", authRequired: true },
-            { path: "/meeting", selector: "ce-meeting-page", authRequired: true }
+            { path: "/meeting/:id", selector: "ce-meeting-page", authRequired: true },
+            { path: "/meeting/:id/updateminutes", selector: "ce-update-minutes-page", authRequired: true }
         ], this._onRouteChanged);         
     }
 
