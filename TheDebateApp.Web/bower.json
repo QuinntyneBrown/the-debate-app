@@ -20,6 +20,8 @@
     "tests"
   ],
   "dependencies": {
-    "custom-elements": "webcomponents/custom-elements#^1.0.0-alpha.3"
+    "custom-elements": "webcomponents/custom-elements#^1.0.0-alpha.3",
+    "shadydom": "webcomponents/shadydom",
+    "shadycss": "webcomponents/shadycss"
   }
 }

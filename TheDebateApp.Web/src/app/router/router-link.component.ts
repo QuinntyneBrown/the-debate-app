@@ -11,28 +11,38 @@ export class RouterLinkComponent extends HTMLElement {
 
     static get observedAttributes() {
         return [
-            "href"
+            "href",
+            "active"
         ];
     }
 
     connectedCallback() {
-        var textContent = this.textContent;
-        this._root = (this as any).attachShadow({ mode: 'open' });        
-        this._root.innerHTML = template;
-        this._root.textContent = textContent;
-        this.addEventListener("click", (e) => {
-            window.history.pushState({ route:this._href }, null, this._href);
-        });
         
+        this.addEventListener("click", this.onClick.bind(this));        
     }
 
     disconnectedCallback() {
-
+        this.removeEventListener("click", this.onClick);
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {        
+    public onClick() {
+        window.history.pushState({ route: this.getAttribute("href") }, null, this.getAttribute("href"));
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {   
+        switch (name) {
+            case "href":
+                this._href = newValue;
+                break;
+            case "active":
+                this.classList.remove("active");
+                if (newValue == "true")
+                    this.classList.add("active");                
+                break;
+        }
         this._href = newValue;
     }
+    
     private _href: string;
     private _root;
 }

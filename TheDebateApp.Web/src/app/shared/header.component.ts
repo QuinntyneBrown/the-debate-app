@@ -10,6 +10,8 @@ let customInnerHTML = `<style>${styles}</style> ${template}`;
 export class HeaderComponent extends HTMLElement {
     constructor() {
         super();
+        let root = (this as any).attachShadow({ mode: 'open' });
+        root.innerHTML = customInnerHTML; 
     }
 
     static get observedAttributes () {
@@ -17,9 +19,8 @@ export class HeaderComponent extends HTMLElement {
     }
 
     connectedCallback() {
-        this._root = (this as any).attachShadow({mode: 'open'});
-        this._root.innerHTML = customInnerHTML; 
-        this._heading = this._root.querySelector("h2");
+        
+        this._heading = (this as any).shadowRoot.querySelector("h2") as HTMLElement;
         this._heading.addEventListener("click", this.onHeaderClick.bind(this));
         this._addEventListeners();
     }
@@ -31,12 +32,12 @@ export class HeaderComponent extends HTMLElement {
     private _onChanged(state) {        
 
         //TODO: Figure out how this works with shadow DOM
-        var routeLinks = this._root.querySelectorAll("ce-router-link");
+        const routeLinks: Array<any> = Array.from((this as any).shadowRoot.querySelectorAll("ce-router-link"));
         
         for (var i = 0; i < routeLinks.length; i++) {
-            routeLinks[i].classList.remove('menu__nav-item--active')
+            (routeLinks[i] as HTMLElement).setAttribute("active", "false");
             if (state.route == routeLinks[i]._href)
-                (routeLinks[i] as HTMLElement).classList.add('menu__nav-item--active');            
+                (routeLinks[i] as HTMLElement).setAttribute("active", "true");            
         }
     }
 
