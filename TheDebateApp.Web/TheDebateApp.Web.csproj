@@ -235,8 +235,11 @@
     <Content Include="src\app\meeting\update-minutes-page.component.scss">
       <DependentUpon>update-minutes-page.component.ts</DependentUpon>
     </Content>
-    <Content Include="src\app\router\router-link.component.html">
-      <DependentUpon>router-link.component.ts</DependentUpon>
+    <Content Include="src\app\router\router-provider.component.html">
+      <DependentUpon>router-provider.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\router\router-provider.component.scss">
+      <DependentUpon>router-provider.component.ts</DependentUpon>
     </Content>
     <Content Include="src\app\router\router.component.html">
       <DependentUpon>router.component.ts</DependentUpon>
@@ -317,10 +320,9 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <ItemGroup>
     <TypeScriptCompile Include="src\app\meeting\meeting.service.ts" />
-    <TypeScriptCompile Include="src\app\router\history-shim.ts" />
+    <TypeScriptCompile Include="src\polyfills\history-shim.ts" />
     <TypeScriptCompile Include="src\app\router\index.ts" />
     <TypeScriptCompile Include="src\app\router\login-redirect.ts" />
-    <TypeScriptCompile Include="src\app\router\router-link.component.ts" />
     <TypeScriptCompile Include="src\app\router\router.component.ts" />
     <TypeScriptCompile Include="src\app\utilities\add-or-update.ts" />
     <TypeScriptCompile Include="src\app\utilities\append-to-body-async.ts" />
@@ -349,6 +351,8 @@
     <TypeScriptCompile Include="src\app\shared\index.ts" />
     <TypeScriptCompile Include="src\app\meeting\meetings-page.component.ts" />
     <TypeScriptCompile Include="src\app\meeting\update-minutes-page.component.ts" />
+    <TypeScriptCompile Include="src\app\router\link.component.ts" />
+    <TypeScriptCompile Include="src\app\router\router-provider.component.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>

@@ -26,7 +26,16 @@ export class HeaderComponent extends HTMLElement {
     }
 
     private _addEventListeners() {
+        
+        Array.from((this as any).shadowRoot.querySelectorAll("ce-link")).forEach((link: HTMLElement) => {
+            link.addEventListener("ceClick", this._onLinkClick.bind(this));
+        });
+        
         document.addEventListener("routeChanged", this._onChanged.bind(this));
+    }
+
+    private _onLinkClick(customEvent: CustomEvent) {
+        window.history.pushState({ route: customEvent.detail.href}, null, customEvent.detail.href);
     }
 
     private _onChanged(state) {        

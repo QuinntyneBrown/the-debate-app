@@ -1,7 +1,5 @@
 import { Store } from "../utilities";
 import { LoginRedirect } from "./login-redirect";
-import "./history-shim";
-
 
 interface RouterConfig {
     root: HTMLElement,

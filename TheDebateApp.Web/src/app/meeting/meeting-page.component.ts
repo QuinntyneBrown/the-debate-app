@@ -1,9 +1,5 @@
-let customElements:any;
 let template = require("./meeting-page.component.html");
 let styles = require("./meeting-page.component.scss");
-const prefix: string = "ce";
-const selector: string = "meeting-page";
-let customInnerHTML = `<style>${styles}</style> ${template}`;
 
 export class MeetingPageComponent extends HTMLElement {
     constructor() {
@@ -15,8 +11,8 @@ export class MeetingPageComponent extends HTMLElement {
     }
 
     connectedCallback() {
-        this._root = (this as any).attachShadow({mode: 'open'});
-        this._root.innerHTML = customInnerHTML; 
+        let root = (this as any).attachShadow({mode: 'open'});
+        root.innerHTML = `<style>${styles}</style> ${template}`; 
     }
 
     disconnectedCallback() {
@@ -24,12 +20,13 @@ export class MeetingPageComponent extends HTMLElement {
     }
 
     attributeChangedCallback (name, oldValue, newValue) {
-
+        switch (name) {
+            default:
+                break;
+        }
     }
-
-	private _root;
 }
 
 document.addEventListener("DOMContentLoaded",function() {
-    (window as any).customElements.define(`${prefix}-${selector}`,MeetingPageComponent);
+    (window as any).customElements.define(`ce-meeting-page`,MeetingPageComponent);
 });

@@ -1,9 +1,5 @@
-let customElements:any;
 let template = require("./login-page.component.html");
 let styles = require("./login-page.component.scss");
-const prefix: string = "ce";
-const selector: string = "login-page";
-let customInnerHTML = `<style>${styles}</style> ${template}`;
 
 export class LoginPageComponent extends HTMLElement {
     constructor() {
@@ -15,8 +11,8 @@ export class LoginPageComponent extends HTMLElement {
     }
 
     connectedCallback() {
-        this._root = (this as any).attachShadow({mode: 'open'});
-        this._root.innerHTML = customInnerHTML; 
+        let root = (this as any).attachShadow({mode: 'open'});
+        root.innerHTML = `<style>${styles}</style> ${template}`; 
     }
 
     disconnectedCallback() {
@@ -26,10 +22,8 @@ export class LoginPageComponent extends HTMLElement {
     attributeChangedCallback (name, oldValue, newValue) {
 
     }
-
-	private _root;
 }
 
 document.addEventListener("DOMContentLoaded",function() {
-    (window as any).customElements.define(`${prefix}-${selector}`,LoginPageComponent);
+    (window as any).customElements.define(`ce-login-page`,LoginPageComponent);
 });
