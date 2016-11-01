@@ -41,7 +41,6 @@ export class MeetingEditPageComponent extends HTMLElement {
     }
     
     public onSave() {
-
         var data = {
             id: this.meetingId,
             name: this.nameInputElement.value,
@@ -49,16 +48,16 @@ export class MeetingEditPageComponent extends HTMLElement {
             agenda: this.agendaEditor.text,
             minutes: this.minutesEditor.text
         };
-
-        alert(JSON.stringify(data));
-
+        
         this._meetingService.add(data).then((results) => {
             this._router.navigate(["meetings"]);
         });
     }
 
-    public onDelete() {
-
+    public onDelete() {        
+        this._meetingService.remove({ id: this.meetingId }).then((results) => {
+            this._router.navigate(["meetings"]);
+        });
     }
 
     public meetingId: number;
