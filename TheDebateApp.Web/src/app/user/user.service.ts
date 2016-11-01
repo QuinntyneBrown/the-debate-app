@@ -1,21 +1,25 @@
 ﻿import { fetch, formEncode } from "../utilities";
+import { OAuthHelper } from "./oauth-helper";
 
 export class UserService {
+    constructor(private _oauthHelper: OAuthHelper = null) {
+        _oauthHelper = _oauthHelper || new OAuthHelper();
+    }
 
     public get() {
-        return fetch({ url: "/api/user/get" });
+        return fetch({ url: "/api/user/get", headers: this._oauthHelper.getOAuthHeaders() });
     }
 
     public getById(id) {
-        return fetch({ url: `/api/user/getbyid?id=${id}` });
+        return fetch({ url: `/api/user/getbyid?id=${id}`, headers: this._oauthHelper.getOAuthHeaders() });
     }
 
     public add(entity) {
-        return fetch({ url: `/api/user/add`, method: "POST", data: entity });
+        return fetch({ url: `/api/user/add`, method: "POST", data: entity, headers: this._oauthHelper.getOAuthHeaders() });
     }
 
     public remove(options: { id: number }) {
-        return fetch({ url: `/api/user/remove?id=${options.id}`, method: "DELETE" });
+        return fetch({ url: `/api/user/remove?id=${options.id}`, method: "DELETE", headers: this._oauthHelper.getOAuthHeaders() });
     }
 
     public tryToLogin(options: { username: string, password: string }) {

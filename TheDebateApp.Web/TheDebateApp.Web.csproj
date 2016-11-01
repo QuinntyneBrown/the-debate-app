@@ -371,6 +371,7 @@
     <TypeScriptCompile Include="src\app\router\login-redirect.ts" />
     <TypeScriptCompile Include="src\app\router\router.ts" />
     <TypeScriptCompile Include="src\app\user\actions.ts" />
+    <TypeScriptCompile Include="src\app\user\oauth-helper.ts" />
     <TypeScriptCompile Include="src\app\user\user.model.ts" />
     <TypeScriptCompile Include="src\app\user\user.service.ts" />
     <TypeScriptCompile Include="src\app\utilities\add-or-update.ts" />
