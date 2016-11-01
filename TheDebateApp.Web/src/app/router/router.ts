@@ -39,6 +39,7 @@ export class Router {
 
     private _routeName: string;
     public routePath: string;
+    public routeParams = { id: 3 };
     private _callbacks: Array<any> = [];
     private _loginRedirect;
     private _rootAsHTML;

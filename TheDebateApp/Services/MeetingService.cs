@@ -23,6 +23,11 @@ namespace TheDebateApp.Services
                 .FirstOrDefault(x => x.Id == request.Id && x.IsDeleted == false);
             if (entity == null) _repository.Add(entity = new Meeting());
             entity.Name = request.Name;
+            entity.Abstract = request.Abstract;
+            entity.Agenda = request.Agenda;
+            entity.Minutes = request.Minutes;
+            entity.Start = request.Start;
+            entity.End = request.End;
             _uow.SaveChanges();
             return new MeetingAddOrUpdateResponseDto(entity);
         }

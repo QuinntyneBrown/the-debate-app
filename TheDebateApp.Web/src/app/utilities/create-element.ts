@@ -1,5 +1,5 @@
-﻿export const createElement = (): HTMLElement => {
+﻿export const createElement = (html:string): HTMLElement => {
     let divElement = document.createElement("div")
-    divElement.innerHTML = "<div></div>";
+    divElement.innerHTML = html;
     return divElement.firstChild as HTMLElement;
 }

@@ -1,14 +1,15 @@
+import { Meeting } from "./meeting.model";
 import { MeetingService } from "./meeting.service";
+import { resolve, appServices } from "../container";
+import { createElement } from "../utilities";
 
-let customElements: any;
 let template = require("./meetings-page.component.html");
 let styles = require("./meetings-page.component.scss");
-const prefix: string = "ce";
-const selector: string = "meetings-page";
+
 let customInnerHTML = `<style>${styles}</style> ${template}`;
 
 export class MeetingsPageComponent extends HTMLElement {
-    constructor() {
+    constructor(private _meetingService: MeetingService = resolve(appServices.meetingService)) {
         super();
     }
 
@@ -17,10 +18,13 @@ export class MeetingsPageComponent extends HTMLElement {
     }
 
     connectedCallback() {
-        this._root = (this as any).attachShadow({mode: 'open'});
-        this._root.innerHTML = customInnerHTML; 
-        MeetingService.get().then(results => {
-            
+        let root = (this as any).attachShadow({mode: 'open'});
+        root.innerHTML = customInnerHTML; 
+        this._meetingService.get().then((results: string) => {
+            var resultsJSON: Array<Meeting> = JSON.parse(results) as Array<Meeting>;
+            for (var i = 0; i < resultsJSON.length; i++) {
+                (this as any).shadowRoot.appendChild(createElement(`<ce-meeting name='${resultsJSON[i].name}'></ce-meeting>`));
+            }
         });
     }
 
@@ -31,10 +35,9 @@ export class MeetingsPageComponent extends HTMLElement {
     attributeChangedCallback (name, oldValue, newValue) {
 
     }
-
-	private _root;
+    
 }
 
 document.addEventListener("DOMContentLoaded",function() {
-    (window as any).customElements.define(`${prefix}-${selector}`,MeetingsPageComponent);
+    (window as any).customElements.define("ce-meetings-page",MeetingsPageComponent);
 });

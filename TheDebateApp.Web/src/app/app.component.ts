@@ -18,30 +18,34 @@ export class AppComponent extends HTMLElement {
     
     
     connectedCallback() {
-        let root = (this as any).attachShadow({mode: 'open'});
-        root.innerHTML = `<style>${styles}</style> ${template}`; 
+        this.innerHTML = `<style>${styles}</style> ${template}`; 
         this._router.addEventListener(this._onRouteChanged.bind(this));        
     }
 
     private _onRouteChanged(options: any) {
-        var root = ((this as any).shadowRoot as HTMLElement);
+        
         var div = document.createElement("div");
 
-        if (root.querySelector("#router-outlet").childNodes.length > 0) {
-            root.querySelector("#router-outlet").removeChild(root.querySelector("#router-outlet").firstChild);
+        if (this.querySelector("#router-outlet").childNodes.length > 0) {
+            this.querySelector("#router-outlet").removeChild(this.querySelector("#router-outlet").firstChild);
         }
 
         switch (options.route) {
             case "home":
-                div.innerHTML = "<ce-home-page></ce-home-page>";
+                div.innerHTML = "<ce-meeting-edit-page></ce-meeting-edit-page>";
+                //div.innerHTML = "<ce-home-page></ce-home-page>";
                 break;
 
             case "meetings":
                 div.innerHTML = "<ce-meetings-page></ce-meetings-page>";
                 break;
+
+            case "meeting-create":
+                div.innerHTML = "<ce-meeting-edit-page></ce-meeting-edit-page>";
+                break;
         }
 
-        root.querySelector("#router-outlet").appendChild(div.firstChild);
+        this.querySelector("#router-outlet").appendChild(div.firstChild);
     }
 
     disconnectedCallback() {

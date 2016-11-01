@@ -219,11 +219,23 @@
     <Content Include="src\app\home\home-page.component.scss">
       <DependentUpon>home-page.component.ts</DependentUpon>
     </Content>
+    <Content Include="src\app\meeting\meeting-edit-page.component.html">
+      <DependentUpon>meeting-edit-page.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\meeting\meeting-edit-page.component.scss">
+      <DependentUpon>meeting-edit-page.component.ts</DependentUpon>
+    </Content>
     <Content Include="src\app\meeting\meeting-page.component.html">
       <DependentUpon>meeting-page.component.ts</DependentUpon>
     </Content>
     <Content Include="src\app\meeting\meeting-page.component.scss">
       <DependentUpon>meeting-page.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\meeting\meeting.component.html">
+      <DependentUpon>meeting.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\meeting\meeting.component.scss">
+      <DependentUpon>meeting.component.ts</DependentUpon>
     </Content>
     <Content Include="src\app\meeting\meetings-page.component.html">
       <DependentUpon>meetings-page.component.ts</DependentUpon>
@@ -327,6 +339,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="src\app\container.ts" />
     <TypeScriptCompile Include="src\app\environment.ts" />
+    <TypeScriptCompile Include="src\app\meeting\meeting.model.ts" />
     <TypeScriptCompile Include="src\app\meeting\meeting.service.ts" />
     <TypeScriptCompile Include="src\app\router\create-router.ts" />
     <TypeScriptCompile Include="src\app\router\route.ts" />
@@ -363,6 +376,8 @@
     <TypeScriptCompile Include="src\app\router\link.component.ts" />
     <TypeScriptCompile Include="src\app\shared\editor.component.ts" />
     <TypeScriptCompile Include="src\app\index.ts" />
+    <TypeScriptCompile Include="src\app\meeting\meeting.component.ts" />
+    <TypeScriptCompile Include="src\app\meeting\meeting-edit-page.component.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>

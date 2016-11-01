@@ -7,6 +7,7 @@ namespace TheDebateApp.Models
         public int Id { get; set; }
         public DateTime? Start { get; set; }
         public DateTime? End { get; set; }
+        public string Abstract { get; set; }
         public string Agenda { get; set; }
         public string Minutes { get; set; }
         public string Name { get; set; }

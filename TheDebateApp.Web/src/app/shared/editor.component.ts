@@ -23,6 +23,10 @@ export class EditorComponent {
         this.text = this.nativeElement.children[0].innerHTML;        
     }
 
+    public setHTML(html: string) {
+        this.nativeElement.children[0].innerHTML = html;
+    }
+
     public text;
     private _quill;
 }

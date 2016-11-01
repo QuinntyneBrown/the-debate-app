@@ -6,7 +6,6 @@ using System.Web.Http.Description;
 
 namespace TheDebateApp.Controllers
 {
-    [Authorize]
     [RoutePrefix("api/meeting")]
     public class MeetingController : ApiController
     {

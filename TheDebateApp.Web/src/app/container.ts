@@ -11,6 +11,7 @@ export const registerInstance = (instance: any, serviceType: appServices) => {
 }
 
 export enum appServices {
+    meetingService,
     router,
     store
 }
