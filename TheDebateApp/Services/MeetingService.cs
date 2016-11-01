@@ -26,6 +26,10 @@ namespace TheDebateApp.Services
             entity.Abstract = request.Abstract;
             entity.Agenda = request.Agenda;
             entity.Minutes = request.Minutes;
+
+            if(!string.IsNullOrEmpty(request.Date))
+                entity.Date = DateTime.Parse(request.Date);
+
             entity.Start = request.Start;
             entity.End = request.End;
             _uow.SaveChanges();

@@ -3,7 +3,10 @@ ce-meeting-edit-page {
 
 }
 
-.meeting-name {
+.meeting-name, 
+.meeting-date,
+.meeting-start,
+.meeting-end {
     width:300px;
     line-height:30px;
     font-size:1em;

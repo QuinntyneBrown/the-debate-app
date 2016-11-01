@@ -4,6 +4,9 @@ import { resolve, appServices } from "../container";
 import { Router } from "../router";
 import { EditorComponent } from "../shared";
 
+var pikaday = require('pikaday');
+var moment = require('moment');
+
 let template = require("./meeting-edit-page.component.html");
 let styles = require("./meeting-edit-page.component.scss");
 
@@ -22,11 +25,13 @@ export class MeetingEditPageComponent extends HTMLElement {
         this.deleteButtonElement = this.querySelector(".delete-button") as HTMLButtonElement;
         this.titleElement = this.querySelector("h2") as HTMLElement;
         this.nameInputElement = this.querySelector(".meeting-name") as HTMLInputElement;
-
+        this.dateDatePicker = new pikaday({ field: this.querySelector(".meeting-date") as HTMLInputElement });
+        this.startInputElement = this.querySelector(".meeting-start") as HTMLInputElement;
+        this.endInputElement = this.querySelector(".meeting-end") as HTMLInputElement;
         this.titleElement.textContent = "Create Meeting";
         this.saveButtonElement.addEventListener("click", this.onSave.bind(this));
         this.deleteButtonElement.addEventListener("click", this.onDelete.bind(this));
-
+        
         if (this._router.routeParams && this._router.routeParams.id) {
             this._meetingService.getById(this._router.routeParams.id).then((results: string) => { 
                 var resultsJSON: Meeting = JSON.parse(results) as Meeting;
@@ -35,6 +40,9 @@ export class MeetingEditPageComponent extends HTMLElement {
                 this.abstractEditor.setHTML(resultsJSON.abstract || "");
                 this.agendaEditor.setHTML(resultsJSON.agenda || "");
                 this.minutesEditor.setHTML(resultsJSON.minutes || "");
+                
+                if (resultsJSON.date)
+                    (this.querySelector(".meeting-date") as HTMLInputElement).value = moment(resultsJSON.date).format("YYYY-MM-DD");
             });
             this.titleElement.textContent = "Edit Meeting";
         } 
@@ -43,6 +51,7 @@ export class MeetingEditPageComponent extends HTMLElement {
     public onSave() {
         var data = {
             id: this.meetingId,
+            date: (this.querySelector(".meeting-date") as HTMLInputElement).value,
             name: this.nameInputElement.value,
             abstract: this.abstractEditor.text,
             agenda: this.agendaEditor.text,
@@ -65,6 +74,9 @@ export class MeetingEditPageComponent extends HTMLElement {
     public saveButtonElement: HTMLButtonElement;
     public deleteButtonElement: HTMLButtonElement;
     public nameInputElement: HTMLInputElement;
+    public dateDatePicker: any;
+    public startInputElement: HTMLInputElement;
+    public endInputElement: HTMLInputElement;
     public abstractEditor: EditorComponent;
     public agendaEditor: EditorComponent;
     public minutesEditor: EditorComponent;

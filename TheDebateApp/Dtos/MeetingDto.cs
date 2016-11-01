@@ -7,6 +7,7 @@ namespace TheDebateApp.Dtos
         public MeetingDto(TheDebateApp.Models.Meeting entity)
         {
             this.Id = entity.Id;
+            this.Date = string.Format("{0:yyyy-MM-dd}",entity.Date);
             this.Name = entity.Name;
             this.Start = entity.Start;
             this.End = entity.End;
@@ -20,6 +21,7 @@ namespace TheDebateApp.Dtos
         }
 
         public int Id { get; set; }
+        public string Date { get; set; }
         public DateTime? Start { get; set; }
         public DateTime? End { get; set; }
         public string Abstract { get; set; }

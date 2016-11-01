@@ -275,6 +275,7 @@
     <Content Include="lib\quill.core.css" />
     <Content Include="lib\quill.min.js" />
     <Content Include="lib\quill.snow.css" />
+    <Content Include="src\styles\pikaday.css" />
     <Content Include="webpack.config.js" />
     <Content Include="tsconfig.json" />
     <Content Include="typings.json" />
