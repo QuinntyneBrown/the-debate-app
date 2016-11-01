@@ -15,6 +15,7 @@ export class Router {
         for (var i = 0; i < this._routes.length; i++) {
             if (state.route == this._routes[i].path) {
                 this._routeName = this._routes[i].name;
+                this.routePath = this._routes[i].path;
             }
         }                
         history.pushState({}, this._routeName, state.route);
@@ -37,6 +38,7 @@ export class Router {
     }
 
     private _routeName: string;
+    public routePath: string;
     private _callbacks: Array<any> = [];
     private _loginRedirect;
     private _rootAsHTML;

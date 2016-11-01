@@ -14,6 +14,14 @@ export class LinkComponent extends HTMLElement {
 
     connectedCallback() {        
         this.addEventListener("click", this.onClick.bind(this));
+        this._router.addEventListener(this.onRouteChange.bind(this));
+        this.style.cursor = "pointer";
+    }
+
+    public onRouteChange(state: any) {
+        (this as any).classList.remove("active");
+        if (this.route == this._router.routePath)
+            (this as any).classList.add("active");
     }
 
     onClick(e: Event) {   
@@ -33,7 +41,9 @@ export class LinkComponent extends HTMLElement {
         }
     }
 
-    public routeSegments:Array<any>;
+    public routeSegments: Array<any>;
+    public get route() { return "/" + this.routeSegments.join("/"); }
+
 }
 
 document.addEventListener("DOMContentLoaded", () => (window as any).customElements.define(`ce-link`, LinkComponent));
