@@ -2,7 +2,9 @@
     return new Promise(resolve => {
         var xhr = new XMLHttpRequest();
         xhr.open(options.method || "GET", options.url, true);
-        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
+
+        options.headers = options.headers || { "Content-Type": "application/json;charset=UTF-8" };
+        
         for (var prop in options.headers) {
             xhr.setRequestHeader(prop, options.headers[prop]);
         }

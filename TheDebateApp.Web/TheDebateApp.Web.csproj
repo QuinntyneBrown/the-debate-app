@@ -223,6 +223,30 @@
     <Content Include="src\app\user\login.component.scss">
       <DependentUpon>login.component.ts</DependentUpon>
     </Content>
+    <Content Include="src\app\user\registration.component.html">
+      <DependentUpon>registration.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\user\registration.component.scss">
+      <DependentUpon>registration.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\user\user-item.component.html">
+      <DependentUpon>user-item.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\user\user-item.component.scss">
+      <DependentUpon>user-item.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\user\user.component.html">
+      <DependentUpon>user.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\user\user.component.scss">
+      <DependentUpon>user.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\user\users.component.html">
+      <DependentUpon>users.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\user\users.component.scss">
+      <DependentUpon>users.component.ts</DependentUpon>
+    </Content>
     <Content Include="src\styles\rome.min.css" />
     <Content Include="lib\rome.min.js" />
     <Content Include="packages.config" />
@@ -348,6 +372,7 @@
     <TypeScriptCompile Include="src\app\router\router.ts" />
     <TypeScriptCompile Include="src\app\user\actions.ts" />
     <TypeScriptCompile Include="src\app\user\user.model.ts" />
+    <TypeScriptCompile Include="src\app\user\user.service.ts" />
     <TypeScriptCompile Include="src\app\utilities\add-or-update.ts" />
     <TypeScriptCompile Include="src\app\utilities\append-to-body-async.ts" />
     <TypeScriptCompile Include="src\app\utilities\create-element.ts" />
@@ -381,6 +406,10 @@
     <TypeScriptCompile Include="src\app\meeting\meeting-edit.component.ts" />
     <TypeScriptCompile Include="src\app\meeting\meeting-item.component.ts" />
     <TypeScriptCompile Include="src\app\user\login.component.ts" />
+    <TypeScriptCompile Include="src\app\user\registration.component.ts" />
+    <TypeScriptCompile Include="src\app\user\user-item.component.ts" />
+    <TypeScriptCompile Include="src\app\user\users.component.ts" />
+    <TypeScriptCompile Include="src\app\user\user.component.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>
