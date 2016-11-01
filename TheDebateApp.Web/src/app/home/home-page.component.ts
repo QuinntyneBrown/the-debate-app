@@ -1,9 +1,5 @@
-let customElements:any;
 let template = require("./home-page.component.html");
 let styles = require("./home-page.component.scss");
-const prefix: string = "ce";
-const selector: string = "home-page";
-let customInnerHTML = `<style>${styles}</style> ${template}`;
 
 export class HomePageComponent extends HTMLElement {
     constructor() {
@@ -15,9 +11,9 @@ export class HomePageComponent extends HTMLElement {
     }
 
     connectedCallback() {
-        this._root = (this as any).attachShadow({mode: 'open'});
-        this._root.innerHTML = customInnerHTML; 
-        this._image = this._root.querySelector("img");
+        let root = (this as any).attachShadow({mode: 'open'});
+        root.innerHTML = `<style>${styles}</style> ${template}`; 
+        this._image = root.querySelector("img");
         this._image.setAttribute("src", "/src/images/logo.jpg");
     }
 
@@ -28,11 +24,8 @@ export class HomePageComponent extends HTMLElement {
     attributeChangedCallback (name, oldValue, newValue) {
 
     }
-
-    private _root;
+    
     private _image: HTMLImageElement;
 }
 
-document.addEventListener("DOMContentLoaded",function() {
-    (window as any).customElements.define(`${prefix}-${selector}`,HomePageComponent);
-});
+document.addEventListener("DOMContentLoaded", () => (window as any).customElements.define("ce-home-page",HomePageComponent));

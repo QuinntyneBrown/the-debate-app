@@ -1,0 +1,28 @@
+declare var Quill;
+
+export class EditorComponent {
+    constructor(private nativeElement: HTMLElement) {         
+        this._quill = new Quill(nativeElement, {
+            modules: {
+                toolbar: [
+                    [{ header: [1, 2, false] }],
+                    ['bold', 'italic', 'underline'],
+                    ['image', 'code-block']
+                ]
+            },            
+            theme: 'snow'
+        });
+        this._addEventListeners();
+    }
+
+    private _addEventListeners() {
+        this._quill.on("text-change", this._onTextChange.bind(this));
+    }
+
+    private _onTextChange(delta, oldDelta, source) {
+        this.text = this.nativeElement.children[0].innerHTML;        
+    }
+
+    public text;
+    private _quill;
+}

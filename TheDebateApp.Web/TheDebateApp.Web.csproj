@@ -6,7 +6,8 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion></ProductVersion>
+    <ProductVersion>
+    </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{658DA84D-AD6C-414A-9333-B89232911187}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -21,7 +22,8 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
     <TypeScriptEmitDecoratorMetadata>true</TypeScriptEmitDecoratorMetadata>
     <TypeScriptModuleKind>commonjs</TypeScriptModuleKind>
@@ -235,14 +237,14 @@
     <Content Include="src\app\meeting\update-minutes-page.component.scss">
       <DependentUpon>update-minutes-page.component.ts</DependentUpon>
     </Content>
-    <Content Include="src\app\router\router-provider.component.html">
-      <DependentUpon>router-provider.component.ts</DependentUpon>
-    </Content>
-    <Content Include="src\app\router\router-provider.component.scss">
-      <DependentUpon>router-provider.component.ts</DependentUpon>
-    </Content>
     <Content Include="src\app\router\router.component.html">
-      <DependentUpon>router.component.ts</DependentUpon>
+      <DependentUpon>router.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\shared\editor.component.css">
+      <DependentUpon>editor.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\shared\editor.component.html">
+      <DependentUpon>editor.component.ts</DependentUpon>
     </Content>
     <Content Include="src\app\shared\header.component.html">
       <DependentUpon>header.component.ts</DependentUpon>
@@ -257,6 +259,10 @@
       <DependentUpon>login-page.component.ts</DependentUpon>
     </Content>
     <Content Include="src\images\logo.jpg" />
+    <Content Include="lib\jquery.min.js" />
+    <Content Include="lib\quill.core.css" />
+    <Content Include="lib\quill.min.js" />
+    <Content Include="lib\quill.snow.css" />
     <Content Include="webpack.config.js" />
     <Content Include="tsconfig.json" />
     <Content Include="typings.json" />
@@ -277,7 +283,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="dist\" />
-    <Folder Include="lib\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -297,7 +302,8 @@
           <IISUrl>http://localhost:56622/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl></CustomServerUrl>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
@@ -319,11 +325,14 @@
   -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <ItemGroup>
+    <TypeScriptCompile Include="src\app\container.ts" />
+    <TypeScriptCompile Include="src\app\environment.ts" />
     <TypeScriptCompile Include="src\app\meeting\meeting.service.ts" />
-    <TypeScriptCompile Include="src\polyfills\history-shim.ts" />
+    <TypeScriptCompile Include="src\app\router\create-router.ts" />
+    <TypeScriptCompile Include="src\app\router\route.ts" />
     <TypeScriptCompile Include="src\app\router\index.ts" />
     <TypeScriptCompile Include="src\app\router\login-redirect.ts" />
-    <TypeScriptCompile Include="src\app\router\router.component.ts" />
+    <TypeScriptCompile Include="src\app\router\router.ts" />
     <TypeScriptCompile Include="src\app\utilities\add-or-update.ts" />
     <TypeScriptCompile Include="src\app\utilities\append-to-body-async.ts" />
     <TypeScriptCompile Include="src\app\utilities\create-element.ts" />
@@ -352,7 +361,8 @@
     <TypeScriptCompile Include="src\app\meeting\meetings-page.component.ts" />
     <TypeScriptCompile Include="src\app\meeting\update-minutes-page.component.ts" />
     <TypeScriptCompile Include="src\app\router\link.component.ts" />
-    <TypeScriptCompile Include="src\app\router\router-provider.component.ts" />
+    <TypeScriptCompile Include="src\app\shared\editor.component.ts" />
+    <TypeScriptCompile Include="src\app\index.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>

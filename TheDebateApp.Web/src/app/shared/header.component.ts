@@ -1,17 +1,13 @@
-import "../router/history-shim";
-
-let customElements: any;
+import { Router } from "../router";
+import { resolve, appServices } from "../container";
 let template = require("./header.component.html");
 let styles = require("./header.component.scss");
-const prefix: string = "ce";
-const selector: string = "header";
-let customInnerHTML = `<style>${styles}</style> ${template}`;
 
 export class HeaderComponent extends HTMLElement {
-    constructor() {
+    constructor(private _router:Router = resolve(appServices.router)) {
         super();
         let root = (this as any).attachShadow({ mode: 'open' });
-        root.innerHTML = customInnerHTML; 
+        root.innerHTML = `<style>${styles}</style> ${template}`; 
     }
 
     static get observedAttributes () {
@@ -25,18 +21,10 @@ export class HeaderComponent extends HTMLElement {
         this._addEventListeners();
     }
 
-    private _addEventListeners() {
-        
-        Array.from((this as any).shadowRoot.querySelectorAll("ce-link")).forEach((link: HTMLElement) => {
-            link.addEventListener("ceClick", this._onLinkClick.bind(this));
-        });
-        
+    private _addEventListeners() {        
         document.addEventListener("routeChanged", this._onChanged.bind(this));
     }
-
-    private _onLinkClick(customEvent: CustomEvent) {
-        window.history.pushState({ route: customEvent.detail.href}, null, customEvent.detail.href);
-    }
+    
 
     private _onChanged(state) {        
 
@@ -59,7 +47,7 @@ export class HeaderComponent extends HTMLElement {
     }
 
     onHeaderClick() {
-        history.pushState({ route: "/" },null, "/");
+        this._router.navigate([""]);
     }
 
     private _root;
@@ -67,5 +55,5 @@ export class HeaderComponent extends HTMLElement {
 }
 
 document.addEventListener("DOMContentLoaded",function() {
-    (window as any).customElements.define(`${prefix}-${selector}`,HeaderComponent);
+    (window as any).customElements.define(`ce-header`,HeaderComponent);
 });

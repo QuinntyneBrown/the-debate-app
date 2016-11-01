@@ -1,4 +1,5 @@
+export * from "./create-router";
 export * from "./link.component";
 export * from "./login-redirect";
-export * from "./router-provider.component";
-export * from "./router.component";
+export * from "./route";
+export * from "./router";

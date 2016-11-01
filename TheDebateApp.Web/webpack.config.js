@@ -11,7 +11,7 @@ module.exports = {
         path: __dirname + "/dist",
         filename: "[name].js",
         publicPath: "dist/",
-        library: "vf"
+        library: "theDebateApp"
     },
     resolve: {
         extensions: ['.ts', '.js', '.jpg', '.jpeg', '.gif', '.png', '.css', '.html']

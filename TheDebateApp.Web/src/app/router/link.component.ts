@@ -1,11 +1,14 @@
+import { appServices, resolve } from "../container";
+import { Router } from "./router";
+
 export class LinkComponent extends HTMLElement {
-    constructor() {
+    constructor(private _router:Router = resolve(appServices.router)) {
         super();
     }
 
     static get observedAttributes () {
         return [
-            "href"
+            "routesegments"
         ];
     }
 
@@ -13,27 +16,24 @@ export class LinkComponent extends HTMLElement {
         this.addEventListener("click", this.onClick.bind(this));
     }
 
-    onClick(e:Event) {        
-        this.dispatchEvent(new CustomEvent("ceClick", {
-            detail: {
-                href: this.href
-            }
-        }));
+    onClick(e: Event) {   
+        this._router.onChanged({ routeSegments: this.routeSegments });
     }
 
     disconnectedCallback() {
         this.removeEventListener("click", this.onClick.bind(this));
     }
 
-    attributeChangedCallback (name, oldValue, newValue) {
+    attributeChangedCallback(name, oldValue, newValue) {
+        
         switch (name) {
             default:
-                this.href = newValue;
+                this.routeSegments = JSON.parse(newValue);
                 break;
         }
     }
 
-    public href;
+    public routeSegments:Array<any>;
 }
 
 document.addEventListener("DOMContentLoaded", () => (window as any).customElements.define(`ce-link`, LinkComponent));
