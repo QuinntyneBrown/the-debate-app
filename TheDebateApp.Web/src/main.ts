@@ -1,3 +1,4 @@
+import "./app/polyfills";
 import "./app";
 import { Router,
     registerInstance,
