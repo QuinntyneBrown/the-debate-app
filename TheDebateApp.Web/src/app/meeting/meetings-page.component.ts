@@ -9,31 +9,21 @@ let styles = require("./meetings-page.component.scss");
 let customInnerHTML = `<style>${styles}</style> ${template}`;
 
 export class MeetingsPageComponent extends HTMLElement {
-    constructor() {
+    constructor(private _meeting: MeetingService = null) {
         super();
-    }
 
-    static get observedAttributes () {
-        return [];
+        this._meeting = _meeting || new MeetingService();
     }
-
+    
     connectedCallback() {
         let root = (this as any).attachShadow({mode: 'open'});
         root.innerHTML = customInnerHTML; 
-        MeetingService.get().then((results: string) => {
+        this._meeting.get().then((results: string) => {
             var resultsJSON: Array<Meeting> = JSON.parse(results) as Array<Meeting>;
             for (var i = 0; i < resultsJSON.length; i++) {
                 (this as any).shadowRoot.appendChild(createElement(`<ce-meeting name='${resultsJSON[i].name}'></ce-meeting>`));
             }
         });
-    }
-
-    disconnectedCallback() {
-
-    }
-
-    attributeChangedCallback (name, oldValue, newValue) {
-
     }
     
 }

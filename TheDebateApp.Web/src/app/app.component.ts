@@ -1,6 +1,6 @@
 /// <reference path="meeting/actions.ts" />
 import { Router } from "./router";
-import { Store } from "./utilities";
+import { Store, createElement } from "./utilities";
 import { resolve, appServices } from "./container";
 
 let template = require("./app.component.html");
@@ -25,55 +25,48 @@ export class AppComponent extends HTMLElement {
 
     private _onRouteChanged(options: any) {
         
-        var div = document.createElement("div");
+        var view = null;
 
         if (this.querySelector("#router-outlet").childNodes.length > 0) {
+            this._removeMeetingEventListeners();
             this.querySelector("#router-outlet").removeChild(this.querySelector("#router-outlet").firstChild);
         }
-
-        if (this.querySelector("ce-meeting-edit-page"))
-            this._removeMeetingEventListeners();
-
+        
         switch (options.route) {
             case "home":
-                div.innerHTML = `<ce-meeting-edit-page meeting-id='3'></ce-meeting-edit-page>`;
+                view = createElement(`<ce-meeting-edit-page meeting-id='3'></ce-meeting-edit-page>`);                
                 //div.innerHTML = "<ce-home-page></ce-home-page>";                
                 break;
 
             case "meetings":
-                div.innerHTML = "<ce-meetings-page></ce-meetings-page>";
+                view = createElement("<ce-meetings-page></ce-meetings-page>");
                 break;
 
             case "meeting-create":
-                div.innerHTML = "<ce-meeting-edit-page></ce-meeting-edit-page>";
+                view = createElement("<ce-meeting-edit-page></ce-meeting-edit-page>");
                 break;
         }
 
-        this.querySelector("#router-outlet").appendChild(div.firstChild);
+        this.querySelector("#router-outlet").appendChild(view);
 
-        if (this.querySelector("ce-meeting-edit-page"))
-            this._addMeetingEventListeners();
+        this._addMeetingEventListeners();
         
     }
 
     private _addMeetingEventListeners() {
-        this.querySelector("ce-meeting-edit-page").addEventListener(meetingActions.ADD_SUCCESS, this.onMeetingActionSuccess.bind(this));
-        this.querySelector("ce-meeting-edit-page").addEventListener(meetingActions.DELETE_SUCCESS, this.onMeetingActionSuccess.bind(this));        
+        this.querySelector("#router-outlet").firstChild.addEventListener(meetingActions.ADD_SUCCESS, this.onMeetingActionSuccess.bind(this));
+        this.querySelector("#router-outlet").firstChild.addEventListener(meetingActions.DELETE_SUCCESS, this.onMeetingActionSuccess.bind(this));        
     }
 
     private _removeMeetingEventListeners() {
-        this.querySelector("ce-meeting-edit-page").removeEventListener(meetingActions.ADD_SUCCESS, this.onMeetingActionSuccess.bind(this));
-        this.querySelector("ce-meeting-edit-page").removeEventListener(meetingActions.DELETE_SUCCESS, this.onMeetingActionSuccess.bind(this));
+        this.querySelector("#router-outlet").firstChild.removeEventListener(meetingActions.ADD_SUCCESS, this.onMeetingActionSuccess.bind(this));
+        this.querySelector("#router-outlet").firstChild.removeEventListener(meetingActions.DELETE_SUCCESS, this.onMeetingActionSuccess.bind(this));
     }
 
     public onMeetingActionSuccess() {        
         this._router.navigate(["meetings"]);
     }
-
-    disconnectedCallback() {
-
-    }
-
+    
     attributeChangedCallback (name, oldValue, newValue) {
         switch (name) {
             default:

@@ -23,6 +23,7 @@
     "handlebars": "^4.0.5",
     "moment": "^2.15.2",
     "pikaday": "^1.5.1",
+    "rome": "^2.1.22",
     "webcomponents": "^0.1.4"
   }
 }

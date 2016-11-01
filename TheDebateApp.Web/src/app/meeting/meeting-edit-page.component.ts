@@ -5,13 +5,16 @@ import { MeetingAddSuccess, MeetingDeleteSuccess } from "./actions";
 
 var pikaday = require('pikaday');
 var moment = require('moment');
+declare var rome: any;
 
 let template = require("./meeting-edit-page.component.html");
 let styles = require("./meeting-edit-page.component.scss");
 
 export class MeetingEditPageComponent extends HTMLElement {
-    constructor() {
+    constructor(private _meeting: MeetingService = null) {
         super();
+
+        this._meeting = _meeting || new MeetingService();
     }
 
     static get observedAttributes() {
@@ -28,14 +31,14 @@ export class MeetingEditPageComponent extends HTMLElement {
         this.titleElement = this.querySelector("h2") as HTMLElement;
         this.nameInputElement = this.querySelector(".meeting-name") as HTMLInputElement;
         this.dateDatePicker = new pikaday({ field: this.querySelector(".meeting-date") as HTMLInputElement });
-        this.startInputElement = this.querySelector(".meeting-start") as HTMLInputElement;
-        this.endInputElement = this.querySelector(".meeting-end") as HTMLInputElement;
+        this.startDatePicker = rome(this.querySelector(".meeting-start"));
+        this.endDatePicker = rome(this.querySelector(".meeting-end"));
         this.titleElement.textContent = "Create Meeting";
         this.saveButtonElement.addEventListener("click", this.onSave.bind(this));
         this.deleteButtonElement.addEventListener("click", this.onDelete.bind(this));
         
         if (this.meetingId) {
-            MeetingService.getById(this.meetingId).then((results: string) => { 
+            this._meeting.getById(this.meetingId).then((results: string) => { 
                 var resultsJSON: Meeting = JSON.parse(results) as Meeting;                
                 this.nameInputElement.value = resultsJSON.name;              
                 this.abstractEditor.setHTML(resultsJSON.abstract || "");
@@ -59,13 +62,13 @@ export class MeetingEditPageComponent extends HTMLElement {
             minutes: this.minutesEditor.text
         } as Meeting;
         
-        MeetingService.add(meeting).then((results) => {
+        this._meeting.add(meeting).then((results) => {
             this.dispatchEvent(new MeetingAddSuccess(meeting));
         });
     }
 
     public onDelete() {        
-        MeetingService.remove({ id: this.meetingId }).then((results) => {
+        this._meeting.remove({ id: this.meetingId }).then((results) => {
             this.dispatchEvent(new MeetingDeleteSuccess(this.meetingId));
         });
     }
@@ -87,8 +90,8 @@ export class MeetingEditPageComponent extends HTMLElement {
     public deleteButtonElement: HTMLButtonElement;
     public nameInputElement: HTMLInputElement;
     public dateDatePicker: any;
-    public startInputElement: HTMLInputElement;
-    public endInputElement: HTMLInputElement;
+    public startDatePicker: any;
+    public endDatePicker: any;
     public abstractEditor: EditorComponent;
     public agendaEditor: EditorComponent;
     public minutesEditor: EditorComponent;
