@@ -2,26 +2,21 @@
 import { Meeting  } from "./meeting.model";
 
 export class MeetingService {
-
-    constructor() {
-
-    }
-
-    public get() {
+    
+    public static get() {
         return fetch({ url: "/api/meeting/get" });
     }
 
-    public getById(id) {
+    public static getById(id) {
         return fetch({ url: `/api/meeting/getbyid?id=${id}` });
     }
 
-    public add(entity) {
+    public static add(entity) {
         return fetch({ url: `/api/meeting/add`, method: "POST", data: entity });
     }
 
-    public remove(options: { id : number }) {
+    public static remove(options: { id : number }) {
         return fetch({ url: `/api/meeting/remove?id=${options.id}`, method: "DELETE" });
     }
-
-    private get _baseUrl() { return ""; }
+    
 }

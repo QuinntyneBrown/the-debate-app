@@ -1,8 +1,7 @@
 import { Meeting } from "./meeting.model";
 import { MeetingService } from "./meeting.service";
-import { resolve, appServices } from "../container";
-import { Router } from "../router";
 import { EditorComponent } from "../shared";
+import { MeetingAddSuccess, MeetingDeleteSuccess } from "./actions";
 
 var pikaday = require('pikaday');
 var moment = require('moment');
@@ -11,9 +10,12 @@ let template = require("./meeting-edit-page.component.html");
 let styles = require("./meeting-edit-page.component.scss");
 
 export class MeetingEditPageComponent extends HTMLElement {
-    constructor(private _meetingService: MeetingService = resolve(appServices.meetingService),
-        private _router: Router = resolve(appServices.router)) {
+    constructor() {
         super();
+    }
+
+    static get observedAttributes() {
+        return ["meeting-id"];
     }
     
     connectedCallback() {        
@@ -32,10 +34,9 @@ export class MeetingEditPageComponent extends HTMLElement {
         this.saveButtonElement.addEventListener("click", this.onSave.bind(this));
         this.deleteButtonElement.addEventListener("click", this.onDelete.bind(this));
         
-        if (this._router.routeParams && this._router.routeParams.id) {
-            this._meetingService.getById(this._router.routeParams.id).then((results: string) => { 
-                var resultsJSON: Meeting = JSON.parse(results) as Meeting;
-                this.meetingId = resultsJSON.id;
+        if (this.meetingId) {
+            MeetingService.getById(this.meetingId).then((results: string) => { 
+                var resultsJSON: Meeting = JSON.parse(results) as Meeting;                
                 this.nameInputElement.value = resultsJSON.name;              
                 this.abstractEditor.setHTML(resultsJSON.abstract || "");
                 this.agendaEditor.setHTML(resultsJSON.agenda || "");
@@ -49,24 +50,35 @@ export class MeetingEditPageComponent extends HTMLElement {
     }
     
     public onSave() {
-        var data = {
+        var meeting = {
             id: this.meetingId,
             date: (this.querySelector(".meeting-date") as HTMLInputElement).value,
             name: this.nameInputElement.value,
             abstract: this.abstractEditor.text,
             agenda: this.agendaEditor.text,
             minutes: this.minutesEditor.text
-        };
+        } as Meeting;
         
-        this._meetingService.add(data).then((results) => {
-            this._router.navigate(["meetings"]);
+        MeetingService.add(meeting).then((results) => {
+            this.dispatchEvent(new MeetingAddSuccess(meeting));
         });
     }
 
     public onDelete() {        
-        this._meetingService.remove({ id: this.meetingId }).then((results) => {
-            this._router.navigate(["meetings"]);
+        MeetingService.remove({ id: this.meetingId }).then((results) => {
+            this.dispatchEvent(new MeetingDeleteSuccess(this.meetingId));
         });
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        switch (name) {
+
+            case "meeting-id":
+                this.meetingId = newValue;
+
+            default:
+                break;
+        }        
     }
 
     public meetingId: number;

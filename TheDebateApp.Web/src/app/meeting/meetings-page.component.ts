@@ -9,7 +9,7 @@ let styles = require("./meetings-page.component.scss");
 let customInnerHTML = `<style>${styles}</style> ${template}`;
 
 export class MeetingsPageComponent extends HTMLElement {
-    constructor(private _meetingService: MeetingService = resolve(appServices.meetingService)) {
+    constructor() {
         super();
     }
 
@@ -20,7 +20,7 @@ export class MeetingsPageComponent extends HTMLElement {
     connectedCallback() {
         let root = (this as any).attachShadow({mode: 'open'});
         root.innerHTML = customInnerHTML; 
-        this._meetingService.get().then((results: string) => {
+        MeetingService.get().then((results: string) => {
             var resultsJSON: Array<Meeting> = JSON.parse(results) as Array<Meeting>;
             for (var i = 0; i < resultsJSON.length; i++) {
                 (this as any).shadowRoot.appendChild(createElement(`<ce-meeting name='${resultsJSON[i].name}'></ce-meeting>`));

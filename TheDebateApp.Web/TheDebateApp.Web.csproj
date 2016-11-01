@@ -340,6 +340,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="src\app\container.ts" />
     <TypeScriptCompile Include="src\app\environment.ts" />
+    <TypeScriptCompile Include="src\app\meeting\actions.ts" />
     <TypeScriptCompile Include="src\app\meeting\meeting.model.ts" />
     <TypeScriptCompile Include="src\app\meeting\meeting.service.ts" />
     <TypeScriptCompile Include="src\app\router\create-router.ts" />
