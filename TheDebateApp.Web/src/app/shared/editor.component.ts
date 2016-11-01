@@ -1,5 +1,3 @@
-declare var Quill;
-
 export class EditorComponent {
     constructor(private nativeElement: HTMLElement) {         
         this._quill = new Quill(nativeElement, {

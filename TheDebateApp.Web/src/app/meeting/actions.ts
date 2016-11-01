@@ -3,7 +3,9 @@
 
 export var meetingActions = {
     ADD_SUCCESS: "[Meeting] Add Success",
-    DELETE_SUCCESS: "[Meeting] Delete Success"
+    DELETE: "[Meeting] Delete",
+    DELETE_SUCCESS: "[Meeting] Delete Success",
+    SELECT: "[Meeting] Select"
 };
 
 export class MeetingDeleteSuccess extends CustomEvent {
@@ -21,6 +23,38 @@ export class MeetingAddSuccess extends CustomEvent {
         super(meetingActions.ADD_SUCCESS, {
             detail: {
                 meeting: meeting
+            }
+        });
+    }
+}
+
+export class MeetingDeleteSelect extends CustomEvent {
+    constructor(id: number) {
+        super(meetingActions.DELETE, {
+            detail: {
+                meetingId: id,
+            }
+        });
+    }
+}
+
+export class MeetingEditSelect extends CustomEvent {
+    constructor(id: number) {
+        super(meetingActions.SELECT, {
+            detail: {
+                meetingId: id,
+                readonly: false,
+            }
+        });
+    }
+}
+
+export class MeetingViewSelect extends CustomEvent {
+    constructor(id: number) {
+        super(meetingActions.SELECT, {
+            detail: {
+                meetingId: id,
+                readonly: true
             }
         });
     }

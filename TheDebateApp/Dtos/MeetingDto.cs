@@ -12,13 +12,11 @@ namespace TheDebateApp.Dtos
             this.Start = entity.Start;
             this.End = entity.End;
             this.Abstract = entity.Abstract;
+            this.Agenda = entity.Agenda;
             this.Minutes = entity.Minutes;
         }
 
-        public MeetingDto()
-        {
-            
-        }
+        public MeetingDto(){ }
 
         public int Id { get; set; }
         public string Date { get; set; }

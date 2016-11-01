@@ -5,6 +5,7 @@ export * from "./extend-css-async";
 export * from "./fetch";
 export * from "./form-encode";
 export * from "./guid";
+export * from "./is-numeric";
 export * from "./pluck-out";
 export * from "./pluck";
 export * from "./remove-element";

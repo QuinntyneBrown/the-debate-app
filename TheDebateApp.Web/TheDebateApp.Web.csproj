@@ -197,7 +197,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="lib\custom-elements.min.js" />
     <Content Include="lib\moment.min.js" />
+    <Content Include="src\app\meeting\meeting-edit.component.html">
+      <DependentUpon>meeting-edit.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\meeting\meeting-edit.component.scss">
+      <DependentUpon>meeting-edit.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\meeting\meeting-item.component.html">
+      <DependentUpon>meeting-item.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\meeting\meeting-item.component.scss">
+      <DependentUpon>meeting-item.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\meeting\meetings.component.html">
+      <DependentUpon>meetings.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\meeting\meetings.component.scss">
+      <DependentUpon>meetings.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\user\login.component.html">
+      <DependentUpon>login.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\user\login.component.scss">
+      <DependentUpon>login.component.ts</DependentUpon>
+    </Content>
     <Content Include="src\styles\rome.min.css" />
     <Content Include="lib\rome.min.js" />
     <Content Include="packages.config" />
@@ -222,35 +247,11 @@
     <Content Include="src\app\home\home-page.component.scss">
       <DependentUpon>home-page.component.ts</DependentUpon>
     </Content>
-    <Content Include="src\app\meeting\meeting-edit-page.component.html">
-      <DependentUpon>meeting-edit-page.component.ts</DependentUpon>
-    </Content>
-    <Content Include="src\app\meeting\meeting-edit-page.component.scss">
-      <DependentUpon>meeting-edit-page.component.ts</DependentUpon>
-    </Content>
-    <Content Include="src\app\meeting\meeting-page.component.html">
-      <DependentUpon>meeting-page.component.ts</DependentUpon>
-    </Content>
-    <Content Include="src\app\meeting\meeting-page.component.scss">
-      <DependentUpon>meeting-page.component.ts</DependentUpon>
-    </Content>
     <Content Include="src\app\meeting\meeting.component.html">
       <DependentUpon>meeting.component.ts</DependentUpon>
     </Content>
     <Content Include="src\app\meeting\meeting.component.scss">
       <DependentUpon>meeting.component.ts</DependentUpon>
-    </Content>
-    <Content Include="src\app\meeting\meetings-page.component.html">
-      <DependentUpon>meetings-page.component.ts</DependentUpon>
-    </Content>
-    <Content Include="src\app\meeting\meetings-page.component.scss">
-      <DependentUpon>meetings-page.component.ts</DependentUpon>
-    </Content>
-    <Content Include="src\app\meeting\update-minutes-page.component.html">
-      <DependentUpon>update-minutes-page.component.ts</DependentUpon>
-    </Content>
-    <Content Include="src\app\meeting\update-minutes-page.component.scss">
-      <DependentUpon>update-minutes-page.component.ts</DependentUpon>
     </Content>
     <Content Include="src\app\router\router.component.html">
       <DependentUpon>router.ts</DependentUpon>
@@ -266,12 +267,6 @@
     </Content>
     <Content Include="src\app\shared\header.component.scss">
       <DependentUpon>header.component.ts</DependentUpon>
-    </Content>
-    <Content Include="src\app\user\login-page.component.html">
-      <DependentUpon>login-page.component.ts</DependentUpon>
-    </Content>
-    <Content Include="src\app\user\login-page.component.scss">
-      <DependentUpon>login-page.component.ts</DependentUpon>
     </Content>
     <Content Include="src\images\logo.jpg" />
     <Content Include="lib\jquery.min.js" />
@@ -351,6 +346,8 @@
     <TypeScriptCompile Include="src\app\router\index.ts" />
     <TypeScriptCompile Include="src\app\router\login-redirect.ts" />
     <TypeScriptCompile Include="src\app\router\router.ts" />
+    <TypeScriptCompile Include="src\app\user\actions.ts" />
+    <TypeScriptCompile Include="src\app\user\user.model.ts" />
     <TypeScriptCompile Include="src\app\utilities\add-or-update.ts" />
     <TypeScriptCompile Include="src\app\utilities\append-to-body-async.ts" />
     <TypeScriptCompile Include="src\app\utilities\create-element.ts" />
@@ -359,6 +356,7 @@
     <TypeScriptCompile Include="src\app\utilities\fetch.ts" />
     <TypeScriptCompile Include="src\app\utilities\guid.ts" />
     <TypeScriptCompile Include="src\app\utilities\index.ts" />
+    <TypeScriptCompile Include="src\app\utilities\is-numeric.ts" />
     <TypeScriptCompile Include="src\app\utilities\pluck-out.ts" />
     <TypeScriptCompile Include="src\app\utilities\pluck.ts" />
     <TypeScriptCompile Include="src\app\utilities\remove-element.ts" />
@@ -366,23 +364,23 @@
     <TypeScriptCompile Include="src\app\utilities\store.ts" />
     <TypeScriptCompile Include="src\app\utilities\target-value.ts" />
     <TypeScriptCompile Include="src\app\utilities\translate-x.ts" />
+    <TypeScriptCompile Include="src\custom-typings.d.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\home\home-page.component.ts" />
     <TypeScriptCompile Include="src\app\home\index.ts" />
-    <TypeScriptCompile Include="src\app\meeting\meeting-page.component.ts" />
     <TypeScriptCompile Include="src\app\meeting\index.ts" />
-    <TypeScriptCompile Include="src\app\user\login-page.component.ts" />
     <TypeScriptCompile Include="src\app\user\index.ts" />
     <TypeScriptCompile Include="src\app\shared\header.component.ts" />
     <TypeScriptCompile Include="src\app\shared\index.ts" />
-    <TypeScriptCompile Include="src\app\meeting\meetings-page.component.ts" />
-    <TypeScriptCompile Include="src\app\meeting\update-minutes-page.component.ts" />
+    <TypeScriptCompile Include="src\app\meeting\meetings.component.ts" />
     <TypeScriptCompile Include="src\app\router\link.component.ts" />
     <TypeScriptCompile Include="src\app\shared\editor.component.ts" />
     <TypeScriptCompile Include="src\app\index.ts" />
     <TypeScriptCompile Include="src\app\meeting\meeting.component.ts" />
-    <TypeScriptCompile Include="src\app\meeting\meeting-edit-page.component.ts" />
+    <TypeScriptCompile Include="src\app\meeting\meeting-edit.component.ts" />
+    <TypeScriptCompile Include="src\app\meeting\meeting-item.component.ts" />
+    <TypeScriptCompile Include="src\app\user\login.component.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>

@@ -6,8 +6,7 @@ let styles = require("./header.component.scss");
 export class HeaderComponent extends HTMLElement {
     constructor(private _router:Router = resolve(appServices.router)) {
         super();
-        let root = (this as any).attachShadow({ mode: 'open' });
-        root.innerHTML = `<style>${styles}</style> ${template}`; 
+
     }
 
     static get observedAttributes () {
@@ -15,7 +14,8 @@ export class HeaderComponent extends HTMLElement {
     }
 
     connectedCallback() {
-        
+        let root = (this as any).attachShadow({ mode: 'open' });
+        root.innerHTML = `<style>${styles}</style> ${template}`; 
         this._heading = (this as any).shadowRoot.querySelector("h2") as HTMLElement;
         this._heading.addEventListener("click", this.onHeaderClick.bind(this));
         this._addEventListeners();
@@ -25,10 +25,7 @@ export class HeaderComponent extends HTMLElement {
         document.addEventListener("routeChanged", this._onChanged.bind(this));
     }
     
-
     private _onChanged(state) {        
-
-        //TODO: Figure out how this works with shadow DOM
         const routeLinks: Array<any> = Array.from((this as any).shadowRoot.querySelectorAll("ce-router-link"));
         
         for (var i = 0; i < routeLinks.length; i++) {
@@ -54,6 +51,4 @@ export class HeaderComponent extends HTMLElement {
     private _heading: HTMLElement;
 }
 
-document.addEventListener("DOMContentLoaded",function() {
-    (window as any).customElements.define(`ce-header`,HeaderComponent);
-});
+document.addEventListener("DOMContentLoaded",() => window.customElements.define(`ce-header`,HeaderComponent));

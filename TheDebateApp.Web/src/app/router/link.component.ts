@@ -36,13 +36,18 @@ export class LinkComponent extends HTMLElement {
         
         switch (name) {
             default:
-                this.routeSegments = JSON.parse(newValue);
+                if (newValue)
+                    this.routeSegments = JSON.parse(newValue);
                 break;
         }
     }
 
     public routeSegments: Array<any>;
-    public get route() { return "/" + this.routeSegments.join("/"); }
+    public get route() {
+        if (!this.routeSegments)
+            return "";
+        return "/" + this.routeSegments.join("/");
+    }
 
 }
 

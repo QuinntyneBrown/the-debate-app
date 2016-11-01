@@ -1,3 +1,5 @@
+import { Meeting } from "./meeting.model";
+
 let template = require("./meeting.component.html");
 let styles = require("./meeting.component.scss");
 
@@ -8,14 +10,14 @@ export class MeetingComponent extends HTMLElement {
 
     static get observedAttributes () {
         return [
-            "name"
+            "meeting"
         ];
     }
 
     connectedCallback() {
-        let root = (this as any).attachShadow({mode: 'open'});
-        root.innerHTML = `<style>${styles}</style> ${template}`;
-        (this as any).shadowRoot.querySelector("h2").textContent = this.name; 
+        this.innerHTML = `<style>${styles}</style> ${template}`;
+        this.querySelector("h2").textContent = this.meeting.name; 
+        this.querySelector("p").textContent = this.meeting.abstract;
     }
 
     disconnectedCallback() {
@@ -24,8 +26,8 @@ export class MeetingComponent extends HTMLElement {
 
     attributeChangedCallback (name, oldValue, newValue) {
         switch (name) {
-            case "name":
-                this.name = newValue;
+            case "meeting":
+                this.meeting = JSON.parse(newValue);
                 break;
 
             default:
@@ -33,8 +35,8 @@ export class MeetingComponent extends HTMLElement {
         }
     }
 
-    name;
+    public meeting:Meeting;
     
 }
 
-document.addEventListener("DOMContentLoaded",() => (window as any).customElements.define(`ce-meeting`,MeetingComponent));
+document.addEventListener("DOMContentLoaded",() => window.customElements.define(`ce-meeting`,MeetingComponent));

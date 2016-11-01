@@ -3,14 +3,12 @@ import { MeetingService } from "./meeting.service";
 import { EditorComponent } from "../shared";
 import { MeetingAddSuccess, MeetingDeleteSuccess } from "./actions";
 
-var pikaday = require('pikaday');
-var moment = require('moment');
-declare var rome: any;
+const pikaday = require('pikaday');
+const moment = require('moment');
+const template = require("./meeting-edit.component.html");
+const styles = require("./meeting-edit.component.scss");
 
-let template = require("./meeting-edit-page.component.html");
-let styles = require("./meeting-edit-page.component.scss");
-
-export class MeetingEditPageComponent extends HTMLElement {
+export class MeetingEditComponent extends HTMLElement {
     constructor(private _meeting: MeetingService = null) {
         super();
 
@@ -44,7 +42,8 @@ export class MeetingEditPageComponent extends HTMLElement {
                 this.abstractEditor.setHTML(resultsJSON.abstract || "");
                 this.agendaEditor.setHTML(resultsJSON.agenda || "");
                 this.minutesEditor.setHTML(resultsJSON.minutes || "");
-                
+                (this.querySelector(".meeting-start") as HTMLInputElement).value = resultsJSON.start || "";
+                (this.querySelector(".meeting-end") as HTMLInputElement).value = resultsJSON.end || "";
                 if (resultsJSON.date)
                     (this.querySelector(".meeting-date") as HTMLInputElement).value = moment(resultsJSON.date).format("YYYY-MM-DD");
             });
@@ -56,6 +55,8 @@ export class MeetingEditPageComponent extends HTMLElement {
         var meeting = {
             id: this.meetingId,
             date: (this.querySelector(".meeting-date") as HTMLInputElement).value,
+            start: (this.querySelector(".meeting-start") as HTMLInputElement).value,
+            end: (this.querySelector(".meeting-end") as HTMLInputElement).value,
             name: this.nameInputElement.value,
             abstract: this.abstractEditor.text,
             agenda: this.agendaEditor.text,
@@ -97,4 +98,4 @@ export class MeetingEditPageComponent extends HTMLElement {
     public minutesEditor: EditorComponent;
 }
 
-document.addEventListener("DOMContentLoaded",() => (window as any).customElements.define(`ce-meeting-edit-page`,MeetingEditPageComponent));
+document.addEventListener("DOMContentLoaded",() => window.customElements.define(`ce-meeting-edit`,MeetingEditComponent));
