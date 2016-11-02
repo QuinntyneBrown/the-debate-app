@@ -215,11 +215,17 @@
     <Content Include="src\app\meeting\meetings.component.scss">
       <DependentUpon>meetings.component.ts</DependentUpon>
     </Content>
-    <Content Include="src\app\shared\upload.component.html">
-      <DependentUpon>upload.component.ts</DependentUpon>
+    <Content Include="src\app\shared\drop-zone.component.html">
+      <DependentUpon>drop-zone.component.ts</DependentUpon>
     </Content>
-    <Content Include="src\app\shared\upload.component.scss">
-      <DependentUpon>upload.component.ts</DependentUpon>
+    <Content Include="src\app\shared\drop-zone.component.scss">
+      <DependentUpon>drop-zone.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\shared\fancy-tabs.component.html">
+      <DependentUpon>fancy-tabs.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\shared\fancy-tabs.component.scss">
+      <DependentUpon>fancy-tabs.component.ts</DependentUpon>
     </Content>
     <Content Include="src\app\user\login.component.html">
       <DependentUpon>login.component.ts</DependentUpon>
@@ -360,6 +366,7 @@
   -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <ItemGroup>
+    <TypeScriptCompile Include="src\app\blog\actions.ts" />
     <TypeScriptCompile Include="src\app\container.ts" />
     <TypeScriptCompile Include="src\app\environment.ts" />
     <TypeScriptCompile Include="src\app\meeting\actions.ts" />
@@ -411,7 +418,10 @@
     <TypeScriptCompile Include="src\app\user\user-item.component.ts" />
     <TypeScriptCompile Include="src\app\user\users.component.ts" />
     <TypeScriptCompile Include="src\app\user\user.component.ts" />
-    <TypeScriptCompile Include="src\app\shared\upload.component.ts" />
+    <TypeScriptCompile Include="src\app\shared\drop-zone.component.ts" />
+    <TypeScriptCompile Include="src\app\blog\index.ts" />
+    <TypeScriptCompile Include="src\app\blog\article.model.ts" />
+    <TypeScriptCompile Include="src\app\shared\fancy-tabs.component.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>

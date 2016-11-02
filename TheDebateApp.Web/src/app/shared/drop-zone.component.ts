@@ -1,19 +1,19 @@
-let template = require("./upload.component.html");
-let styles = require("./upload.component.scss");
+let template = require("./drop-zone.component.html");
+let styles = require("./drop-zone.component.scss");
 
-export const uploadEvents = {
-    UPLOAD : "upload"
+export const dropZoneEvents = {
+    DROP : "[Drop Zone] Drop"
 };
 
-export class UploadEvent extends CustomEvent {
+export class Drop extends CustomEvent {
     constructor(files: FormData) {
-        super(uploadEvents.UPLOAD, {
+        super(dropZoneEvents.DROP, {
             detail: { files }
         });
     }
 }
 
-export class UploadComponent extends HTMLElement {
+export class DropZoneComponent extends HTMLElement {
     constructor() {
         super();
     }
@@ -35,7 +35,7 @@ export class UploadComponent extends HTMLElement {
         this._dropZoneHTMLElement = root.querySelector(".drop-zone") as HTMLElement;
         this._dropZoneHTMLElement.addEventListener("dragover", this.onDragOver.bind(this));
         this._dropZoneHTMLElement.addEventListener("drop", this.onDrop.bind(this), false);
-        this._dropZoneHTMLElement.querySelector("a").textContent = this._caption || "DROP FILES HERE TO BE UPLOADED...";
+        this._dropZoneHTMLElement.querySelector("a").textContent = this._caption || "Drop Zone";
     }
 
     onDragOver(dragEvent: DragEvent) {
@@ -59,7 +59,7 @@ export class UploadComponent extends HTMLElement {
                 }
                 return formData;
             }        
-            this.dispatchEvent(new UploadEvent(packageFiles(dragEvent.dataTransfer.files)));
+            this.dispatchEvent(new Drop(packageFiles(dragEvent.dataTransfer.files)));
         }
     }
 
@@ -96,4 +96,4 @@ export class UploadComponent extends HTMLElement {
     }
 }
 
-document.addEventListener("DOMContentLoaded",() => window.customElements.define(`ce-upload`,UploadComponent));
+document.addEventListener("DOMContentLoaded",() => window.customElements.define(`ce-drop-zone`,DropZoneComponent));

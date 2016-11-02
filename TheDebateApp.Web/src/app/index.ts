@@ -1,3 +1,4 @@
+export * from "./blog";
 export * from "./home";
 export * from "./meeting";
 export * from "./router";
@@ -7,3 +8,4 @@ export * from "./utilities";
 export * from "./app.component";
 export * from "./container";
 export * from "./environment";
+export * from "./polyfills";
