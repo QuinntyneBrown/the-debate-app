@@ -11,9 +11,8 @@ export class HomePageComponent extends HTMLElement {
     }
 
     connectedCallback() {
-        let root = (this as any).attachShadow({mode: 'open'});
-        root.innerHTML = `<style>${styles}</style> ${template}`; 
-        this._image = root.querySelector("img");
+        this.innerHTML = `<style>${styles}</style> ${template}`; 
+        this._image = this.querySelector("img");
         this._image.setAttribute("src", "/src/images/logo.jpg");
     }
 

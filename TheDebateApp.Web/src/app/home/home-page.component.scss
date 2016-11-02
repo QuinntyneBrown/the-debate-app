@@ -1,15 +1,18 @@
-:host {
+ce-home-page {
     display:block;
     max-width:100%;
     text-align:center;
-
-    img {
-        max-width:300px;
-    }
-
-    ce-router-link {
-        display:block;
-        cursor:pointer;
-        margin: 0 auto;
-    }
 }
+
+img {
+    max-width:300px;
+    display:block;
+    margin: 0 auto 30px;
+}
+
+ce-router-link {
+    display:block;
+    cursor:pointer;
+    margin: 0 auto;
+}
+

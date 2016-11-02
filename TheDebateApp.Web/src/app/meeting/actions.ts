@@ -1,6 +1,5 @@
 ﻿import { Meeting } from "./meeting.model";
 
-
 export var meetingActions = {
     ADD_SUCCESS: "[Meeting] Add Success",
     DELETE: "[Meeting] Delete",
