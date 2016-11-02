@@ -1,5 +1,6 @@
 export * from "./add-or-update";
 export * from "./append-to-body-async";
+export * from "./append-to-target-async";
 export * from "./create-element";
 export * from "./extend-css-async";
 export * from "./fetch";

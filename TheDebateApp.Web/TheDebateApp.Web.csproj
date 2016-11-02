@@ -6,7 +6,8 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion></ProductVersion>
+    <ProductVersion>
+    </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{658DA84D-AD6C-414A-9333-B89232911187}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -21,7 +22,8 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
     <TypeScriptEmitDecoratorMetadata>true</TypeScriptEmitDecoratorMetadata>
     <TypeScriptModuleKind>commonjs</TypeScriptModuleKind>
@@ -344,7 +346,8 @@
           <IISUrl>http://localhost:56622/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl></CustomServerUrl>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
@@ -372,6 +375,8 @@
     <TypeScriptCompile Include="src\app\meeting\actions.ts" />
     <TypeScriptCompile Include="src\app\meeting\meeting.model.ts" />
     <TypeScriptCompile Include="src\app\meeting\meeting.service.ts" />
+    <TypeScriptCompile Include="src\app\modal\backdrop.ts" />
+    <TypeScriptCompile Include="src\app\modal\modal.ts" />
     <TypeScriptCompile Include="src\app\polyfills.ts" />
     <TypeScriptCompile Include="src\app\router\route.ts" />
     <TypeScriptCompile Include="src\app\router\index.ts" />
@@ -383,6 +388,7 @@
     <TypeScriptCompile Include="src\app\user\user.service.ts" />
     <TypeScriptCompile Include="src\app\utilities\add-or-update.ts" />
     <TypeScriptCompile Include="src\app\utilities\append-to-body-async.ts" />
+    <TypeScriptCompile Include="src\app\utilities\append-to-target-async.ts" />
     <TypeScriptCompile Include="src\app\utilities\create-element.ts" />
     <TypeScriptCompile Include="src\app\utilities\extend-css-async.ts" />
     <TypeScriptCompile Include="src\app\utilities\form-encode.ts" />
@@ -422,6 +428,7 @@
     <TypeScriptCompile Include="src\app\blog\index.ts" />
     <TypeScriptCompile Include="src\app\blog\article.model.ts" />
     <TypeScriptCompile Include="src\app\shared\fancy-tabs.component.ts" />
+    <TypeScriptCompile Include="src\app\modal\index.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>
