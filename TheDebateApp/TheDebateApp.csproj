@@ -232,6 +232,10 @@
     <Compile Include="Dtos\MeetingAddOrUpdateResponseDto.cs" />
     <Compile Include="Migrations\MeetingConfiguration.cs" />
     <Compile Include="Migrations\UserConfiguration.cs" />
+    <Compile Include="Models\Architecture.cs" />
+    <Compile Include="Models\ArchitectureItem.cs" />
+    <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\InvitationCode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

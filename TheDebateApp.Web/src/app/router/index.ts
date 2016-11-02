@@ -1,4 +1,3 @@
-export * from "./create-router";
 export * from "./link.component";
 export * from "./login-redirect";
 export * from "./route";

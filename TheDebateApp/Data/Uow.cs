@@ -26,9 +26,14 @@ namespace TheDebateApp.Data
             RepositoryProvider = repositoryProvider;
         }
 
+        public IRepository<Article> Articles { get { return GetStandardRepo<Article>(); } }
+        public IRepository<Architecture> Architectures { get { return GetStandardRepo<Architecture>(); } }
+        public IRepository<ArchitectureItem> ArchitectureItems { get { return GetStandardRepo<ArchitectureItem>(); } }
         public IRepository<User> Users { get { return GetStandardRepo<User>(); } }
         public IRepository<Meeting> Meetings { get { return GetStandardRepo<Meeting>(); } }
-
+        public IRepository<Role> Roles { get { return GetStandardRepo<Role>(); } }
+        public IRepository<InvitationCode> InvitationCodes { get { return GetStandardRepo<InvitationCode>(); } }
+        
         protected void ConfigureDbContext(IDbContext dbContext)
         {
             dbContext.Configuration.ProxyCreationEnabled = false;
