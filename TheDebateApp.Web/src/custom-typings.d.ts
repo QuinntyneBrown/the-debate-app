@@ -8,6 +8,16 @@ declare abstract class ShawdoDOMHTMLElement {
 
 interface Window extends ModernWindow { }
 
+interface AppTransitionOptions {
+    routeName: string;
+    routeOutletNode: Node;
+}
+
+interface AppPlugIn {
+    beforeViewTransition(options: AppTransitionOptions);
+    onViewTransition(options: AppTransitionOptions);
+    afterViewTransition(options: AppTransitionOptions);
+}
 
 declare var rome: any;
 

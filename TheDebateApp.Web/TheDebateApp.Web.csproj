@@ -199,6 +199,30 @@
   <ItemGroup>
     <Content Include="lib\custom-elements.min.js" />
     <Content Include="lib\moment.min.js" />
+    <Content Include="src\app\blog\article-edit.component.html">
+      <DependentUpon>article-edit.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\blog\article-edit.component.scss">
+      <DependentUpon>article-edit.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\blog\article-item.component.html">
+      <DependentUpon>article-item.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\blog\article-item.component.scss">
+      <DependentUpon>article-item.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\blog\article.component.html">
+      <DependentUpon>article.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\blog\article.component.scss">
+      <DependentUpon>article.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\blog\articles.component.html">
+      <DependentUpon>articles.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\app\blog\articles.component.scss">
+      <DependentUpon>articles.component.ts</DependentUpon>
+    </Content>
     <Content Include="src\app\meeting\meeting-edit.component.html">
       <DependentUpon>meeting-edit.component.ts</DependentUpon>
     </Content>
@@ -339,7 +363,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>56622</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
@@ -370,6 +394,7 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <ItemGroup>
     <TypeScriptCompile Include="src\app\blog\actions.ts" />
+    <TypeScriptCompile Include="src\app\blog\article-plug-in.ts" />
     <TypeScriptCompile Include="src\app\container.ts" />
     <TypeScriptCompile Include="src\app\environment.ts" />
     <TypeScriptCompile Include="src\app\meeting\actions.ts" />
@@ -429,6 +454,11 @@
     <TypeScriptCompile Include="src\app\blog\article.model.ts" />
     <TypeScriptCompile Include="src\app\shared\fancy-tabs.component.ts" />
     <TypeScriptCompile Include="src\app\modal\index.ts" />
+    <TypeScriptCompile Include="src\app\blog\article.service.ts" />
+    <TypeScriptCompile Include="src\app\blog\article-edit.component.ts" />
+    <TypeScriptCompile Include="src\app\blog\articles.component.ts" />
+    <TypeScriptCompile Include="src\app\blog\article-item.component.ts" />
+    <TypeScriptCompile Include="src\app\blog\article.component.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>

@@ -2,6 +2,7 @@ import { Router } from "./router";
 import { Store, createElement } from "./utilities";
 import { resolve, appServices } from "./container";
 import { meetingActions, MeetingEditSelect } from "./meeting/actions";
+import { ArticlePlugIn } from "./blog";
 
 const template = require("./app.component.html");
 const styles = require("./app.component.scss");
@@ -11,7 +12,13 @@ export class AppComponent extends HTMLElement {
     private _store: Store = resolve(appServices.store)) {
         super();                
     }
-        
+
+    private _usePlugIn(plugIn: AppPlugIn) {
+        this._plugIns.push(plugIn);
+    }
+
+    private _plugIns: Array<AppPlugIn> = [];
+
     connectedCallback() {
         this.innerHTML = `<style>${styles}</style> ${template}`; 
         this._router.addEventListener(this._onRouteChanged.bind(this));        
