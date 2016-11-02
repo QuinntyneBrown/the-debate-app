@@ -12,7 +12,7 @@ export class HomePageComponent extends HTMLElement {
 
     connectedCallback() {
         this.innerHTML = `<style>${styles}</style> ${template}`; 
-        this._image = this.querySelector("img");
+        this._image = this.querySelector("img") as HTMLImageElement;
         this._image.setAttribute("src", "/src/images/logo.jpg");
     }
 

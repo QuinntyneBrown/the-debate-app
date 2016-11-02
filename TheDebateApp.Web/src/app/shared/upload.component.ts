@@ -1,20 +1,41 @@
 let template = require("./upload.component.html");
 let styles = require("./upload.component.scss");
 
+export const uploadEvents = {
+    UPLOAD : "upload"
+};
+
+export class UploadEvent extends CustomEvent {
+    constructor(files: FormData) {
+        super(uploadEvents.UPLOAD, {
+            detail: { files }
+        });
+    }
+}
+
 export class UploadComponent extends HTMLElement {
     constructor() {
         super();
     }
 
-    static get observedAttributes () {
-        return [];
+    static get observedAttributes() {
+        return [
+            "caption",
+            "height",
+            "width",
+            "background-color",
+            "font-family",
+            "color"
+        ];
     }
-
+        
     connectedCallback() {
-        this.innerHTML = `<style>${styles}</style> ${template}`; 
-        this.drop = this.querySelector(".drop-zone");
-        this.drop.addEventListener("dragover", this.onDragOver.bind(this));
-        this.drop.addEventListener("drop", this.onDrop.bind(this), false);
+        let root = (this as any).attachShadow({ mode: 'open' });
+        root.innerHTML = `<style>${styles}</style> ${template}`; 
+        this._dropZoneHTMLElement = root.querySelector(".drop-zone") as HTMLElement;
+        this._dropZoneHTMLElement.addEventListener("dragover", this.onDragOver.bind(this));
+        this._dropZoneHTMLElement.addEventListener("drop", this.onDrop.bind(this), false);
+        this._dropZoneHTMLElement.querySelector("a").textContent = this._caption || "DROP FILES HERE TO BE UPLOADED...";
     }
 
     onDragOver(dragEvent: DragEvent) {
@@ -23,7 +44,7 @@ export class UploadComponent extends HTMLElement {
     }
 
     disconnectedCallback() {
-        this.drop.removeEventListener("drop", this.onDrop.bind(this), false);
+        this._dropZoneHTMLElement.removeEventListener("drop", this.onDrop.bind(this), false);
     }
 
     public onDrop(dragEvent: DragEvent) {
@@ -32,28 +53,47 @@ export class UploadComponent extends HTMLElement {
 
         if (dragEvent.dataTransfer && dragEvent.dataTransfer.files) {
             var packageFiles = function (fileList: FileList) {
-            var formData = new FormData();
-            for (var i = 0; i < fileList.length; i++) {
-                formData.append(fileList[i].name, fileList[i]);
-            }
-            return formData;
-        }
-        var files = packageFiles(dragEvent.dataTransfer.files);
-        
-        this.dispatchEvent(new CustomEvent("upload", {
-            detail: { files }
-        }));
+                var formData = new FormData();
+                for (var i = 0; i < fileList.length; i++) {
+                    formData.append(fileList[i].name, fileList[i]);
+                }
+                return formData;
+            }        
+            this.dispatchEvent(new UploadEvent(packageFiles(dragEvent.dataTransfer.files)));
         }
     }
 
-    attributeChangedCallback (name, oldValue, newValue) {
+    private _dropZoneHTMLElement: HTMLElement;
+    private _caption: string;
+
+    attributeChangedCallback(name, oldValue, newValue) {
         switch (name) {
-            default:
+
+            case "caption":
+                this._caption = newValue;
+                break;
+
+            case "height":
+                this.style.setProperty('--height', newValue);
+                break;
+
+            case "width":
+                this.style.setProperty('--width', newValue);
+                break;
+
+            case "background-color":
+                this.style.setProperty('--backgroundColor', newValue);
+                break;
+
+            case "color":
+                this.style.setProperty('--color', newValue);
+                break;
+
+            case "font-family":
+                this.style.setProperty('--fontFamily', newValue);
                 break;
         }
     }
-
-    drop: any;
 }
 
 document.addEventListener("DOMContentLoaded",() => window.customElements.define(`ce-upload`,UploadComponent));
