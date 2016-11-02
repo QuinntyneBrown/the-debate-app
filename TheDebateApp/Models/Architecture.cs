@@ -6,6 +6,7 @@ namespace TheDebateApp.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public ICollection<ArchitectureItem> ArchitectureItems { get; set; } = new HashSet<ArchitectureItem>();
         public bool IsDeleted { get; set; }
     }
 }

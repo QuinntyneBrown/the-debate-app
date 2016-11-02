@@ -33,7 +33,8 @@ namespace TheDebateApp.Data
         public IRepository<Meeting> Meetings { get { return GetStandardRepo<Meeting>(); } }
         public IRepository<Role> Roles { get { return GetStandardRepo<Role>(); } }
         public IRepository<InvitationCode> InvitationCodes { get { return GetStandardRepo<InvitationCode>(); } }
-        
+        public IRepository<DigitalAsset> DigitalAssets { get { return GetStandardRepo<DigitalAsset>(); } }
+
         protected void ConfigureDbContext(IDbContext dbContext)
         {
             dbContext.Configuration.ProxyCreationEnabled = false;

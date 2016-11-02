@@ -11,6 +11,8 @@ namespace TheDebateApp.Data
         IRepository<Meeting> Meetings { get; }
         IRepository<Role> Roles { get; }
         IRepository<InvitationCode> InvitationCodes { get; }
+        IRepository<DigitalAsset> DigitalAssets { get; }
+
         void SaveChanges();
     }
 }

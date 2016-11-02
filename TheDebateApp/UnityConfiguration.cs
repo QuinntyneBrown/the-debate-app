@@ -14,6 +14,12 @@ namespace TheDebateApp
             var container = new UnityContainer().AddNewExtension<Interception>();
             container.RegisterType<IDbContext, DataContext>();
             container.RegisterType<IUow, Uow>();
+            container.RegisterType<IArticleService, ArticleService>();
+            container.RegisterType<IArchitectureService, IArchitectureService>();
+            container.RegisterType<IArchitectureItemService, ArchitectureItemService>();
+            container.RegisterType<IDigitalAssetService, DigitalAssetService>();
+            container.RegisterType<IInvitationCodeService, InvitationCodeService>();
+            container.RegisterType<IRoleService, RoleService>();
             container.RegisterType<IRepositoryProvider, RepositoryProvider>();
             container.RegisterType<IIdentityService, IdentityService>();
             container.RegisterType<ILoggerFactory, LoggerFactory>();

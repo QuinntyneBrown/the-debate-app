@@ -20,6 +20,7 @@ namespace TheDebateApp.Data
         public DbSet<Role> Roles { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
         public DbSet<InvitationCode> InvitationCodes { get; set; }
+        public DbSet<DigitalAsset> DigitalAssets { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
