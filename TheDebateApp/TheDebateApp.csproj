@@ -204,7 +204,9 @@
     <Compile Include="Filters\HandleError.cs" />
     <Compile Include="Infrastructure\Constants.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ArticleSnapShot.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\TechnologyRadarCategory.cs" />
     <Compile Include="Models\TechnologyType.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -280,6 +282,7 @@
     <Compile Include="Models\Technology.cs" />
     <Compile Include="Models\YouTubeVideo.cs" />
     <Compile Include="Models\Like.cs" />
+    <Compile Include="Models\TechnologySnapShot.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

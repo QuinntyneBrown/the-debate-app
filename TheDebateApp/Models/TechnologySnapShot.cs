@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 
 namespace TheDebateApp.Models
 {
-    public class Technology
+    public class TechnologySnapShot
     {
         public int Id { get; set; }
+        public int? TechnologyId { get; set; }
         public string Name { get; set; }
         public TechnologyType Type { get; set; }
         public TechnologyRadarCategory Category { get; set; }
@@ -12,6 +14,7 @@ namespace TheDebateApp.Models
         public DateTime? LastModified { get; set; }
         public DateTime? Published { get; set; }
         public DateTime? Created { get; set; }
+        public Technology Technology { get; set; }
         public bool IsDeleted { get; set; }
     }
 }
