@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lists and tables — Debate App design system</title>
+<meta name="description" content="The meeting list: grouped rows, loading, empty, error and edge states, and accessible icon actions.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Debate App DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/save-bar.html">Save bar</a></li>
+      <li><a href="../components/rich-text-editor.html">Rich-text editor</a></li>
+      <li><a href="../components/prose.html">Prose</a></li>
+      <li><a href="../components/tab-strip.html">Tab strip</a></li>
+      <li><a href="../components/meeting-row.html">Meeting row</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/navigation.html">Navigation</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Pattern · Data display</p>
+      <h1>Lists and tables</h1>
+      <p class="ds-lead">The Debate App's one collection, meetings, is shown whole as a list of rows grouped by Upcoming and Past, with no paging, sorting, filtering or selection.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Pattern</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#when">When to use</a></li><li><a href="#structure">Structure</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The Debate App has one collection: meetings. They are shown as a list of rows grouped under "Upcoming" and "Past", soonest first, with no paging, sorting, filtering or selection. Each row opens the meeting, and its icon buttons edit or delete it. There are no data tables.</p>
+      <ul><li><b>One row, one meeting.</b> Date badge, title, when, and a one-line excerpt of the abstract.</li><li><b>Grouped by time.</b> A group heading uses the overline style and an <code>h2</code>; empty groups are left out.</li><li><b>The title is the link.</b> The edit and delete buttons are icon-only and named with the meeting title.</li></ul>
+    </section>
+
+    <section class="ds-section" id="when"><h2><a href="#when">When to use</a></h2>
+      <p>Use a list for any short collection of things a person scans and opens. If a future collection needs comparing across columns, add a table pattern then; none of the current mocks need one.</p>
+    </section>
+
+    <section class="ds-section" id="structure"><h2><a href="#structure">Structure</a></h2>
+      <p>A <code>ul.list.card.card--flush</code> holds <code>li.meeting</code> rows. The date badge is decorative; the full date appears in the "when" line so the information is not repeated for assistive tech.</p>
+      <div class="ds-example"><div class="ds-example__canvas "><div class="stack" style="width: 100%;"><section class="stack"><h3 class="overline">Upcoming</h3><ul class="list card card--flush"><li class="meeting"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">20</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">Should cities ban cars from downtown?</a></div><div class="meeting__when">Tomorrow · 7:00 pm–8:30 pm</div><div class="meeting__excerpt">This house would ban private cars from city centres. Lena Fischer proposes; Tom Okafor opposes.</div></div><div class="meeting__actions"><a class="btn btn--ghost btn--sm btn--icon" href="../../mocks/pages/meeting-edit/default.html" aria-label="Edit Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li><li class="meeting"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">27</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">AI in classrooms: help or harm?</a></div><div class="meeting__when">Tue 27 Oct · 7:00 pm–8:30 pm</div><div class="meeting__excerpt">This house believes AI tools do more harm than good in schools. Speakers to be confirmed.</div></div><div class="meeting__actions"><a class="btn btn--ghost btn--sm btn--icon" href="../../mocks/pages/meeting-edit/default.html" aria-label="Edit AI in classrooms: help or harm?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete AI in classrooms: help or harm?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li></ul></section><section class="stack"><h3 class="overline">Past</h3><ul class="list card card--flush"><li class="meeting meeting--past"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">13</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">Universal basic income</a></div><div class="meeting__when">Tue 13 Oct · 7:00 pm–8:30 pm</div><div class="meeting__excerpt">This house would introduce a universal basic income. Priya Nair proposes; Samir Haddad opposes.</div></div><div class="meeting__actions"><a class="btn btn--ghost btn--sm btn--icon" href="../../mocks/pages/meeting-edit/default.html" aria-label="Edit Universal basic income"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete Universal basic income"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li></ul></section></div></div><div class="ds-example__caption"><span>Meeting list grouped under Upcoming and Past. From <a href="../../mocks/pages/meetings/default.html">pages/meetings/default</a>.</span></div></div>
+      <p>Components: <a href="../components/list.html">List</a>, <a href="../components/meeting-row.html">Meeting row</a>, <a href="../components/card.html">Card</a>, <a href="../components/button.html">Button</a>.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">State</th><th scope="col">What the person sees</th><th scope="col">Mock</th></tr></thead><tbody><tr><td>Default</td><td>Upcoming and Past groups, rows with date, title, when and excerpt</td><td><a href="../../mocks/pages/meetings/default.html">pages/meetings/default</a></td></tr><tr><td>Loading</td><td>Skeleton rows in the same shape; <code>aria-busy="true"</code> on the list</td><td><a href="../../mocks/pages/meetings/loading.html">pages/meetings/loading</a></td></tr><tr><td>Empty</td><td>"No meetings yet" with New meeting</td><td><a href="../../mocks/pages/meetings/empty.html">pages/meetings/empty</a></td></tr><tr><td>Error</td><td>"We couldn't load the meetings" with Try again</td><td><a href="../../mocks/pages/meetings/error.html">pages/meetings/error</a></td></tr><tr><td>Edge</td><td>A meeting with no date and no abstract: "tbc", "Date not set", "No abstract yet"</td><td><a href="../../mocks/pages/meetings/edge.html">pages/meetings/edge</a></td></tr><tr><td>Long</td><td>Many rows; the page scrolls, the list does not paginate</td><td><a href="../../mocks/pages/meetings/long.html">pages/meetings/long</a></td></tr></tbody></table></div>      <div class="ds-example"><div class="ds-example__canvas "><ul class="list card card--flush" style="width: 100%;"><li class="meeting"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">—</span><span class="meeting__month">tbc</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">¿Debería la educación universitaria ser gratuita? — a bilingual debate</a></div><div class="meeting__when">Date not set</div><div class="meeting__excerpt text-muted">No abstract yet</div></div><div class="meeting__actions"><a class="btn btn--ghost btn--sm btn--icon" href="../../mocks/pages/meeting-edit/default.html" aria-label="Edit ¿Debería la educación universitaria ser gratuita? — a bilingual debate"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete ¿Debería la educación universitaria ser gratuita? — a bilingual debate"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li></ul></div><div class="ds-example__caption"><span>Edge: missing data is spelled out, never left blank. From <a href="../../mocks/pages/meetings/edge.html">pages/meetings/edge</a>.</span></div></div>      <div class="ds-example"><div class="ds-example__canvas "><ul class="list card card--flush" style="width: 100%;" aria-busy="true" aria-label="Loading meetings"><li class="meeting" aria-hidden="true"><span class="skeleton skeleton--rect" style="width: 3.5rem; height: 3.5rem;"></span><div class="meeting__body"><span class="skeleton skeleton--title" style="width: 60%;"></span><span class="skeleton skeleton--text" style="width: 35%;"></span><span class="skeleton skeleton--text" style="width: 80%;"></span></div></li></ul></div><div class="ds-example__caption"><span>Loading skeleton with the final row shape. From <a href="../../mocks/pages/meetings/loading.html">pages/meetings/loading</a>.</span></div></div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive</a></h2>
+      <ul><li>On phones the excerpt wraps under the title and is limited to two lines with an ellipsis; the full text is in the <code>title</code> attribute and on the meeting page.</li><li>Long titles wrap rather than truncate; the date badge and action buttons keep their size.</li><li>From 768px the excerpt sits on one line and the action buttons stay at the right edge.</li></ul>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <ul><li>A real <code>&lt;ul&gt;</code> with <code>&lt;li&gt;</code> items, so screen readers announce the item count.</li><li>The date badge is <code>aria-hidden</code>; the "when" line holds the same date in words.</li><li>Icon buttons carry <code>aria-label</code> with the verb and the full title: "Edit Universal basic income".</li><li>Group headings are real headings so people can jump between Upcoming and Past.</li><li>Hover highlights are an extra; every row action is reachable by keyboard and has a visible focus ring.</li><li>The loading list is <code>aria-busy="true"</code> with a label; skeleton rows are <code>aria-hidden</code>.</li></ul>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul><li>Title is the motion or the meeting name as typed by the organiser.</li><li>When is "Tomorrow · 7:00 pm–8:30 pm" within a week, otherwise "Tue 27 Oct · 7:00 pm–8:30 pm".</li><li>Excerpt is the abstract text, trimmed with an ellipsis; if there is none, "No abstract yet" in muted text.</li><li>Subtitle counts: "2 upcoming · next is tomorrow at 7:00 pm".</li></ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont"><figure class="ds-do"><div class="ds-example__canvas"><ul class="list card card--flush" style="width: 100%;"><li class="meeting"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">20</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">Should cities ban cars from downtown?</a></div><div class="meeting__when">Tomorrow · 7:00 pm–8:30 pm</div><div class="meeting__excerpt">This house would ban private cars from city centres.</div></div><div class="meeting__actions"><a class="btn btn--ghost btn--sm btn--icon" href="../../mocks/pages/meeting-edit/default.html" aria-label="Edit Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li></ul></div><figcaption>Put the date, title and time in a fixed order in every row.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><ul class="list card card--flush" style="width: 100%;"><li class="meeting"><div class="meeting__body"><div class="meeting__title">Should cities ban cars from downtown?</div></div><div class="meeting__actions"><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Edit"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></button></div></li></ul></div><figcaption>Leave out the date, so rows cannot be told apart by when they happen.</figcaption></figure></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Mocks this pattern was extracted from:</p>
+      <ul><li><a href="../../mocks/pages/meetings/default.html">pages/meetings/default</a></li><li><a href="../../mocks/pages/meetings/loading.html">pages/meetings/loading</a></li><li><a href="../../mocks/pages/meetings/empty.html">pages/meetings/empty</a></li><li><a href="../../mocks/pages/meetings/error.html">pages/meetings/error</a></li><li><a href="../../mocks/pages/meetings/edge.html">pages/meetings/edge</a></li><li><a href="../../mocks/pages/meetings/long.html">pages/meetings/long</a></li></ul>
+    </section>
+
+    <footer class="ds-footer"><span>Debate App design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 2026-10-19</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

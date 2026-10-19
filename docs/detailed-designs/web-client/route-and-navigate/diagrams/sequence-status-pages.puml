@@ -1,0 +1,56 @@
+@startuml
+title UML sequence behaviour — Status pages and banners
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Club member" as actor
+box "Frontend — Web client (the-debate-app shell)" #E0F2FE
+  participant "AppComponent" as shell
+  participant "BannerComponent" as banner
+  participant "Router" as router
+end box
+box "Frontend — Web client (api library)" #E0F2FE
+  participant "ApiClient" as client
+  participant "ConnectivityService" as conn
+end box
+box "Frontend — Web client (home library)" #E0F2FE
+  participant "Status page component" as page
+end box
+box "Backend — REST API application" #D1FADF
+  participant "Express router" as routes
+end box
+client -> routes : Request for the routed page
+alt unmatched path
+  router -> page : '**' route renders NotFoundPageComponent
+  page --> actor : Back to meetings
+else HTTP 401 without a stored token
+  client --> router : ApiError unauthorized
+  router -> page : navigate /forbidden (rule vs expired is TO SUPPLY)
+  page --> actor : Sign in to continue
+else HTTP 5xx
+  routes --> client : 500
+  client --> router : ApiError server
+  router -> page : navigate /server-error
+  page --> actor : Try again, Back to meetings
+else no network on first request
+  client --> router : ApiError offline
+  router -> page : navigate /offline
+  page --> actor : Try again
+end
+conn -> shell : online becomes false after load
+shell -> banner : Show persistent warning banner (no dismiss)
+banner --> actor : "You're offline. Changes can't be saved"
+conn -> shell : online becomes true
+shell -> banner : Show success banner, then remove
+@enduml

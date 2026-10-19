@@ -1,0 +1,30 @@
+@startuml
+title UML sequence behaviour — Select the title
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Member" as actor
+box "Frontend — projects/components" #E0F2FE
+  participant "HeaderComponent" as hdr
+end box
+box "Frontend — projects/the-debate-app" #D1FADF
+  participant "AppComponent" as app
+  participant "Router" as router
+end box
+actor -> hdr : Click title
+hdr -> app : titleClick output
+app -> router : navigate(["/"]) (L2-021 criterion 2)
+router --> app : Navigation resolved
+
+@enduml

@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Rich-text editor component
+
+Person(user, "Club administrator", "Edits debate meetings")
+System_Boundary(app, "The Debate App") {
+  Container(spa, "Web client", "Angular", "Meeting edit page and rich-text editor component")
+}
+
+Rel(user, spa, "Uses", "HTTPS")
+@enduml

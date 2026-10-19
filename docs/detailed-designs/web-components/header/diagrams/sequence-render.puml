@@ -1,0 +1,30 @@
+@startuml
+title UML sequence behaviour — Render the header
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+box "Frontend — projects/the-debate-app" #D1FADF
+  participant "AppComponent" as app
+end box
+box "Frontend — projects/components" #E0F2FE
+  participant "HeaderComponent" as hdr
+  participant "LinkComponent" as link
+end box
+app -> hdr : Bind title and links
+hdr -> hdr : Render title as h2 (L2-021 criterion 1)
+loop each link in links
+  hdr -> link : Render label with routeSegments
+end
+
+@enduml

@@ -1,0 +1,42 @@
+@startuml
+title UML sequence behaviour — Cross-origin request and JSON response
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "API client" as actor
+box "Frontend — Web client (api library)" #E0F2FE
+  participant "Angular HttpClient" as client
+end box
+box "Backend — REST API application" #D1FADF
+  participant "corsMiddleware" as cors
+  participant "Resource router" as router
+  participant "errorHandler" as err
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "Resource service" as service
+end box
+actor -> client : Call api/{resource}/{action}
+client -> cors : OPTIONS preflight with Origin
+cors --> client : Allow any origin, header, method (L2-017 criterion 3)
+client -> router : Request with Accept: application/xml
+router -> service : Invoke action
+alt handler succeeds
+  service --> router : DTO
+  router --> client : 200 JSON, camelCase, indented (L2-017 criteria 1 and 2)
+else handler throws
+  service --> err : Error
+  err --> client : Error status with JSON body
+end
+client --> actor : Typed result
+@enduml

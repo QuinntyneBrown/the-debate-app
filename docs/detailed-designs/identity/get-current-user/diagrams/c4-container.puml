@@ -1,0 +1,15 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Get the current user
+
+Person(caller, "Visitor or member", "Asks who is signed in")
+System_Boundary(app, "The Debate App") {
+  Container(spa, "Web client", "Angular", "Calls api/user/current")
+  Container(api, "REST API", "Node.js, Express, TypeScript", "Resolves the name claim to a user")
+  ContainerDb(db, "PostgreSQL", "PostgreSQL", "users table")
+}
+Rel(caller, spa, "Uses", "HTTPS")
+Rel(spa, api, "GET api/user/current", "JSON/HTTPS")
+Rel(api, db, "Reads", "SQL")
+@enduml

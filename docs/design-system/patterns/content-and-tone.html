@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Content and tone — Debate App design system</title>
+<meta name="description" content="Voice and microcopy applied to whole flows: titles, details, actions, errors and empty states in the Debate App.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Debate App DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/save-bar.html">Save bar</a></li>
+      <li><a href="../components/rich-text-editor.html">Rich-text editor</a></li>
+      <li><a href="../components/prose.html">Prose</a></li>
+      <li><a href="../components/tab-strip.html">Tab strip</a></li>
+      <li><a href="../components/meeting-row.html">Meeting row</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/navigation.html">Navigation</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Pattern · Content</p>
+      <h1>Content and tone</h1>
+      <p class="ds-lead">The Debate App talks like a tidy assistant: brief, specific and calm, for members who read meetings and organisers who write them.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Pattern</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#when">When to use</a></li><li><a href="#structure">Structure</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The Debate App talks to two people: members, who read the meeting list and the abstract, agenda and minutes, and organisers, who create and edit meetings. The voice is the same for both: a tidy assistant that says what is happening and what to do next. It is brief, specific and calm, and it never blames.</p>
+      <ul><li><b>Plain and specific.</b> Dates, times and counts are real: "Tomorrow · 7:00 pm–8:30 pm", "Fix 2 things to save".</li><li><b>Sentence case</b> and real verbs on every button and title.</li><li><b>No blame, no drama.</b> Errors say what did not happen and what is safe.</li></ul>
+      <p>The full rules, formats and microcopy library are on <a href="../foundations/content.html">Content</a>; this page shows them applied to whole flows.</p>
+    </section>
+
+    <section class="ds-section" id="when"><h2><a href="#when">When to use</a></h2>
+      <p>Use this pattern whenever you write words that ship: titles, labels, buttons, errors, empty states, toasts, dialogs and accessible names. Lift copy from the mocks before inventing new copy.</p>
+    </section>
+
+    <section class="ds-section" id="structure"><h2><a href="#structure">Structure</a></h2>
+      <p>Every message is built from the same parts, in this order.</p>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Part</th><th scope="col">Rule</th><th scope="col">Example</th></tr></thead><tbody><tr><td>Title</td><td>What is true, in a few words</td><td>We couldn't load the meetings</td></tr><tr><td>Detail</td><td>Why, or what to do, in one or two sentences</td><td>Check your connection and try again.</td></tr><tr><td>Reassurance</td><td>That nothing is lost, when true</td><td>Your changes are still in the form.</td></tr><tr><td>Action</td><td>A verb that names the result</td><td>Try again · Back to meetings · Sign in</td></tr></tbody></table></div>      <div class="ds-example"><div class="ds-example__canvas "><div class="alert alert--danger" role="alert" style="width: 100%;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body"><div class="alert__title">We couldn't sign you in</div><div>Check the password</div></div></div></div><div class="ds-example__caption"><span>A sign-in failure: the title says what failed, the detail says the fix, no word says which field was wrong. From <a href="../../mocks/pages/sign-in/invalid.html">pages/sign-in/invalid</a>.</span></div></div>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>The same voice carries every state of a flow. Following one task, creating a meeting:</p>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Moment</th><th scope="col">Copy</th><th scope="col">Mock</th></tr></thead><tbody><tr><td>Start</td><td>New meeting</td><td><a href="../../mocks/pages/meeting-create/default.html">pages/meeting-create/default</a></td></tr><tr><td>Mistake</td><td>Fix 2 things to save · Enter a name. · End must be after start.</td><td><a href="../../mocks/pages/meeting-create/invalid.html">pages/meeting-create/invalid</a></td></tr><tr><td>Working</td><td>Saving…</td><td><a href="../../mocks/pages/meeting-create/submitting.html">pages/meeting-create/submitting</a></td></tr><tr><td>Done</td><td>Meeting created · Should cities ban cars from downtown? · tomorrow at 7:00 pm</td><td><a href="../../mocks/notifications/toast/with-action.html">notifications/toast/with-action</a></td></tr><tr><td>Problem</td><td>We couldn't save the meeting · Your changes are still in the form.</td><td><a href="../../mocks/notifications/toast/danger.html">notifications/toast/danger</a></td></tr><tr><td>Leaving</td><td>Leave without saving? · Your changes to “Universal basic income” will be lost.</td><td><a href="../../mocks/dialogs/discard-changes/default.html">dialogs/discard-changes/default</a></td></tr><tr><td>Offline</td><td>You're offline. Changes can't be saved until the connection is back.</td><td><a href="../../mocks/notifications/banner/persistent.html">notifications/banner/persistent</a></td></tr><tr><td>Lost session</td><td>Sign in to continue · That page needs you to be signed in. Your session may have ended.</td><td><a href="../../mocks/pages/forbidden/default.html">pages/forbidden/default</a></td></tr></tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive</a></h2>
+      <ul><li>Write titles that survive wrapping on a 360px phone: under 60 characters and no clever line breaks.</li><li>Toast and banner copy fits two lines at phone width; put the detail in the page, not the toast.</li><li>Never rely on a tooltip to explain a button; the label or <code>aria-label</code> must be enough.</li></ul>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <ul><li>Link and button text makes sense on its own (2.4.4): "Back to meetings", not "Click here".</li><li>Accessible names carry the same words as the visible label plus the object: "Edit Universal basic income".</li><li>Use plain language and short sentences; avoid idioms that do not translate.</li><li>Do not use emoji or symbols as the only carrier of meaning.</li><li>Set <code>lang</code> on the page; mark words in another language (such as a bilingual meeting title) when the language changes.</li></ul>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Say</th><th scope="col">Not</th><th scope="col">Why</th></tr></thead><tbody><tr><td>Meeting deleted</td><td>Record removed successfully</td><td>Uses the club's word and says what happened</td></tr><tr><td>Enter a name.</td><td>Name is required</td><td>Tells the person what to do</td></tr><tr><td>We couldn't save the meeting</td><td>Error 500</td><td>Plain words, no system terms</td></tr><tr><td>Username or password is wrong.</td><td>Invalid password</td><td>Does not reveal which was wrong</td></tr><tr><td>Sign in</td><td>Log in / Login</td><td>One verb, used everywhere</td></tr></tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont"><figure class="ds-do"><div class="ds-example__canvas"><div class="alert alert--danger" role="alert" style="width: 100%;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body"><div class="alert__title">We couldn't save the meeting</div><div>Your changes are still in the form.</div></div></div></div><figcaption>Say what did not happen and what is safe.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><div class="alert alert--danger" role="alert" style="width: 100%;"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body"><div class="alert__title">Error</div><div>Request failed with status 500.</div></div></div></div><figcaption>Show a status code and no way forward.</figcaption></figure></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Mocks this pattern was extracted from:</p>
+      <ul><li><a href="../../mocks/pages/sign-in/invalid.html">pages/sign-in/invalid</a></li><li><a href="../../mocks/pages/meeting-create/invalid.html">pages/meeting-create/invalid</a></li><li><a href="../../mocks/pages/meeting-edit/invalid.html">pages/meeting-edit/invalid</a></li><li><a href="../../mocks/pages/meetings/empty.html">pages/meetings/empty</a></li><li><a href="../../mocks/pages/server-error/default.html">pages/server-error/default</a></li><li><a href="../../mocks/dialogs/discard-changes/default.html">dialogs/discard-changes/default</a></li><li><a href="../../mocks/notifications/toast/danger.html">notifications/toast/danger</a></li><li><a href="../../mocks/notifications/banner/persistent.html">notifications/banner/persistent</a></li><li><a href="../../mocks/pages/forbidden/default.html">pages/forbidden/default</a></li></ul>
+    </section>
+
+    <footer class="ds-footer"><span>Debate App design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 2026-10-19</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Get the current user
+
+Person(caller, "Visitor or member", "Asks who is signed in")
+System(app, "The Debate App", "Reports the caller's identity")
+Rel(caller, app, "Calls api/user/current on", "JSON/HTTPS")
+@enduml

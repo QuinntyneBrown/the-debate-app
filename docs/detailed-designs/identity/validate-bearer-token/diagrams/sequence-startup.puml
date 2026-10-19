@@ -1,0 +1,33 @@
+@startuml
+title UML sequence behaviour — Load authentication configuration at start
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Backend — REST API application" #D1FADF
+  participant "main.ts" as main
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "authConfig" as cfg
+end box
+actor -> main : Start API
+main -> cfg : loadAuthConfig(env)
+alt authentication settings missing (L2-014 criterion 4)
+  cfg --> main : Error naming authConfiguration
+  main --> actor : Exit with failure
+else settings present
+  cfg --> main : AuthConfig
+  main -> main : Install jwtAuth and listen
+end
+@enduml

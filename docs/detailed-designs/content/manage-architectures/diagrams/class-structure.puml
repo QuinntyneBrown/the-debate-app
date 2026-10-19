@@ -1,0 +1,39 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Manage architectures
+
+class ArchitectureDto {
+  +id: number
+  +name: string
+}
+class Architecture {
+  +id: number
+  +name: string
+  +isDeleted: boolean
+}
+class ArchitectureService {
+  +addOrUpdate(dto: ArchitectureDto): Promise<ArchitectureDto>
+  +getAll(): Promise<ArchitectureDto[]>
+  +getById(id: number): Promise<ArchitectureDto>
+  +remove(id: number): Promise<number>
+}
+class ArchitectureRepository {
+  +findById(id: number): Promise<Architecture | null>
+  +findAll(): Promise<Architecture[]>
+  +insert(entity: Architecture): Promise<Architecture>
+  +update(entity: Architecture): Promise<void>
+  +markDeleted(entity: Architecture): Promise<void>
+}
+ArchitectureService ..> ArchitectureDto : accepts and returns
+ArchitectureService --> ArchitectureRepository : uses
+ArchitectureRepository --> Architecture : persists
+@enduml

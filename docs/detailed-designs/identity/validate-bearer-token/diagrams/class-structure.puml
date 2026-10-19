@@ -1,0 +1,41 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Validate a bearer token
+
+class AuthConfig {
+  +jwtIssuer: string
+  +jwtAudience: string
+  +jwtKey: string
+}
+class BearerToken {
+  +raw: string
+  +iss: string
+  +aud: string
+  +exp: number
+  +name: string
+  +roles: string[]
+}
+class AuthenticatedUser {
+  +name: string
+  +roles: string[]
+}
+class JwtAuth {
+  +handle(req, res, next): void
+}
+class RequireAuth {
+  +handle(req, res, next): void
+}
+JwtAuth --> AuthConfig : verifies with
+JwtAuth ..> BearerToken : parses
+JwtAuth --> AuthenticatedUser : sets on request
+RequireAuth ..> AuthenticatedUser : checks presence
+@enduml

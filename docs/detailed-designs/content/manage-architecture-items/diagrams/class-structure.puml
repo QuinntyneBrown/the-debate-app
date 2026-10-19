@@ -1,0 +1,40 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Manage architecture items
+
+class ArchitectureItemDto {
+  +id: number
+  +name: string
+}
+class ArchitectureItem {
+  +id: number
+  +name: string
+  +architectureId: number | null
+  +isDeleted: boolean
+}
+class ArchitectureItemService {
+  +addOrUpdate(dto: ArchitectureItemDto): Promise<ArchitectureItemDto>
+  +getAll(): Promise<ArchitectureItemDto[]>
+  +getById(id: number): Promise<ArchitectureItemDto>
+  +remove(id: number): Promise<number>
+}
+class ArchitectureItemRepository {
+  +findById(id: number): Promise<ArchitectureItem | null>
+  +findAll(): Promise<ArchitectureItem[]>
+  +insert(entity: ArchitectureItem): Promise<ArchitectureItem>
+  +update(entity: ArchitectureItem): Promise<void>
+  +markDeleted(entity: ArchitectureItem): Promise<void>
+}
+ArchitectureItemService ..> ArchitectureItemDto : accepts and returns
+ArchitectureItemService --> ArchitectureItemRepository : uses
+ArchitectureItemRepository --> ArchitectureItem : persists
+@enduml

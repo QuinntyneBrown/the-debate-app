@@ -1,0 +1,13 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Manage articles
+
+Person(p, "API client", "Authenticated caller of the REST API")
+System_Boundary(app, "The Debate App") {
+  Container(api, "REST API", "Node.js, TypeScript, Express", "Article endpoints with bearer-token protection")
+  ContainerDb(db, "PostgreSQL", "PostgreSQL", "Persists records; soft-deleted rows stay with is_deleted = true")
+}
+Rel(p, api, "Calls", "JSON/HTTPS")
+Rel(api, db, "Reads and writes", "SQL")
+@enduml

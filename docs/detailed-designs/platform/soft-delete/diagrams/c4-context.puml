@@ -1,0 +1,9 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Soft deletion
+
+Person(client, "API client", "Removes and reads records")
+System(app, "The Debate App", "Retains removed records with a deleted flag")
+Rel(client, app, "Removes and reads records via", "JSON/HTTPS")
+@enduml

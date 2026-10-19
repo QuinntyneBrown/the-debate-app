@@ -1,0 +1,9 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Validate a bearer token
+
+Person(member, "Member", "Signed-in user")
+System(app, "The Debate App", "Validates bearer tokens on protected endpoints")
+Rel(member, app, "Calls protected endpoints of", "JSON/HTTPS")
+@enduml

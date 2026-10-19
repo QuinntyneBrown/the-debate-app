@@ -1,0 +1,56 @@
+@startuml
+title UML sequence behaviour — Add or update a user
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Administrator" as actor
+box "Frontend — API client (api library)" #E0F2FE
+  participant "UsersService" as client
+end box
+box "Backend — REST API application" #D1FADF
+  participant "requireAuth" as guard
+  participant "users.routes" as routes
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "UserService" as service
+end box
+box "Backend — Infrastructure" #FFF4E5
+  participant "UserRepository" as repo
+  database "PostgreSQL" as db
+end box
+actor -> client : add(user) or update(user)
+client -> guard : POST api/user/add or PUT api/user/update
+alt no valid bearer token (L2-008 criterion 4)
+  guard --> client : 401
+else valid bearer token
+  guard -> routes : Authorised
+  routes -> service : addOrUpdate(dto)
+  service -> repo : findForUpdate(dto.id) among non-deleted
+  repo -> db : SELECT ... WHERE id AND NOT is_deleted
+  db --> repo : Row or none
+  repo --> service : User or null
+  alt match found (L2-008 criterion 2)
+    service -> repo : update(name only)
+    repo -> db : UPDATE users SET name
+  else none found (L2-008 criterion 1)
+    service -> repo : insert(name, null username, null password)
+    repo -> db : INSERT INTO users
+  end
+  db --> repo : Saved row
+  repo --> service : User
+  service --> routes : UserDto { id, name }
+  routes --> client : 200 JSON
+end
+client --> actor : Result
+@enduml

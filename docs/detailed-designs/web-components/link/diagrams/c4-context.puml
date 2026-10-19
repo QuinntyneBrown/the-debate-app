@@ -1,0 +1,10 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Link component
+
+Person(user, "Member", "Navigates between pages")
+System(app, "The Debate App", "Organises debate meetings and publishes related content")
+
+Rel(user, app, "Navigates using links", "HTTPS")
+@enduml

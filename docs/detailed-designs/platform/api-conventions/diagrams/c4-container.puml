@@ -1,0 +1,16 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — API conventions
+
+Person(client, "API client", "Web client or third-party caller")
+System_Boundary(app, "The Debate App") {
+  Container(spa, "Web client", "Angular", "Calls the API from its own origin")
+  Container(api, "REST API", "Node.js, Express, TypeScript", "Applies the shared API conventions")
+  ContainerDb(db, "PostgreSQL", "PostgreSQL", "Stores resources")
+}
+Rel(client, spa, "Uses", "HTTPS")
+Rel(spa, api, "Calls", "JSON/HTTPS, cross-origin")
+Rel(client, api, "Calls and reads Swagger", "JSON/HTTPS")
+Rel(api, db, "Reads and writes", "SQL")
+@enduml

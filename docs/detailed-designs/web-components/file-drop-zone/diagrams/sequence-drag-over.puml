@@ -1,0 +1,24 @@
+@startuml
+title UML sequence behaviour — Drag over the zone
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Club administrator" as actor
+box "Frontend — projects/components" #E0F2FE
+  participant "FileDropZoneComponent" as zone
+end box
+actor -> zone : Drag files over the zone (dragover)
+zone -> zone : preventDefault so the drop is allowed (L2-029 criterion 2)
+
+@enduml

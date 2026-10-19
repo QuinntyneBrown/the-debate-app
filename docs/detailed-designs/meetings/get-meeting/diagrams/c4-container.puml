@@ -1,0 +1,15 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Get a meeting
+
+Person(p, "Club administrator", "Reviews and edits meetings")
+System_Boundary(app, "The Debate App") {
+  Container(spa, "Web client", "Angular", "SPA under frontend/projects")
+  Container(api, "REST API", "Node.js, TypeScript, Express", "Meeting get-by-id endpoint")
+  ContainerDb(db, "PostgreSQL", "PostgreSQL", "Persists records; soft-deleted rows stay with is_deleted = true")
+}
+Rel(p, spa, "Uses", "HTTPS")
+Rel(spa, api, "Calls", "JSON/HTTPS")
+Rel(api, db, "Reads and writes", "SQL")
+@enduml

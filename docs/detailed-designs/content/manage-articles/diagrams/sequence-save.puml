@@ -1,0 +1,52 @@
+@startuml
+title UML sequence behaviour — Add or update article
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "API client" as actor
+box "Backend — REST API application" #D1FADF
+  participant "article.routes" as routes
+  participant "jwtAuth middleware" as auth
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "ArticleService" as service
+end box
+box "Backend — Infrastructure" #FFF4E5
+  participant "ArticleRepository" as repo
+  database "PostgreSQL" as db
+end box
+actor -> routes : POST api/article/add or PUT api/article/update (JSON)
+routes -> auth : Validate bearer token (L2-014)
+alt no valid token (L2-005 criterion 4)
+  auth --> routes : Rejected
+  routes --> actor : HTTP 401
+else token valid
+  routes -> service : addOrUpdate(dto)
+  service -> repo : findById(dto.id) among non-deleted (L2-016 criterion 3)
+  repo -> db : SELECT ... WHERE id = $1 AND NOT is_deleted
+  db --> repo : Row or none
+  repo --> service : Article or null
+  alt non-deleted record found (L2-005 criterion 2)
+    service -> repo : update(title)
+    repo -> db : UPDATE articles
+  else none found or soft-deleted (L2-005 criterion 1)
+    service -> repo : insert(new article with the supplied title)
+    repo -> db : INSERT INTO articles
+  end
+  db --> repo : Saved row
+  repo --> service : Article
+  service --> routes : ArticleDto
+  routes --> actor : HTTP 200 with camelCase JSON (L2-017)
+end
+@enduml

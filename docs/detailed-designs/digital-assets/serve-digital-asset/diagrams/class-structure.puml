@@ -1,0 +1,49 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Serve a digital asset
+
+class DigitalAsset {
+  +id: number
+  +uniqueId: string
+  +name: string
+  +contentType: string
+  +bytes: Buffer
+  +isDeleted: boolean
+}
+
+class ServedAsset {
+  +bytes: Buffer
+  +contentType: string
+}
+class CachedAsset {
+  +key: string
+  +asset: ServedAsset
+  +expiresAt: number
+}
+class AssetCache {
+  +get(key: string): ServedAsset | null
+  +set(key: string, asset: ServedAsset, ttlSeconds: number): void
+}
+class DigitalAssetService {
+  +serve(uniqueId?: string, name?: string): Promise<ServedAsset | null>
+}
+class DigitalAssetRepository {
+  +findByUniqueId(uniqueId: string): Promise<DigitalAsset | null>
+  +findFirstByName(name: string): Promise<DigitalAsset | null>
+}
+DigitalAssetService --> AssetCache : checks first
+DigitalAssetService --> DigitalAssetRepository : falls back to
+DigitalAssetService ..> ServedAsset : returns
+AssetCache *-- "*" CachedAsset
+CachedAsset --> ServedAsset
+DigitalAssetRepository --> DigitalAsset : reads
+@enduml

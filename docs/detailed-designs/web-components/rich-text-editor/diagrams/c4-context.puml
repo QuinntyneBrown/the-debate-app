@@ -1,0 +1,10 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Rich-text editor component
+
+Person(user, "Club administrator", "Edits debate meetings")
+System(app, "The Debate App", "Organises debate meetings and publishes related content")
+
+Rel(user, app, "Formats text using", "HTTPS")
+@enduml

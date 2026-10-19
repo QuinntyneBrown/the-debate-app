@@ -253,3 +253,4 @@ paket-files/
 
 # HTML mock screenshots (generated, never committed)
 docs/mocks/.cache/
+docs/design-system/.cache/

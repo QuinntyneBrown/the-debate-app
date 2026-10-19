@@ -1,0 +1,58 @@
+@startuml
+title UML sequence behaviour — Leave the edit form and delete from it
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Club administrator" as actor
+box "Frontend — Web client (meetings and api libraries)" #E0F2FE
+  participant "MeetingEditComponent" as page
+  participant "DiscardChangesDialogComponent" as dlg
+  participant "MeetingsService" as client
+end box
+box "Backend — REST API application" #D1FADF
+  participant "meetings.routes" as routes
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "MeetingService" as service
+end box
+box "Backend — Infrastructure" #FFF4E5
+  participant "MeetingRepository" as repo
+  database "PostgreSQL" as db
+end box
+actor -> page : Select Back, a nav link, or browser back
+alt form is pristine
+  page --> actor : Navigate away
+else form is dirty
+  page -> dlg : Open dialog (focus on Keep editing)
+  dlg --> actor : Leave without saving? The changes will be lost
+  alt actor selects Keep editing or Escape
+    actor -> dlg : Keep editing
+    dlg --> page : Closed, route unchanged
+  else actor selects Discard
+    actor -> dlg : Discard
+    dlg --> page : Confirm leave
+    page --> actor : Navigate away, no request sent
+  end
+end
+opt actor selects Delete this meeting on the edit page
+  actor -> page : Delete this meeting, confirmed in the delete dialog
+  page -> client : remove(id)
+  client -> routes : DELETE api/meeting/remove?id={id} (L2-004)
+  routes -> service : remove(id)
+  service --> routes : id
+  routes --> client : HTTP 200 with id
+  client --> page : id
+  page --> actor : Navigate to /meetings after [Meeting] Delete Success (L2-024 criterion 7)
+end
+@enduml

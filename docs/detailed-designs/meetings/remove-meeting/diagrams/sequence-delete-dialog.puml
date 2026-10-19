@@ -1,0 +1,62 @@
+@startuml
+title UML sequence behaviour — Delete a meeting from the list
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Club administrator" as actor
+box "Frontend — Web client (meetings and api libraries)" #E0F2FE
+  participant "MeetingListComponent" as page
+  participant "DeleteMeetingDialogComponent" as dlg
+  participant "MeetingsService" as client
+end box
+box "Backend — REST API application" #D1FADF
+  participant "meetings.routes" as routes
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "MeetingService" as service
+end box
+box "Backend — Infrastructure" #FFF4E5
+  participant "MeetingRepository" as repo
+  database "PostgreSQL" as db
+end box
+actor -> page : Select Delete on a row
+page -> dlg : Open dialog (focus on Cancel)
+dlg --> actor : Delete the meeting? It disappears for everyone, no undo
+alt actor selects Cancel, Close or Escape
+  actor -> dlg : Cancel
+  dlg --> page : Closed, nothing changed
+else actor selects Delete meeting
+  actor -> dlg : Delete meeting
+  dlg -> dlg : Busy state, Cancel disabled
+  dlg -> client : remove(id)
+  client -> routes : DELETE api/meeting/remove?id={id}
+  routes -> service : remove(id)
+  alt request succeeds (L2-004 criterion 1)
+    service --> routes : id
+    routes --> client : HTTP 200 with id
+    client --> dlg : id
+    dlg --> page : Closed with deleted id
+    page -> page : Remove row without reload, dispatch [Meeting] Delete Success (L2-030 criterion 5)
+    page --> actor : Show success toast
+  else request fails
+    routes --> client : Non-2xx response or network error
+    client --> dlg : Error
+    dlg --> actor : Failed state: We couldn't delete it, with Cancel and Try again
+    opt actor selects Try again
+      actor -> dlg : Try again
+      dlg -> client : remove(id)
+    end
+  end
+end
+@enduml

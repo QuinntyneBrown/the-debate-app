@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Link component
+
+Person(user, "Member", "Navigates between pages")
+System_Boundary(app, "The Debate App") {
+  Container(spa, "Web client", "Angular", "Link, header and page components in projects/components and feature libraries")
+}
+
+Rel(user, spa, "Uses", "HTTPS")
+@enduml

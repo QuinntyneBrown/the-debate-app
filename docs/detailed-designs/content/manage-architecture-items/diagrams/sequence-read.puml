@@ -1,0 +1,59 @@
+@startuml
+title UML sequence behaviour — Read architectureItem records
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "API client" as actor
+box "Backend — REST API application" #D1FADF
+  participant "architectureItem.routes" as routes
+  participant "jwtAuth middleware" as auth
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "ArchitectureItemService" as service
+end box
+box "Backend — Infrastructure" #FFF4E5
+  participant "ArchitectureItemRepository" as repo
+  database "PostgreSQL" as db
+end box
+alt list: GET api/architectureItem/get (anonymous)
+  actor -> routes : GET api/architectureItem/get
+  routes -> service : getAll()
+  service -> repo : findAll() where NOT is_deleted (L2-007 criterion 3)
+  repo -> db : SELECT ... WHERE NOT is_deleted
+  db --> repo : Rows
+  repo --> service : ArchitectureItem[]
+  service --> routes : ArchitectureItemDto[]
+  routes --> actor : HTTP 200 with array (L2-007 criterion 3)
+else getById: GET api/architectureItem/getById?id={id}
+  actor -> routes : GET api/architectureItem/getById?id={id}
+  routes -> auth : Validate bearer token (L2-014)
+  alt no valid token (L2-007 criterion 4)
+    auth --> routes : Rejected
+    routes --> actor : HTTP 401
+  else token valid
+    routes -> service : getById(id)
+    service -> repo : findById(id) where NOT is_deleted
+    repo -> db : SELECT ... WHERE id = $1 AND NOT is_deleted
+    db --> repo : Row or none
+    repo --> service : ArchitectureItem or null
+    alt record found
+      service --> routes : ArchitectureItemDto
+      routes --> actor : HTTP 200 with ArchitectureItemDto
+    else none found
+      service --> routes : Not found
+      routes --> actor : Failure response
+    end
+  end
+end
+@enduml

@@ -1,0 +1,42 @@
+@startuml
+title UML sequence behaviour — Session expired
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Club administrator" as actor
+box "Frontend — Web client (the-debate-app shell)" #E0F2FE
+  participant "AppComponent" as shell
+  participant "Router" as router
+end box
+box "Frontend — Web client (api library)" #E0F2FE
+  participant "bearerInterceptor" as icpt
+  participant "SessionService" as session
+end box
+box "Frontend — Web client (login library)" #E0F2FE
+  participant "LoginComponent" as page
+end box
+box "Backend — REST API application" #D1FADF
+  participant "Protected endpoint" as api
+end box
+icpt -> session : get(token) (L2-027 criterion 1)
+icpt -> api : Request with Authorization: Bearer token
+api --> icpt : 401 (expired token, L2-014 criterion 3)
+icpt -> session : clear() and raise sessionExpired$ (TO SUPPLY: not in L2)
+session --> shell : sessionExpired$
+shell -> router : navigate /login with returnUrl, state expired
+router -> page : Render expired state
+page --> actor : "Your session ended. Sign in again to carry on where you were."
+actor -> page : Sign in
+page --> actor : Reopen returnUrl after success
+@enduml

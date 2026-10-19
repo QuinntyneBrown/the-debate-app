@@ -1,0 +1,29 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — File drop zone component
+
+class FileDropZoneComponent <<Angular>> {
+  +caption: string
+  +height: string
+  +width: string
+  +backgroundColor: string
+  +color: string
+  +fontFamily: string
+  +filesDropped: EventEmitter<FormData>
+  +onDragOver(event: DragEvent): void
+  +onDrop(event: DragEvent): void
+}
+class FormData <<Web API>> {
+  +append(name: string, file: File): void
+}
+FileDropZoneComponent ..> FormData : creates
+@enduml

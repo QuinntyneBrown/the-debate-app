@@ -1,0 +1,9 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Seed data
+
+Person(op, "Operator", "Starts the application")
+System(app, "The Debate App", "Migrates and seeds its database at start")
+Rel(op, app, "Starts")
+@enduml

@@ -1,0 +1,43 @@
+@startuml
+title UML sequence behaviour — Explicit headers and bearer token
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Club member" as actor
+box "Frontend — Web client (api library)" #E0F2FE
+  participant "AuthService" as auth
+  participant "ApiClient" as client
+  participant "defaultHeadersInterceptor" as defaults
+  participant "bearerInterceptor" as bearer
+  participant "SessionService" as session
+end box
+box "Backend — REST API application" #D1FADF
+  participant "Express router" as api
+end box
+actor -> auth : Sign in
+auth -> client : request('POST', 'api/user/token', { headers: form-urlencoded, data: HttpParams })
+client -> defaults : HttpRequest with headers option
+defaults -> defaults : Headers option present, set exactly those headers (L2-025 criterion 2)
+defaults -> bearer : Forward request
+bearer -> session : get(token)
+alt token stored and request is not the token endpoint
+  session --> bearer : token
+  bearer -> api : Add Authorization: Bearer token (L2-027 criterion 1)
+else no token or token endpoint
+  session --> bearer : null
+  bearer -> api : Send unchanged
+end
+api --> client : Response
+client --> auth : Parsed body
+@enduml

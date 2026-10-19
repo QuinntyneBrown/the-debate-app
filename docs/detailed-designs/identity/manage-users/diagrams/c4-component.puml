@@ -1,0 +1,17 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Manage users
+
+Container_Boundary(api, "REST API (backend/src/users)") {
+  Component(routes, "users.routes", "Express router", "Maps add, update, get, getById, remove")
+  Component(guard, "requireAuth", "Express middleware", "401 without a valid token")
+  Component(service, "UserService", "TypeScript class", "addOrUpdate, get, getById, remove")
+  Component(repo, "UserRepository", "TypeScript class", "Non-deleted lookups, insert, update, soft delete")
+}
+ContainerDb(db, "PostgreSQL", "users table", "Persists users")
+Rel(routes, guard, "Applies to protected actions")
+Rel(routes, service, "Calls")
+Rel(service, repo, "Uses")
+Rel(repo, db, "Reads and writes", "SQL")
+@enduml

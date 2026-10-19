@@ -1,0 +1,52 @@
+@startuml
+title UML sequence behaviour — Remove architecture
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "API client" as actor
+box "Backend — REST API application" #D1FADF
+  participant "architecture.routes" as routes
+  participant "jwtAuth middleware" as auth
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "ArchitectureService" as service
+end box
+box "Backend — Infrastructure" #FFF4E5
+  participant "ArchitectureRepository" as repo
+  database "PostgreSQL" as db
+end box
+actor -> routes : DELETE api/architecture/remove?id={id}
+routes -> auth : Validate bearer token (L2-014)
+alt no valid token (L2-006 criterion 4)
+  auth --> routes : Rejected
+  routes --> actor : HTTP 401
+else token valid
+  routes -> service : remove(id)
+  service -> repo : findById(id) among non-deleted
+  repo -> db : SELECT ... WHERE id = $1 AND NOT is_deleted
+  db --> repo : Row or none
+  repo --> service : Architecture or null
+  alt record found (L2-006 criterion 5)
+    service -> repo : markDeleted(architecture)
+    repo -> db : UPDATE architectures SET is_deleted = true
+    db --> repo : Row kept (L2-016 criterion 1)
+    repo --> service : void
+    service --> routes : id
+    routes --> actor : HTTP 200 with the id
+  else none found
+    service --> routes : Not found
+    routes --> actor : Failure response
+  end
+end
+@enduml

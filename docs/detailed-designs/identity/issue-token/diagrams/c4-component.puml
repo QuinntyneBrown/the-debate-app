@@ -1,0 +1,27 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Issue a token
+
+Container_Boundary(spa, "Web client (projects/login, projects/api)") {
+  Component(login, "LoginComponent", "Angular standalone component", "Sign-in form and error states")
+  Component(auth, "AuthService", "Angular HTTP service", "Posts the token request")
+  Component(session, "SessionService", "Angular service", "Stores the token in local storage")
+}
+Container_Boundary(api, "REST API (backend/src/auth)") {
+  Component(routes, "auth.routes", "Express router", "POST /api/user/token")
+  Component(ident, "IdentityService", "TypeScript class", "Validates credentials, caches user and roles")
+  Component(tok, "TokenService", "TypeScript class", "Signs the JWT")
+  Component(pw, "passwordTransform", "TypeScript function", "SHA-256 then Base64")
+  Component(users, "UserRepository", "TypeScript class", "Finds non-deleted users with roles")
+}
+ContainerDb(db, "PostgreSQL", "users, roles", "Credentials and roles")
+Rel(login, auth, "Calls login")
+Rel(auth, session, "Hands token to")
+Rel(auth, routes, "POST token request", "form-urlencoded/HTTPS")
+Rel(routes, ident, "Calls validate")
+Rel(routes, tok, "Calls sign")
+Rel(ident, pw, "Transforms password with")
+Rel(ident, users, "Finds by username")
+Rel(users, db, "Reads", "SQL")
+@enduml

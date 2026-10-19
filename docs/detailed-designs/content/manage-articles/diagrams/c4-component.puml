@@ -1,0 +1,18 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Manage articles
+
+Container_Boundary(api, "REST API (backend/src/articles)") {
+  Component(routes, "article.routes", "Express router", "Maps api/article/add, update, get, getById, remove")
+  Component(auth, "jwtAuth middleware", "Express middleware", "Validates the bearer token on protected routes")
+  Component(service, "ArticleService", "TypeScript class", "Add-or-update, read and soft-delete logic")
+  Component(repo, "ArticleRepository", "TypeScript class", "Finds non-deleted rows, inserts, updates, sets is_deleted")
+}
+ContainerDb(db, "PostgreSQL", "articles table", "Persists records")
+
+Rel(routes, auth, "Applies to protected routes")
+Rel(routes, service, "Calls")
+Rel(service, repo, "Calls findById, findAll, insert, update, markDeleted")
+Rel(repo, db, "Reads and writes", "SQL")
+@enduml

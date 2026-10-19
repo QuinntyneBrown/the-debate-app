@@ -1,0 +1,15 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Manage users
+
+Person(admin, "Administrator", "Manages users")
+System_Boundary(app, "The Debate App") {
+  Container(client, "API client", "Angular api library or HTTP client", "Calls api/user")
+  Container(api, "REST API", "Node.js, Express, TypeScript", "User endpoints")
+  ContainerDb(db, "PostgreSQL", "PostgreSQL", "users table")
+}
+Rel(admin, client, "Uses")
+Rel(client, api, "Calls", "JSON/HTTPS")
+Rel(api, db, "Reads and writes", "SQL")
+@enduml

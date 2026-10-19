@@ -1,0 +1,48 @@
+@startuml
+title UML sequence behaviour — Remove a meeting
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "API client" as actor
+box "Frontend — Web client (api library)" #E0F2FE
+  participant "MeetingsService" as client
+end box
+box "Backend — REST API application" #D1FADF
+  participant "meetings.routes" as routes
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "MeetingService" as service
+end box
+box "Backend — Infrastructure" #FFF4E5
+  participant "MeetingRepository" as repo
+  database "PostgreSQL" as db
+end box
+actor -> client : remove(id)
+client -> routes : DELETE api/meeting/remove?id={id}
+routes -> service : remove(id)
+service -> repo : softDelete(id)
+repo -> db : UPDATE meetings SET is_deleted = true WHERE id (L2-016 criterion 1)
+alt row updated (L2-004 criterion 1)
+  db --> repo : 1 row
+  repo --> service : true
+  service --> routes : id
+  routes --> client : 200 with integer id
+else no row (L2-004 criterion 2)
+  db --> repo : 0 rows
+  repo --> service : false
+  service --> routes : Failure
+  routes --> client : Error status <TO SUPPLY>
+end
+client --> actor : Result
+@enduml

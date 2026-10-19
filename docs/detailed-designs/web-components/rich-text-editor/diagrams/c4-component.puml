@@ -1,0 +1,14 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Rich-text editor component
+
+Container_Boundary(spa, "Web client (projects/components, projects/the-debate-app and feature libraries)") {
+  Component(edit, "MeetingEditComponent", "Angular standalone component (projects/meetings)", "Binds three editors to the form")
+  Component(rte, "RichTextEditorComponent", "Angular standalone component", "Toolbar, content element, value and valueChange")
+  Component(engine, "RichTextEngine", "TypeScript adapter", "Isolates the editor library, library is TO SUPPLY")
+}
+
+Rel(edit, rte, "Binds value, listens to valueChange and imageRequested")
+Rel(rte, engine, "mount, setHtml, format")
+@enduml

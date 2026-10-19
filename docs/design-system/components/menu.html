@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menu — The Debate App design system</title>
+<meta name="description" content="The account menu under the avatar: who is signed in and Sign out. An APG menu button with a static demo in both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Debate App DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/save-bar.html">Save bar</a></li>
+      <li><a href="../components/rich-text-editor.html">Rich-text editor</a></li>
+      <li><a href="../components/prose.html">Prose</a></li>
+      <li><a href="../components/tab-strip.html">Tab strip</a></li>
+      <li><a href="../components/meeting-row.html">Meeting row</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/navigation.html">Navigation</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Actions</p>
+      <h1>Menu</h1>
+      <p class="ds-lead">The account menu opens from the avatar in the top bar. It says who is signed in and offers the one thing you do to the account: sign out.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">APG Menu Button</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+<section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The Debate App has one menu: the account menu. A <code>button.avatar</code> in the top bar opens a <code>.menu</code> list anchored under it. The only item is a link to the sign-in page, "Sign out".</p>
+      <ul>
+        <li>Use it for account actions that do not belong on any one page.</li>
+        <li>Do not use it for the main areas of the app: Meetings and New meeting live in the top bar (see <a href="top-bar.html">top bar</a>).</li>
+        <li>Do not use it for row actions such as Edit and Delete; those are icon <a href="button.html">buttons</a> on the meeting row.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="stack" style="align-items: flex-end; gap: 0;">
+            <button class="avatar avatar--sm avatar--sky" type="button" aria-controls="menu-anatomy" aria-label="Account menu for Jordan Reyes" aria-haspopup="menu" aria-expanded="true" >J</button>
+            <ul class="menu menu--static" role="menu" id="menu-anatomy" aria-label="Account menu for Jordan Reyes" style="min-width: 14rem;"><li role="none" style="padding: var(--space-2) var(--space-3);"><div class="list__title">Jordan Reyes</div><div class="list__meta">@admin</div></li><li role="none" class="menu__divider" aria-hidden="true"></li><li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/sign-in/signed-out.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4M15 8l4 4-4 4M19 12H9"/></svg>Sign out</a></li></ul>
+          </div>
+          <span class="ds-callout" style="right: 2%; top: 2%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 18%; top: 22%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 18%; top: 50%;" aria-hidden="true">3</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Trigger</b><small><code>button.avatar</code> with <code>aria-haspopup="menu"</code> and <code>aria-expanded</code>; 32px in the top bar, with the initial "J".</small></div></li>
+          <li><div><b>Identity header</b><small>Who is signed in: "Jordan Reyes" and "@admin". Not an item: <code>role="none"</code>, never focused.</small></div></li>
+          <li><div><b>Divider</b><small><code>.menu__divider</code>, <code>aria-hidden="true"</code>; separates the header from the action.</small></div></li>
+          <li><div><b>Item</b><small><code>.menu__item</code>: icon plus label ("Sign out"), 36px tall, full width.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants" data-na="One menu only"><h2><a href="#variants">Variants</a></h2>
+      <p>Not applicable: there is one account menu, for the signed-in user. It does not change by role; every signed-in person sees the same two parts.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <ul class="menu menu--static" role="menu" aria-label="Account menu for Jordan Reyes" style="min-width: 14rem;"><li role="none" style="padding: var(--space-2) var(--space-3);"><div class="list__title">Jordan Reyes</div><div class="list__meta">@admin</div></li><li role="none" class="menu__divider" aria-hidden="true"></li><li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/sign-in/signed-out.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4M15 8l4 4-4 4M19 12H9"/></svg>Sign out</a></li></ul>
+        </div>
+        <div class="ds-example__caption"><span>Jordan Reyes, the signed-in admin. Shown with <code>.menu--static</code> so it renders in flow.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;ul class="menu" role="menu" id="account-menu" aria-label="Account menu for Jordan Reyes"&gt;
+  &lt;li role="none" style="padding: var(--space-2) var(--space-3);"&gt;
+    &lt;div class="list__title"&gt;Jordan Reyes&lt;/div&gt;&lt;div class="list__meta"&gt;@admin&lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li role="none" class="menu__divider" aria-hidden="true"&gt;&lt;/li&gt;
+  &lt;li role="none"&gt;&lt;a class="menu__item" role="menuitem" href="/sign-in"&gt;&lt;svg class="icon" aria-hidden="true" …&gt;&lt;/svg&gt;Sign out&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="The menu has one size. The trigger is always .avatar--sm (32px) in the top bar."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">The menu has one size. The trigger is always <code>.avatar--sm</code> (32px) in the top bar.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Hover and focus are forced with <code>data-state</code>; the expanded trigger uses the real <code>aria-expanded="true"</code>.</p>
+      <h3>Trigger</h3>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Trigger</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Expanded</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Jordan Reyes</th><td><button class="avatar avatar--sm avatar--sky" type="button" aria-label="Account menu for Jordan Reyes" aria-haspopup="menu" aria-expanded="false">J</button></td><td><button class="avatar avatar--sm avatar--sky" type="button" aria-label="Account menu for Jordan Reyes" aria-haspopup="menu" aria-expanded="false" data-state="hover">J</button></td><td><button class="avatar avatar--sm avatar--sky" type="button" aria-label="Account menu for Jordan Reyes" aria-haspopup="menu" aria-expanded="false" data-state="focus">J</button></td><td><button class="avatar avatar--sm avatar--sky" type="button" aria-label="Account menu for Jordan Reyes" aria-haspopup="menu" aria-expanded="true">J</button></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Item</h3>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Item</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Link item</th>
+            <td><ul class="menu menu--static" role="menu" aria-label="Default item"><li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/sign-in/signed-out.html">Sign out</a></li></ul></td>
+            <td><ul class="menu menu--static" role="menu" aria-label="Hovered item"><li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/sign-in/signed-out.html" data-state="hover">Sign out</a></li></ul></td>
+            <td><ul class="menu menu--static" role="menu" aria-label="Focused item"><li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/sign-in/signed-out.html" data-state="focus">Sign out</a></li></ul></td></tr>
+        </tbody>
+      </table></div>
+      <p>No item is ever disabled. <code>.menu__item[aria-disabled="true"]</code> exists in the CSS but no mock uses it.</p>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas" style="padding: 0;"><ul class="menu menu--static" role="menu" aria-label="Account menu for Jordan Reyes, light" style="min-width: 14rem;"><li role="none" style="padding: var(--space-2) var(--space-3);"><div class="list__title">Jordan Reyes</div><div class="list__meta">@admin</div></li><li role="none" class="menu__divider" aria-hidden="true"></li><li role="none"><a class="menu__item" role="menuitem" data-state="hover" href="../../mocks/pages/sign-in/signed-out.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4M15 8l4 4-4 4M19 12H9"/></svg>Sign out</a></li></ul></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas" style="padding: 0;"><ul class="menu menu--static" role="menu" aria-label="Account menu for Jordan Reyes, dark" style="min-width: 14rem;"><li role="none" style="padding: var(--space-2) var(--space-3);"><div class="list__title">Jordan Reyes</div><div class="list__meta">@admin</div></li><li role="none" class="menu__divider" aria-hidden="true"></li><li role="none"><a class="menu__item" role="menuitem" data-state="hover" href="../../mocks/pages/sign-in/signed-out.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4M15 8l4 4-4 4M19 12H9"/></svg>Sign out</a></li></ul></div></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>The menu is the same at every width: a 14rem panel below the avatar, right edge on <code>--layout-margin</code>. At 360px it takes about two thirds of the width and never needs to become a bottom sheet.</li>
+        <li>It sits on <code>--z-dropdown</code>, below dialogs and toasts and above the sticky top bar.</li>
+        <li>A long display name in the header wraps; the item never wraps because its label is two words.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The panel reads <code>--color-bg-surface-raised</code>, <code>--color-border-default</code> and <code>--shadow-3</code>; items read <code>--color-fg-default</code> and <code>--color-bg-subtle</code> for hover and focus. In dark the raised surface is lighter than the page, so elevation shows without relying on the shadow. The trigger's hover ring is <code>--color-border-strong</code>.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>WAI-ARIA APG <b>Menu Button</b> pattern. The trigger is a native <code>&lt;button&gt;</code> with <code>aria-haspopup="menu"</code>, <code>aria-expanded</code> and <code>aria-controls</code> pointing at the menu. The list is <code>role="menu"</code>, each <code>&lt;li&gt;</code> is <code>role="none"</code> and each link is <code>role="menuitem"</code>. Focus inside the menu is roving: only the current item has <code>tabindex="0"</code>.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd>, <kbd>↓</kbd> on the trigger</td><td>Opens the menu and focuses the first item.</td></tr>
+        <tr><td><kbd>↑</kbd> on the trigger</td><td>Opens the menu and focuses the last item (Sign out).</td></tr>
+        <tr><td><kbd>↓</kbd> / <kbd>↑</kbd></td><td>Moves to the next or previous item, wrapping at the ends. The header and dividers are skipped.</td></tr>
+        <tr><td><kbd>Home</kbd> / <kbd>End</kbd></td><td>Moves to the first or last item.</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Follows the focused item and closes the menu.</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Closes the menu and returns focus to the avatar.</td></tr>
+        <tr><td><kbd>Tab</kbd></td><td>Closes the menu and moves focus to the next element after the trigger.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>The trigger shows the shared focus ring. Items show focus with the <code>--color-bg-subtle</code> hover fill plus the shared focus ring drawn inside the item (a fill alone is too faint against the raised panel), and the menu moves real DOM focus (not <code>aria-activedescendant</code>). A click outside closes the menu without moving focus.</p>
+      <h3>Labelling</h3>
+      <p>The trigger's <code>aria-label</code> names whose menu it is ("Account menu for Jordan Reyes"), because the visible "J" says little. The menu repeats it with <code>aria-label</code>. The identity header is plain text inside <code>role="none"</code>, so it is not announced as an item; icons are <code>aria-hidden</code>.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Item label on menu</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Item label, hover and focus</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Header caption on menu</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Initial on sky avatar</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-cover|--color-cover-sky" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring on top bar</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
+        <div class="ds-pair"><span>Focus ring on a menu item</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface-raised" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>The panel scales in from the top right over <code>--duration-fast</code> with <code>--ease-enter</code>. Reduced motion zeroes the duration, so it simply appears.</p>
+      <h3>Touch</h3>
+      <p>Items are 36px tall and span the panel's full width, well over the 24px minimum. The 32px avatar trigger is the only target in its corner of the top bar.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>The header names the person and the username on a second line: "Jordan Reyes", "@admin".</li>
+        <li>Items are short, sentence case: "Sign out". One icon each, from the shared icon set.</li>
+        <li>Sign out is always last, after a divider, so it is not hit by accident.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="avatar avatar--sm avatar--sky" type="button" aria-label="Account menu for Jordan Reyes" aria-haspopup="menu" aria-expanded="false">J</button></div><figcaption>Use <code>button.avatar</code>: the system resets the button and adds a hover ring. The mocks already do.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><button class="avatar avatar--sm avatar--sky" type="button" aria-label="Account menu for Jordan Reyes" aria-haspopup="menu" aria-expanded="false" style="border: 0; cursor: pointer;">J</button></div><figcaption>Resetting the avatar button inline (no mock does). It would drift from the shared rule and has no hover feedback of its own.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><ul class="menu menu--static" role="menu" aria-label="Menu with a decorative divider"><li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/sign-in/signed-out.html">Sign out</a></li></ul></div><figcaption>Offer only actions that exist. A menu with one real item is fine.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><ul class="menu menu--static" role="menu" aria-label="Menu with a disabled item"><li role="none"><a class="menu__item" role="menuitem" aria-disabled="true" href="#">Settings</a></li><li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/sign-in/signed-out.html">Sign out</a></li></ul></div><figcaption>A greyed-out item for something the app does not have. Settings and profile pages are not built, so leave them out.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><ul class="menu menu--static" role="menu" aria-label="Account"><li class="menu__divider" role="separator"></li><li role="none"><a class="menu__item" role="menuitem" href="../../mocks/pages/sign-in/signed-out.html">Sign out</a></li></ul></div><figcaption>Drift in <code>dialogs/account-menu</code>: the divider is a bare <code>role="separator"</code> <code>&lt;li&gt;</code> instead of <code>role="none" aria-hidden="true"</code>, the menu is labelled "Account" while its trigger says "Account menu for Jordan Reyes", and the trigger has no <code>aria-controls</code>.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Panel background</td><td><code>--color-bg-surface-raised</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface-raised" data-swatch></i><span data-token="--color-bg-surface-raised"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface-raised" data-swatch></i><span data-token="--color-bg-surface-raised"></span></span></td></tr>
+          <tr><td>Panel border and divider</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Item label</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Item hover and focus</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Header caption</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Trigger hover ring</td><td><code>--color-border-strong</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-strong" data-swatch></i><span data-token="--color-border-strong"></span></span></td></tr>
+          <tr><td>Shadow</td><td><code>--shadow-3</code></td><td><span data-token="--shadow-3"></span></td><td><span data-theme="dark" data-token="--shadow-3"></span></td></tr>
+          <tr><td>Item height</td><td><code>--control-height-sm</code></td><td><span data-token="--control-height-sm"></span></td><td><span data-theme="dark" data-token="--control-height-sm"></span></td></tr>
+          <tr><td>Panel / item radius</td><td><code>--radius-md</code> / <code>--radius-sm</code></td><td><span data-token="--radius-md"></span> / <span data-token="--radius-sm"></span></td><td><span data-theme="dark"><span data-token="--radius-md"></span> / <span data-token="--radius-sm"></span></span></td></tr>
+          <tr><td>Layer</td><td><code>--z-dropdown</code></td><td><span data-token="--z-dropdown"></span></td><td><span data-theme="dark" data-token="--z-dropdown"></span></td></tr>
+          <tr><td>Enter motion</td><td><code>--duration-fast</code>, <code>--ease-enter</code></td><td><span data-token="--duration-fast"></span></td><td><span data-theme="dark" data-token="--duration-fast"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;button class="avatar avatar--sm avatar--sky" type="button" aria-label="Account menu for Jordan Reyes"
+        aria-haspopup="menu" aria-expanded="false" aria-controls="account-menu"&gt;J&lt;/button&gt;
+&lt;ul class="menu" role="menu" id="account-menu" aria-label="Account menu for Jordan Reyes" hidden&gt;…&lt;/ul&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>button.avatar</code></td><td>Trigger: resets the button, adds the hover ring.</td></tr>
+        <tr><td><code>aria-haspopup="menu"</code>, <code>aria-expanded</code>, <code>aria-controls</code></td><td>Menu button semantics on the trigger.</td></tr>
+        <tr><td><code>.menu</code> + <code>role="menu"</code></td><td>Floating panel, absolutely positioned, scales in.</td></tr>
+        <tr><td><code>.menu__item</code> + <code>role="menuitem"</code></td><td>One action; a link or a button.</td></tr>
+        <tr><td><code>.menu__divider</code></td><td>Hairline separator; <code>role="none" aria-hidden="true"</code>.</td></tr>
+        <tr><td><code>.menu--static</code></td><td>Documentation only: renders the menu in flow.</td></tr>
+        <tr><td><code>data-state="hover|focus"</code></td><td>Documentation only: forces a state in static pages.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/dialogs/account-menu/default.html">dialogs/account-menu/default</a> (the open menu over the meetings list)</li>
+        <li><a href="../../mocks/pages/meetings/default.html">pages/meetings/default</a> (the closed avatar trigger in the top bar)</li>
+        <li>Styles: <a href="../assets/components.css">mocks/assets/ui.css</a> (<code>.menu</code>, <code>.menu__item</code>, <code>.menu__divider</code>, <code>button.avatar</code>)</li>
+      </ul>
+      <p>Drift recorded: the open-menu mock uses a bare <code>role="separator"</code> divider, labels the menu "Account" while the trigger is "Account menu for Jordan Reyes", and omits <code>aria-controls</code>. The identity header's padding is still inline in the mock and here; its text uses <code>.list__title</code> and <code>.list__meta</code>.</p>
+    </section>
+
+    <footer class="ds-footer"><span>The Debate App design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 2026-10-17</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

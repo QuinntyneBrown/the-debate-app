@@ -1,0 +1,10 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Manage digital assets
+
+Person(p, "API client", "Authenticated caller of the REST API")
+System(app, "The Debate App", "Organises debate meetings and publishes related content")
+
+Rel(p, app, "Manages digital assets using")
+@enduml

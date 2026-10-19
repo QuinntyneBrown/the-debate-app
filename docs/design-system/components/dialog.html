@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dialog — The Debate App design system</title>
+<meta name="description" content="Modal confirmation dialogs for deleting a meeting and discarding changes: default, busy and failed, centred on wider screens and a bottom sheet on phones.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Debate App DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/save-bar.html">Save bar</a></li>
+      <li><a href="../components/rich-text-editor.html">Rich-text editor</a></li>
+      <li><a href="../components/prose.html">Prose</a></li>
+      <li><a href="../components/tab-strip.html">Tab strip</a></li>
+      <li><a href="../components/meeting-row.html">Meeting row</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/navigation.html">Navigation</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Overlays</p>
+      <h1>Dialog</h1>
+      <p class="ds-lead">A focused decision on top of the page: delete a meeting, or leave the editor with unsaved changes. It holds focus until it is answered or cancelled, and becomes a bottom sheet on phones.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">APG Dialog (Modal)</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Use a dialog for a short decision that belongs to the page underneath and must be answered before going on. The Debate App has two, both confirmations:</p>
+      <ul>
+        <li><b>Delete meeting</b>: a destructive confirmation with a danger icon and a <a href="button.html">danger button</a>. Opens from the delete button on a meeting row. Deletion is soft, but the dialog says "There's no undo" because the UI offers none.</li>
+        <li><b>Discard changes</b> ("Leave without saving?"): opens from Back, a nav link or browser back while the meeting form is dirty. No icon; "Keep editing" is the primary.</li>
+      </ul>
+      <p>Neither dialog contains a form; the meeting form lives on its own page (see <a href="form-layout.html">Form layout</a>). Do not use a dialog for messages (use a <a href="toast.html">toast</a> or <a href="alert.html">alert</a>) or for navigation. The account <a href="menu.html">menu</a> is a menu, not a dialog.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure" style="padding: var(--space-8) var(--space-4); place-items: stretch;">
+          <div class="dialog dialog--static" role="dialog" aria-labelledby="dlg-anat-title">
+            <div class="dialog__panel" style="margin-inline: auto;">
+              <div class="dialog__header">
+                <div class="dialog__icon dialog__icon--danger" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></div>
+                <div style="flex: 1;"><h2 class="dialog__title" id="dlg-anat-title">Delete “Universal basic income”?</h2><p class="text-muted" style="margin-top: var(--space-1);">It disappears from the list for everyone. There's no undo.</p></div>
+                <button class="btn btn--ghost btn--icon" type="button" aria-label="Close (anatomy)"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+              </div>
+              <div class="dialog__footer"><button class="btn" type="button">Cancel</button><button class="btn btn--danger" type="button">Delete meeting</button></div>
+            </div>
+          </div>
+          <span class="ds-callout" style="left: 2%; top: 6%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 8%; top: 20%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 40%; top: 20%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 92%; top: 20%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 92%; top: 82%;" aria-hidden="true">5</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Backdrop and frame</b><small><code>.backdrop</code> dims the page with <code>--color-bg-backdrop</code> at <code>--z-overlay</code>; <code>.dialog</code> (<code>role="dialog"</code>, <code>aria-modal="true"</code>) centres the panel at <code>--z-modal</code>.</small></div></li>
+          <li><div><b>Icon (destructive only)</b><small><code>.dialog__icon--danger</code>: 40px circle, danger tint.</small></div></li>
+          <li><div><b>Title and description</b><small><code>h2.dialog__title</code>, the dialog's name via <code>aria-labelledby</code>, then a muted one-line description via <code>aria-describedby</code>. <code>--text-h4</code> on phones, <code>--text-h3</code> from 640px.</small></div></li>
+          <li><div><b>Close</b><small>Ghost icon button, <code>aria-label="Close"</code>.</small></div></li>
+          <li><div><b>Footer</b><small><code>.dialog__footer</code>: sticky, right-aligned. Both dialogs have no body; the header carries the message.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <p>In-page examples use <code>.dialog--static</code>, a documentation hook that renders the dialog in flow. They carry <code>role="dialog"</code> but not <code>aria-modal</code>, so this page stays readable; the product sets both.</p>
+      <h3>Destructive: delete a meeting</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas" style="display: block;">
+          <div class="dialog dialog--static" role="dialog" aria-labelledby="dlg-db-title" aria-describedby="dlg-db-desc">
+            <div class="dialog__panel" style="margin-inline: auto;">
+              <div class="dialog__header">
+                <div class="dialog__icon dialog__icon--danger" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></div>
+                <div style="flex: 1;"><h2 class="dialog__title" id="dlg-db-title">Delete “Universal basic income”?</h2><p id="dlg-db-desc" class="text-muted" style="margin-top: var(--space-1);">It disappears from the list for everyone. There's no undo.</p></div>
+                <button class="btn btn--ghost btn--icon" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+              </div>
+              <div class="dialog__footer"><button class="btn" type="button">Cancel</button><button class="btn btn--danger" type="button">Delete meeting</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Focus starts on "Cancel", never on the red button. Escape and Close cancel.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="backdrop"&gt;&lt;/div&gt;
+&lt;div class="dialog" role="dialog" aria-modal="true" aria-labelledby="del-title" aria-describedby="del-desc"&gt;
+  &lt;div class="dialog__panel"&gt;
+    &lt;div class="dialog__header"&gt;
+      &lt;div class="dialog__icon dialog__icon--danger" aria-hidden="true"&gt;&lt;svg class="icon" …&gt;&lt;/svg&gt;&lt;/div&gt;
+      &lt;div style="flex: 1;"&gt;&lt;h2 class="dialog__title" id="del-title"&gt;Delete “Universal basic income”?&lt;/h2&gt;
+        &lt;p id="del-desc" class="text-muted"&gt;It disappears from the list for everyone. There's no undo.&lt;/p&gt;&lt;/div&gt;
+      &lt;button class="btn btn--ghost btn--icon" type="button" aria-label="Close"&gt;…&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="dialog__footer"&gt;
+      &lt;button class="btn" type="button" autofocus&gt;Cancel&lt;/button&gt;
+      &lt;button class="btn btn--danger" type="button"&gt;Delete meeting&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+      <h3>Confirmation: discard changes</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas" style="display: block;">
+          <div class="dialog dialog--static" role="dialog" aria-labelledby="dlg-dc-title" aria-describedby="dlg-dc-desc">
+            <div class="dialog__panel" style="margin-inline: auto;">
+              <div class="dialog__header">
+                <div style="flex: 1;"><h2 class="dialog__title" id="dlg-dc-title">Leave without saving?</h2><p id="dlg-dc-desc" class="text-muted" style="margin-top: var(--space-1);">Your changes to “Universal basic income” will be lost.</p></div>
+                <button class="btn btn--ghost btn--icon" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+              </div>
+              <div class="dialog__footer"><button class="btn btn--danger" type="button">Discard</button><button class="btn btn--primary" type="button">Keep editing</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Focus starts on "Keep editing", the primary. Escape also keeps editing. Discard is the danger button but sits first (see Do and don't).</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="one width"><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">One panel width, up to 32rem; height grows with content up to the viewport minus <code>--space-12</code>, then the body scrolls and the footer stays.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Three states of Delete meeting: default (above), busy and failed. Discard changes has only its default state; it is answered instantly.</p>
+      <div class="ds-themes">
+        <div data-theme="light">
+          <div class="dialog dialog--static" role="dialog" aria-labelledby="dlg-busy-title">
+            <div class="dialog__panel">
+              <div class="dialog__header"><div style="flex: 1;"><h2 class="dialog__title" id="dlg-busy-title">Busy</h2></div><button class="btn btn--ghost btn--icon" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+              <div class="dialog__footer"><button class="btn" type="button" disabled>Cancel</button><button class="btn btn--danger" type="button" aria-busy="true">Deleting…</button></div>
+            </div>
+          </div>
+        </div>
+        <div data-theme="dark">
+          <div class="dialog dialog--static" role="dialog" aria-labelledby="dlg-busy-d-title">
+            <div class="dialog__panel">
+              <div class="dialog__header"><div style="flex: 1;"><h2 class="dialog__title" id="dlg-busy-d-title">Busy</h2></div><button class="btn btn--ghost btn--icon" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+              <div class="dialog__footer"><button class="btn" type="button" disabled>Cancel</button><button class="btn btn--danger" type="button" aria-busy="true">Deleting…</button></div>
+            </div>
+          </div>
+        </div>
+        <div data-theme="light">
+          <div class="dialog dialog--static" role="dialog" aria-labelledby="dlg-fail-l-title">
+            <div class="dialog__panel">
+              <div class="dialog__header"><div style="flex: 1;"><h2 class="dialog__title" id="dlg-fail-l-title">Failed</h2></div><button class="btn btn--ghost btn--icon" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+              <div class="dialog__body stack">
+                <div class="alert alert--danger" role="alert"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body"><div class="alert__title">We couldn't delete it</div><div>Check your connection and try again.</div></div></div>
+              </div>
+              <div class="dialog__footer"><button class="btn" type="button">Cancel</button><button class="btn btn--danger" type="button">Try again</button></div>
+            </div>
+          </div>
+        </div>
+        <div data-theme="dark">
+          <div class="dialog dialog--static" role="dialog" aria-labelledby="dlg-fail-title">
+            <div class="dialog__panel">
+              <div class="dialog__header"><div style="flex: 1;"><h2 class="dialog__title" id="dlg-fail-title">Failed</h2></div><button class="btn btn--ghost btn--icon" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+              <div class="dialog__body stack">
+                <div class="alert alert--danger" role="alert"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body"><div class="alert__title">We couldn't delete it</div><div>Check your connection and try again.</div></div></div>
+              </div>
+              <div class="dialog__footer"><button class="btn" type="button">Cancel</button><button class="btn btn--danger" type="button">Try again</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ul>
+        <li><b>Default</b>: focus on the safe button (Cancel, Keep editing).</li>
+        <li><b>Busy</b>: Cancel is <code>disabled</code>; the danger button reads "Deleting…" and carries <code>aria-busy="true"</code>. The dialog closes itself on success and the row leaves the list.</li>
+        <li><b>Failed</b>: a danger <a href="alert.html">alert</a> with <code>role="alert"</code> in the body, "Delete meeting" becomes "Try again", and Cancel regains focus. The page behind is unchanged.</li>
+        <li>No dialog has an invalid state: neither contains a field.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>Below 640px (<code>--layout-breakpoint-sm</code>) the panel is a <b>bottom sheet</b>: full width, pinned to the bottom, top corners <code>--radius-xl</code>, sliding up over <code>--duration-slow</code>.</li>
+        <li>From 640px it is centred with <code>--space-6</code> around it, all corners <code>--radius-lg</code>, scaling in; the title grows to <code>--text-h3</code>.</li>
+        <li>The footer is sticky, so the actions stay in reach. Buttons wrap.</li>
+      </ul>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--canvas" style="display: block;">
+          <div class="dialog dialog--static" role="dialog" aria-labelledby="dlg-sheet-title" style="max-width: 22.5rem; margin-inline: auto;">
+            <div class="dialog__panel" style="border-radius: var(--radius-xl) var(--radius-xl) 0 0;">
+              <div class="dialog__header"><div style="flex: 1;"><h2 class="dialog__title" id="dlg-sheet-title" style="font: var(--text-h4);">Leave without saving?</h2></div><button class="btn btn--ghost btn--icon" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+              <div class="dialog__footer"><button class="btn btn--danger" type="button">Discard</button><button class="btn btn--primary" type="button">Keep editing</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Bottom sheet at 360px: rounded top corners only, full width. Real pages get this from the base styles, no modifier needed.</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The panel is <code>--color-bg-surface-raised</code> with <code>--shadow-4</code>, over <code>--color-bg-backdrop</code>. In the dark theme the raised surface is lighter than the page, so the panel still lifts off a dark backdrop; the backdrop itself gets darker. The danger icon reads <code>--color-danger-bg</code> and <code>--color-danger-icon</code>.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>The WAI-ARIA APG <a href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/">Dialog (Modal)</a> pattern: <code>role="dialog"</code>, <code>aria-modal="true"</code>, <code>aria-labelledby</code> pointing at the title and <code>aria-describedby</code> at the description. The page behind is <code>inert</code> while it is open.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves through the controls inside and wraps from the last to the first; focus never leaves the dialog.</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Cancels and closes (Cancel, or Keep editing). Ignored while busy.</td></tr>
+        <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd></td><td>Activates the focused button.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>On open, focus goes to the safe button ("Cancel", "Keep editing") so a stray Enter is harmless. On close, focus returns to the control that opened it (the row's delete button, or the control that tried to leave). On failed, the alert is announced and focus returns to Cancel.</p>
+      <h3>Labelling</h3>
+      <p>The title names the dialog and the subject: "Delete “Universal basic income”?". The close button is <code>aria-label="Close"</code>. The danger icon is <code>aria-hidden</code>; the title and the danger button's words carry the warning.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Text on panel</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Description on panel</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface-raised" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Danger icon on its circle</span><span class="ds-pair__ratio" data-contrast="--color-danger-icon|--color-danger-bg" data-min="3"></span></div>
+        <div class="ds-pair"><span>Failed alert text</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-danger-bg" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Danger button label</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-danger|--color-danger-solid" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Primary button label (Keep editing)</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-accent-solid" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring on panel</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface-raised" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>The backdrop fades in over <code>--duration-base</code>; the sheet slides up (phones) or the panel scales in from 96% (wider) over <code>--duration-slow</code> with <code>--ease-enter</code>. Reduced motion zeroes both, so it simply appears.</p>
+      <h3>Touch</h3>
+      <p>Footer buttons are 44px tall with 12px between them; the close button is 44px square. The sheet keeps the actions at the bottom, in thumb reach.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Titles are a question naming the subject: "Delete “Universal basic income”?", "Leave without saving?".</li>
+        <li>Buttons are specific verbs and the safe one is a real choice: "Cancel" / "Delete meeting", "Keep editing" / "Discard". Never "OK" or "Yes".</li>
+        <li>The description says what happens and that it is final: "It disappears from the list for everyone. There's no undo." and "Your changes to “Universal basic income” will be lost."</li>
+        <li>Failure messages say what did not happen and what to do: "We couldn't delete it. Check your connection and try again."</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><button class="btn" type="button">Cancel</button><button class="btn btn--danger" type="button">Delete meeting</button></div><figcaption>Safe action first, destructive last, both named by their outcome.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><button class="btn btn--danger" type="button">Discard</button><button class="btn btn--primary" type="button">Keep editing</button></div><figcaption>discard-changes puts the danger button first and the primary last, the reverse of delete-meeting. Pick one order: safe action first, consequential action last.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><span class="text-caption">Failed: alert in the body, "Try again", dialog stays open</span></div><figcaption>Keep the dialog open and say what happened when the request fails.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><span class="text-caption">Failed title "We couldn't delete it", button label "Delete meeting" then "Deleting…" then "Try again"</span></div><figcaption>The delete-meeting states relabel the same button three ways and the failed alert uses a different noun than the title ("it" vs “Universal basic income”). Name the meeting once in the title and keep the button verb stable.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Backdrop</td><td><code>--color-bg-backdrop</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-backdrop" data-swatch></i><span data-token="--color-bg-backdrop"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-backdrop" data-swatch></i><span data-token="--color-bg-backdrop"></span></span></td></tr>
+          <tr><td>Panel</td><td><code>--color-bg-surface-raised</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface-raised" data-swatch></i><span data-token="--color-bg-surface-raised"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface-raised" data-swatch></i><span data-token="--color-bg-surface-raised"></span></span></td></tr>
+          <tr><td>Footer divider</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Danger icon circle / icon</td><td><code>--color-danger-bg</code> / <code>--color-danger-icon</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-icon" data-swatch></i><span data-token="--color-danger-icon"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-icon" data-swatch></i><span data-token="--color-danger-icon"></span></span></td></tr>
+          <tr><td>Shadow</td><td><code>--shadow-4</code></td><td><span data-token="--shadow-4"></span></td><td><span data-theme="dark" data-token="--shadow-4"></span></td></tr>
+          <tr><td>Radius: sheet / centred</td><td><code>--radius-xl</code> / <code>--radius-lg</code></td><td colspan="2"><span data-token="--radius-xl"></span> / <span data-token="--radius-lg"></span></td></tr>
+          <tr><td>Padding</td><td><code>--space-6</code>, <code>--space-4</code></td><td colspan="2"><span data-token="--space-6"></span> / <span data-token="--space-4"></span></td></tr>
+          <tr><td>Icon circle</td><td><code>--size-avatar-md</code></td><td colspan="2"><span data-token="--size-avatar-md"></span></td></tr>
+          <tr><td>Stacking</td><td><code>--z-overlay</code> / <code>--z-modal</code></td><td colspan="2"><span data-token="--z-overlay"></span> / <span data-token="--z-modal"></span></td></tr>
+          <tr><td>Breakpoint (sheet to centred)</td><td><code>--layout-breakpoint-sm</code></td><td colspan="2"><span data-token="--layout-breakpoint-sm"></span></td></tr>
+          <tr><td>Enter motion</td><td><code>--duration-slow</code>, <code>--duration-base</code>, <code>--ease-enter</code></td><td colspan="2"><span data-token="--duration-slow"></span> <span data-token="--ease-enter"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="backdrop"&gt;&lt;/div&gt;
+&lt;div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-title" aria-describedby="dlg-desc"&gt;
+  &lt;div class="dialog__panel"&gt;
+    &lt;div class="dialog__header"&gt;
+      &lt;div class="dialog__icon dialog__icon--danger" aria-hidden="true"&gt;&lt;svg class="icon" …&gt;&lt;/svg&gt;&lt;/div&gt;
+      &lt;div style="flex: 1;"&gt;&lt;h2 class="dialog__title" id="dlg-title"&gt;Delete “Universal basic income”?&lt;/h2&gt;
+        &lt;p id="dlg-desc" class="text-muted"&gt;It disappears from the list for everyone. There's no undo.&lt;/p&gt;&lt;/div&gt;
+      &lt;button class="btn btn--ghost btn--icon" type="button" aria-label="Close"&gt;…&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="dialog__footer"&gt;
+      &lt;button class="btn" type="button" autofocus&gt;Cancel&lt;/button&gt;
+      &lt;button class="btn btn--danger" type="button"&gt;Delete meeting&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.backdrop</code></td><td>Fixed dimmer behind the dialog.</td></tr>
+        <tr><td><code>.dialog</code></td><td>Fixed frame: bottom sheet below 640px, centred above.</td></tr>
+        <tr><td><code>.dialog__panel</code></td><td>The raised panel, max 32rem, scrolls when tall.</td></tr>
+        <tr><td><code>.dialog__header</code> / <code>__title</code> / <code>__body</code> / <code>__footer</code></td><td>Parts; the footer is sticky. <code>__body</code> is only used by the failed state.</td></tr>
+        <tr><td><code>.dialog__icon--danger</code></td><td>Danger icon circle for destructive confirmations.</td></tr>
+        <tr><td><code>.dialog--static</code></td><td>Documentation only: renders in flow.</td></tr>
+        <tr><td><code>role="dialog"</code> <code>aria-modal="true"</code> <code>aria-labelledby</code></td><td>Required in the product.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks and from <a href="../assets/components.css">assets/ui.css</a> (<code>.dialog*</code>, <code>.backdrop</code>):</p>
+      <ul>
+        <li><a href="../../mocks/dialogs/delete-meeting/default.html">dialogs/delete-meeting/default</a>, <a href="../../mocks/dialogs/delete-meeting/busy.html">busy</a>, <a href="../../mocks/dialogs/delete-meeting/failed.html">failed</a></li>
+        <li><a href="../../mocks/dialogs/discard-changes/default.html">dialogs/discard-changes/default</a></li>
+        <li><a href="../../mocks/dialogs/account-menu/default.html">dialogs/account-menu/default</a> (a menu, not a dialog; it lives in the dialogs folder)</li>
+      </ul>
+      <p>Drift recorded:</p>
+      <ul>
+        <li><b>Footer order</b>: delete-meeting is Cancel then Delete; discard-changes is Discard then Keep editing.</li>
+        <li><b>Header wrapper</b>: the title and description sit in <code>&lt;div style="flex: 1;"&gt;</code> and the description carries an inline <code>margin-top</code> in every dialog; there is no class for either yet.</li>
+        <li><b>Empty body</b>: both default dialogs leave a blank line where <code>.dialog__body</code> would be; the body appears only in the failed state.</li>
+        <li><b>Where the mocks live</b>: account-menu is a menu but is filed under dialogs/.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>The Debate App design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 2026-10-19</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

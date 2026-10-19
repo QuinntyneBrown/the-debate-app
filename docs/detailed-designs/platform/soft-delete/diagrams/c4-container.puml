@@ -1,0 +1,15 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Soft deletion
+
+Person(client, "API client", "Removes and reads records")
+System_Boundary(app, "The Debate App") {
+  Container(spa, "Web client", "Angular", "Issues remove and read requests")
+  Container(api, "REST API", "Node.js, Express, TypeScript", "Applies soft-delete semantics")
+  ContainerDb(db, "PostgreSQL", "PostgreSQL", "Rows carry is_deleted")
+}
+Rel(client, spa, "Uses", "HTTPS")
+Rel(spa, api, "Calls", "JSON/HTTPS")
+Rel(api, db, "UPDATE is_deleted, SELECT where not deleted", "SQL")
+@enduml

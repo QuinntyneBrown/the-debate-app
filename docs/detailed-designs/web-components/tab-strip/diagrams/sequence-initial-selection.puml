@@ -1,0 +1,32 @@
+@startuml
+title UML sequence behaviour — Initial selection
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+box "Frontend — Parent component" #D1FADF
+  participant "Parent" as parent
+end box
+box "Frontend — projects/components" #E0F2FE
+  participant "TabStripComponent" as strip
+end box
+parent -> strip : Render with tabs and panels
+strip -> strip : Set role tablist on host, role tab on tabs, role tabpanel and tabindex 0 on panels (L2-028 criterion 1)
+alt one or more tabs have selected set (L2-028 criterion 2)
+  strip -> strip : index = last tab with selected set
+else none selected
+  strip -> strip : index = 0
+end
+strip -> strip : select(index) (L2-028 criterion 3)
+
+@enduml

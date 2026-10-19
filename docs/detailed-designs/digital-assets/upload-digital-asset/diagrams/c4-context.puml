@@ -1,0 +1,10 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Upload a digital asset
+
+Person(p, "Uploader", "Adds files, for example images for a meeting")
+System(app, "The Debate App", "Organises debate meetings and publishes related content")
+
+Rel(p, app, "Uploads files using")
+@enduml

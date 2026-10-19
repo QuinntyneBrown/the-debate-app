@@ -1,0 +1,15 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Link component
+
+Container_Boundary(spa, "Web client (projects/components, projects/the-debate-app and feature libraries)") {
+  Component(hdr, "HeaderComponent", "Angular standalone component", "Composes links")
+  Component(link, "LinkComponent", "Angular standalone component", "Navigates on click and toggles the active class")
+  Component(router, "Router", "Angular framework", "Resolves routes and updates browser history")
+}
+
+Rel(hdr, link, "Renders")
+Rel(link, router, "navigate(routeSegments)")
+Rel(router, link, "Emits NavigationEnd")
+@enduml

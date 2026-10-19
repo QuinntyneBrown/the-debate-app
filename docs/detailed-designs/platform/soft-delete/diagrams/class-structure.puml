@@ -1,0 +1,32 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Soft deletion
+
+abstract class SoftDeletableRepository<T> {
+  #table: string
+  +getById(id: number): Promise<T | null>
+  +getAll(): Promise<T[]>
+  +findForUpdate(id: number): Promise<T | null>
+  +softDelete(id: number): Promise<boolean>
+}
+interface SoftDeletable {
+  +id: number
+  +isDeleted: boolean
+}
+class MeetingRepository
+class MeetingService {
+  +remove(id: number): Promise<number>
+}
+SoftDeletableRepository <|-- MeetingRepository
+SoftDeletableRepository ..> SoftDeletable : constrains T
+MeetingService --> MeetingRepository : uses
+@enduml

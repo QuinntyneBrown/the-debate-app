@@ -1,0 +1,9 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Issue a token
+
+Person(visitor, "Visitor", "Member who signs in")
+System(app, "The Debate App", "Issues JWT bearer tokens")
+Rel(visitor, app, "Signs in to", "HTTPS")
+@enduml

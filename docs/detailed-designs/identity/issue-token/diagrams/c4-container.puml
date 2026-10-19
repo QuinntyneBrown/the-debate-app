@@ -1,0 +1,15 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Issue a token
+
+Person(visitor, "Visitor", "Member who signs in")
+System_Boundary(app, "The Debate App") {
+  Container(spa, "Web client", "Angular", "Sign-in page; stores the token")
+  Container(api, "REST API", "Node.js, Express, TypeScript", "Token endpoint")
+  ContainerDb(db, "PostgreSQL", "PostgreSQL", "users and roles tables")
+}
+Rel(visitor, spa, "Enters credentials in", "HTTPS")
+Rel(spa, api, "POST /api/user/token", "form-urlencoded/HTTPS")
+Rel(api, db, "Reads users and roles", "SQL")
+@enduml

@@ -1,0 +1,54 @@
+@startuml
+title UML sequence behaviour — Meetings page states
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Club administrator" as actor
+box "Frontend — Web client (meetings and api libraries)" #E0F2FE
+  participant "MeetingListComponent" as page
+  participant "MeetingsService" as client
+end box
+box "Backend — REST API application" #D1FADF
+  participant "meetings.routes" as routes
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "MeetingService" as service
+end box
+box "Backend — Infrastructure" #FFF4E5
+  participant "MeetingRepository" as repo
+  database "PostgreSQL" as db
+end box
+actor -> page : Open /meetings
+page -> page : Start loading timer (skeleton shown only after 300 ms)
+page -> client : getAll()
+client -> routes : GET api/meeting/get
+alt request succeeds with at least one meeting (L2-023 criterion 1)
+  routes --> client : HTTP 200 with MeetingDto[]
+  client --> page : MeetingDto[]
+  page -> page : Split into Upcoming and Past, render one row per meeting
+  page --> actor : Show heading Meetings with Edit, View and Delete on each row
+else request succeeds with an empty array
+  routes --> client : HTTP 200 with []
+  client --> page : []
+  page --> actor : Show empty state No meetings yet with New meeting
+else request fails
+  routes --> client : Non-2xx response or network error
+  client --> page : Error
+  page --> actor : Show error state with Try again, keep header and New meeting
+  opt actor selects Try again
+    actor -> page : Select Try again
+    page -> client : getAll()
+  end
+end
+@enduml

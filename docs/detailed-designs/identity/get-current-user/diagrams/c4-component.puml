@@ -1,0 +1,17 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Get the current user
+
+Container_Boundary(api, "REST API (backend/src/users)") {
+  Component(jwt, "jwtAuth", "Express middleware", "Sets req.user when the token is valid")
+  Component(routes, "users.routes", "Express router", "Maps GET current, anonymous")
+  Component(service, "UserService", "TypeScript class", "getCurrent")
+  Component(repo, "UserRepository", "TypeScript class", "findByUsername among non-deleted")
+}
+ContainerDb(db, "PostgreSQL", "users table", "Persists users")
+Rel(routes, jwt, "Runs first")
+Rel(routes, service, "Calls getCurrent")
+Rel(service, repo, "Calls findByUsername")
+Rel(repo, db, "Reads", "SQL")
+@enduml

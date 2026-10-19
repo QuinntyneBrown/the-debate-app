@@ -1,0 +1,9 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — API conventions
+
+Person(client, "API client", "Web client or third-party caller")
+System(app, "The Debate App", "REST API with camelCase JSON, CORS and Swagger")
+Rel(client, app, "Calls api/{resource}/{action} on", "JSON/HTTPS")
+@enduml

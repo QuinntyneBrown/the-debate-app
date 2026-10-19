@@ -1,0 +1,44 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Manage digital assets
+
+class DigitalAssetDto {
+  +id: number
+  +name: string
+}
+
+class DigitalAsset {
+  +id: number
+  +uniqueId: string
+  +name: string
+  +contentType: string
+  +bytes: Buffer
+  +isDeleted: boolean
+}
+
+class DigitalAssetService {
+  +addOrUpdate(dto: DigitalAssetDto): Promise<DigitalAssetDto>
+  +getAll(): Promise<DigitalAssetDto[]>
+  +getById(id: number): Promise<DigitalAssetDto>
+  +remove(id: number): Promise<number>
+}
+class DigitalAssetRepository {
+  +findById(id: number): Promise<DigitalAsset | null>
+  +findAll(): Promise<DigitalAsset[]>
+  +insert(asset: DigitalAsset): Promise<DigitalAsset>
+  +update(asset: DigitalAsset): Promise<void>
+  +markDeleted(asset: DigitalAsset): Promise<void>
+}
+DigitalAssetService ..> DigitalAssetDto : accepts and returns
+DigitalAssetService --> DigitalAssetRepository : uses
+DigitalAssetRepository --> DigitalAsset : persists
+@enduml

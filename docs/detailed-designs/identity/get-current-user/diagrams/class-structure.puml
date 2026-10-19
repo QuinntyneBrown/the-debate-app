@@ -1,0 +1,31 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Get the current user
+
+class AuthenticatedUser {
+  +name: string
+  +roles: string[]
+}
+class UserDto {
+  +id: number | null
+  +name: string
+}
+class UserService {
+  +getCurrent(caller: AuthenticatedUser | null): Promise<UserDto | null>
+}
+class UserRepository {
+  +findByUsername(username: string): Promise<User | null>
+}
+UserService ..> AuthenticatedUser : reads
+UserService --> UserRepository : uses
+UserService ..> UserDto : returns
+@enduml

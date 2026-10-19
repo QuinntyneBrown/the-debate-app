@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Header component
+
+Person(user, "Member", "Navigates between pages")
+System_Boundary(app, "The Debate App") {
+  Container(spa, "Web client", "Angular", "Header and link components, application shell")
+}
+
+Rel(user, spa, "Uses", "HTTPS")
+@enduml

@@ -1,0 +1,24 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — List meetings
+
+Container_Boundary(spa, "Web client (projects/meetings, projects/api)") {
+  Component(list, "MeetingListComponent", "Angular standalone component", "Loads meetings and renders loading, empty, error and default states")
+  Component(item, "MeetingItemComponent", "Angular standalone component", "Row with Edit, View and Delete")
+  Component(msvc, "MeetingsService", "Angular HTTP service", "Calls GET api/meeting/get")
+}
+Container_Boundary(api, "REST API (backend/src/meetings)") {
+  Component(routes, "meetings.routes", "Express router", "Anonymous GET api/meeting/get")
+  Component(service, "MeetingService", "TypeScript class", "Maps meetings to MeetingDto")
+  Component(repo, "MeetingRepository", "TypeScript class", "Selects non-deleted meetings")
+}
+ContainerDb(db, "PostgreSQL", "meetings table", "Persists meetings")
+
+Rel(list, item, "Renders one per meeting")
+Rel(list, msvc, "Calls getAll")
+Rel(msvc, routes, "GET api/meeting/get", "JSON/HTTPS")
+Rel(routes, service, "Calls getAll")
+Rel(service, repo, "Calls findAll")
+Rel(repo, db, "Reads", "SQL")
+@enduml

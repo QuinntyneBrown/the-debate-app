@@ -1,0 +1,37 @@
+@startuml
+title UML sequence behaviour — Arrow key selection with wrap
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Member" as actor
+box "Frontend — projects/components" #E0F2FE
+  participant "TabStripComponent" as strip
+end box
+actor -> strip : Press key while a tab has focus
+alt ArrowLeft or ArrowUp (L2-028 criterion 5)
+  strip -> strip : index = selectedIndex - 1
+  opt index < 0
+    strip -> strip : index = last tab (wrap)
+  end
+else ArrowRight or ArrowDown (L2-028 criterion 5)
+  strip -> strip : index = selectedIndex + 1
+  opt index > last tab
+    strip -> strip : index = 0 (wrap)
+  end
+end
+strip -> strip : select(index) (L2-028 criterion 3)
+strip -> strip : Focus the selected tab
+strip --> actor : selectedIndexChange(index)
+
+@enduml

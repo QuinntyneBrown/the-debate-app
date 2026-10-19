@@ -1,0 +1,64 @@
+@startuml
+title UML sequence behaviour — Upload a digital asset
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Uploader" as actor
+box "Frontend — Web client (components and api libraries)" #E0F2FE
+  participant "FileDropZoneComponent" as dz
+  participant "DigitalAssetsService" as client
+end box
+box "Backend — REST API application" #D1FADF
+  participant "digitalAssets.routes" as routes
+  participant "Multipart parser" as parser
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "DigitalAssetService" as service
+end box
+box "Backend — Infrastructure" #FFF4E5
+  participant "DigitalAssetRepository" as repo
+  database "PostgreSQL" as db
+end box
+actor -> dz : Drop files
+dz -> dz : Append each file to FormData under its file name (L2-029 criterion 3)
+dz -> client : upload(FormData)
+client -> routes : POST api/digitalasset/upload (multipart/form-data, no Authorization header)
+routes -> parser : Read request stream
+alt request is not multipart/form-data (L2-011 criterion 3)
+  parser --> routes : Not multipart
+  routes --> client : HTTP 200 with { files: [] }
+else multipart
+  loop each part
+    alt part has no Content-Disposition (L2-011 criterion 4)
+      parser --> routes : Invalid part
+      routes --> client : HTTP 200 with { files: [] }, nothing saved
+    else file part
+      parser --> routes : File name, content type, bytes
+      routes -> service : store(fileName, contentType, bytes)
+      service -> service : Sanitise name: strip quotes, replace & with and, drop directory (L2-011 criterion 1)
+      service -> repo : insert(asset)
+      repo -> db : INSERT INTO digital_assets
+      db --> repo : Saved row
+      repo --> service : DigitalAsset
+      service --> routes : id and name
+    else non-file form field (L2-011 criterion 5)
+      parser --> routes : Field value
+      routes -> routes : Keep as form data, do not store
+    end
+  end
+  routes --> client : HTTP 200 with { files: [ { id, name } ] } in upload order (L2-011 criterion 2)
+end
+client --> dz : Upload result
+dz --> actor : Show stored files
+@enduml

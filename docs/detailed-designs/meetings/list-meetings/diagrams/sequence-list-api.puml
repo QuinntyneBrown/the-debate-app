@@ -1,0 +1,43 @@
+@startuml
+title UML sequence behaviour — List meetings (API)
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "API caller" as actor
+box "Backend — REST API application" #D1FADF
+  participant "meetings.routes" as routes
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "MeetingService" as service
+end box
+box "Backend — Infrastructure" #FFF4E5
+  participant "MeetingRepository" as repo
+  database "PostgreSQL" as db
+end box
+actor -> routes : GET api/meeting/get (no Authorization header)
+routes -> service : getAll()
+service -> repo : findAll() where NOT is_deleted (L2-002 criterion 2)
+repo -> db : SELECT ... FROM meetings WHERE NOT is_deleted
+db --> repo : Rows
+repo --> service : Meeting[]
+loop each meeting
+  alt date is set
+    service -> service : Format date as yyyy-MM-dd (L2-002 criterion 3)
+  else date is null
+    service -> service : Use empty string for date (L2-002 criterion 4)
+  end
+end
+service --> routes : MeetingDto[]
+routes --> actor : HTTP 200 with camelCase JSON array (L2-002 criterion 1)
+@enduml

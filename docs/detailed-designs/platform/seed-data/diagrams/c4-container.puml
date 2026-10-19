@@ -1,0 +1,13 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Seed data
+
+Person(op, "Operator", "Starts the application")
+System_Boundary(app, "The Debate App") {
+  Container(api, "REST API", "Node.js, Express, TypeScript", "Runs migrations at start")
+  ContainerDb(db, "PostgreSQL", "PostgreSQL", "Schema and seed data")
+}
+Rel(op, api, "Starts", "docker compose or node")
+Rel(api, db, "Applies migrations", "SQL")
+@enduml

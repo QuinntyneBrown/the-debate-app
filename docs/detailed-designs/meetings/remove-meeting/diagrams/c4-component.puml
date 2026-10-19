@@ -1,0 +1,31 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Remove a meeting
+
+Container_Boundary(spa, "Web client (projects/meetings, projects/components, projects/api)") {
+  Component(list, "MeetingListComponent", "Angular standalone component", "Opens the delete dialog and removes the row")
+  Component(edit, "MeetingEditComponent", "Angular standalone component", "Delete action and dirty-form guard")
+  Component(del, "DeleteMeetingDialogComponent", "Angular standalone component", "Default, busy and failed states")
+  Component(disc, "DiscardChangesDialogComponent", "Angular standalone component", "Leave without saving confirmation")
+  Component(toast, "ToastService", "Angular service", "Raises success and danger toasts")
+  Component(msvc, "MeetingsService", "Angular HTTP service", "Calls DELETE api/meeting/remove")
+}
+Container_Boundary(api, "REST API (backend/src/meetings)") {
+  Component(routes, "meetings.routes", "Express router", "DELETE api/meeting/remove")
+  Component(service, "MeetingService", "TypeScript class", "Soft-deletes a meeting")
+  Component(repo, "MeetingRepository", "TypeScript class", "Finds non-deleted meeting, sets is_deleted")
+}
+ContainerDb(db, "PostgreSQL", "meetings table", "Persists meetings")
+
+Rel(list, del, "Opens")
+Rel(edit, disc, "Opens when dirty")
+Rel(edit, del, "Opens")
+Rel(list, msvc, "Calls remove")
+Rel(edit, msvc, "Calls remove")
+Rel(list, toast, "Raises toast")
+Rel(msvc, routes, "DELETE api/meeting/remove", "JSON/HTTPS")
+Rel(routes, service, "Calls remove")
+Rel(service, repo, "Calls findById, markDeleted")
+Rel(repo, db, "Updates", "SQL")
+@enduml

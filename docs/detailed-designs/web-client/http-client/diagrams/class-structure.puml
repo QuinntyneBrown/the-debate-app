@@ -1,0 +1,52 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — HTTP client
+class RequestOptions {
+  +headers?: Record<string, string>
+  +data?: unknown
+  +responseType?: 'json' | 'text'
+}
+class ApiError {
+  +kind: 'unauthorized' | 'forbidden' | 'notFound' | 'server' | 'offline' | 'client'
+  +status: number
+  +statusText: string
+  +description?: string
+}
+class ApiClient <<Angular, api>> {
+  +request<T>(method: string, url: string, options?: RequestOptions): Observable<T>
+  -toApiError(error: HttpErrorResponse): ApiError
+}
+class defaultHeadersInterceptor <<HttpInterceptorFn, api>> {
+  +intercept(req, next): Observable<HttpEvent>
+}
+class bearerInterceptor <<HttpInterceptorFn, api>> {
+  +intercept(req, next): Observable<HttpEvent>
+}
+class MeetingsService <<Angular, api>> {
+  +get(): Observable<MeetingDto[]>
+  +add(meeting: MeetingDto): Observable<MeetingDto>
+  +remove(id: number): Observable<number>
+}
+class AuthService <<Angular, api>> {
+  +tryToLogin(credentials: Credentials): Observable<TokenResponse>
+}
+class ConnectivityService <<Angular, api>> {
+  +online: Signal<boolean>
+}
+MeetingsService --> ApiClient : uses
+AuthService --> ApiClient : uses
+ApiClient ..> RequestOptions : accepts
+ApiClient ..> ApiError : emits on error
+ApiClient --> ConnectivityService : reports status 0
+ApiClient ..> defaultHeadersInterceptor : pipeline
+ApiClient ..> bearerInterceptor : pipeline
+@enduml

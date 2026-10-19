@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Card — The Debate App design system</title>
+<meta name="description" content="The surface that groups related content: plain, prose and flush around a list, in both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Debate App DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/save-bar.html">Save bar</a></li>
+      <li><a href="../components/rich-text-editor.html">Rich-text editor</a></li>
+      <li><a href="../components/prose.html">Prose</a></li>
+      <li><a href="../components/tab-strip.html">Tab strip</a></li>
+      <li><a href="../components/meeting-row.html">Meeting row</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/navigation.html">Navigation</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Containers</p>
+      <h1>Card</h1>
+      <p class="ds-lead">A raised surface that holds one group of things: the sign-in form, a meeting's abstract, the list of upcoming meetings. Cards are plain surfaces; they never carry a status tint.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;section&gt;</code> / <code>&lt;article&gt;</code></span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Use a card to group content that belongs together. A card is not a button: The Debate App has no clickable cards; actions inside a card are real buttons and links.</p>
+      <ul>
+        <li><b>Card</b> (<code>.card</code>): 24px padding. The sign-in form, a skeleton placeholder, a settings group.</li>
+        <li><b>Prose card</b> (<code>.card.prose</code>): a card holding rendered rich text, such as a meeting's abstract, agenda or minutes inside a <a href="tab-strip.html">tab panel</a>. See <a href="prose.html">Prose</a>.</li>
+        <li><b>Flush</b> (<code>.card--flush</code>): no padding, clips its content. Wraps a <a href="list.html">list</a> of <a href="meeting-row.html">meeting rows</a> edge to edge (<code>.list.card.card--flush</code>).</li>
+        <li><b>Title</b> (<code>.card__title</code>) goes inside when the card needs a heading of its own.</li>
+      </ul>
+      <p>The base stylesheet also defines <code>.card--success</code>, <code>.card--warning</code>, cover tints and a stat block. No Debate App mock uses them, so they are not part of this system.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <section class="card stack" aria-labelledby="card-anat-title" style="min-width: 16rem;">
+            <h2 class="card__title" id="card-anat-title" style="margin-bottom: 0;">Next meeting</h2>
+            <p>Should cities ban cars from downtown?</p>
+            <p class="text-muted">Tomorrow · 7:00 pm–8:30 pm</p>
+          </section>
+          <span class="ds-callout" style="left: 18%; top: 12%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 30%; top: 30%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 30%; top: 58%;" aria-hidden="true">3</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Surface</b><small><code>--color-bg-surface</code>, hairline <code>--color-border-default</code>, <code>--radius-lg</code>, <code>--shadow-1</code>, <code>--space-6</code> padding.</small></div></li>
+          <li><div><b>Title</b><small><code>.card__title</code> in <code>--text-h4</code> on a real heading (<code>h2</code> or <code>h3</code>). Optional.</small></div></li>
+          <li><div><b>Content</b><small>Usually a <code>.stack</code>, a <code>.prose</code> body, or a <code>.list</code> of rows.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <section class="card stack" aria-labelledby="card-v-plain">
+            <h2 class="card__title" id="card-v-plain">Sign in</h2>
+            <div class="field"><label class="field__label" for="card-v-user">Username</label><input class="input" id="card-v-user" type="text" autocomplete="username" value="jordan.reyes"></div>
+          </section>
+          <div class="card prose"><p>This house would introduce a universal basic income. Priya Nair proposes; Samir Haddad opposes. Two speakers a side, eight minutes each, then open floor.</p></div>
+          <section class="card card--flush" aria-labelledby="card-v-flush">
+            <h2 class="card__title" id="card-v-flush">Upcoming</h2>
+            <ul class="list">
+              <li class="meeting"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">20</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">Should cities ban cars from downtown?</a></div><div class="meeting__when">Tomorrow · 7:00 pm–8:30 pm</div></div></li>
+              <li class="meeting"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">27</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">AI in classrooms: help or harm?</a></div><div class="meeting__when">Tue 27 Oct · 7:00 pm–8:30 pm</div></div></li>
+            </ul>
+          </section>
+        </div>
+        <div class="ds-example__caption"><span>Plain (sign-in form), prose (a meeting abstract), flush (Meetings list).</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="card stack"&gt;&lt;h1&gt;Sign in&lt;/h1&gt;&lt;form class="stack"&gt; … &lt;/form&gt;&lt;/div&gt;
+&lt;div class="card prose"&gt;&lt;p&gt;This house would introduce a universal basic income. …&lt;/p&gt;&lt;/div&gt;
+&lt;ul class="list card card--flush"&gt;&lt;li class="meeting"&gt; … &lt;/li&gt;&lt;/ul&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="one padding"><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">One padding (<code>--space-6</code>), or none with <code>.card--flush</code>. Width comes from the layout it sits in; the sign-in card is held to 26rem by <code>.auth-card</code>.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Cards are not interactive, so they have no hover, focus or pressed state. What changes is their content: loading shows <a href="skeleton.html">skeletons</a> in the same card, and empty shows an <a href="empty-state.html">empty state</a> inside it.</p>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="stack">
+          <section class="card stack" aria-label="Next meeting, light theme"><span class="card__title" style="margin-bottom: 0;">Next meeting</span><p>Should cities ban cars from downtown?</p></section>
+          <div class="card prose" aria-label="Abstract, light theme"><p>Lena Fischer proposes; Tom Okafor opposes.</p></div>
+        </div></div>
+        <div data-theme="dark"><div class="stack">
+          <section class="card stack" aria-label="Next meeting, dark theme"><span class="card__title" style="margin-bottom: 0;">Next meeting</span><p>Should cities ban cars from downtown?</p></section>
+          <div class="card prose" aria-label="Abstract, dark theme"><p>Lena Fischer proposes; Tom Okafor opposes.</p></div>
+        </div></div>
+      </div>
+      <h3>Loading</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <section class="card stack" aria-busy="true" aria-label="Loading meeting"><span class="skeleton skeleton--text" aria-hidden="true"></span><span class="skeleton skeleton--text" aria-hidden="true"></span><span class="skeleton skeleton--text" aria-hidden="true"></span></section>
+        </div>
+        <div class="ds-example__caption"><span>Same card, skeleton lines, <code>aria-busy="true"</code> until data arrives (meeting-edit/loading).</span></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>Cards fill their column. On phones every card is full width and stacks; the page content column is capped by the <a href="layout.html">layout primitives</a>.</li>
+        <li>Padding stays 24px at every width so content lines up with the page header.</li>
+        <li>Content inside uses <code>.stack</code> and <code>.cluster</code> and wraps. Code blocks in a prose card scroll inside the card.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The card reads one component token, <code>--card-bg</code> (default <code>--color-bg-surface</code>). In the dark theme the surface darkens and <code>--shadow-1</code> deepens; the hairline border keeps the edge visible.</p>
+      <pre><code>/* A card on a sunken area can re-point the token without new CSS */
+.card { --card-bg: var(--color-bg-surface); }</code></pre>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>A <code>&lt;section aria-labelledby&gt;</code> when the card is a named region of the page (it becomes a region landmark), an <code>&lt;article&gt;</code> for a self-contained item, a <code>&lt;form&gt;</code> or <code>&lt;fieldset&gt;</code> when it is a form. A card inside a tab panel needs no landmark: the panel is already labelled by its tab. No ARIA role on the class itself.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>The card is not focusable; focus moves through the links and buttons inside it.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p><code>.card--flush</code> clips its content (<code>overflow: hidden</code>); controls inside keep the 2px ring visible because meeting rows are padded by <code>--space-4</code>.</p>
+      <h3>Labelling</h3>
+      <p>The <code>.card__title</code> is a real heading at the right level and names the section through <code>aria-labelledby</code>.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Text on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Muted text on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+      </div>
+      <p>The card edge (hairline border on canvas) is decorative and not required to meet 3:1.</p>
+      <h3>Motion</h3>
+      <p>None, except the sign-in card, which scales in once (<code>.auth-card .card</code>) and stops for <code>prefers-reduced-motion</code>.</p>
+      <h3>Touch</h3>
+      <p>The card itself is not a target. Targets inside follow their own rules (44px buttons, 24px minimum).</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Titles are short and specific, in sentence case: "Sign in", "Upcoming", "Past".</li>
+        <li>A prose card has no title of its own; the tab label above it names it ("Abstract", "Agenda", "Minutes").</li>
+        <li>Meeting names are used verbatim: "Should cities ban cars from downtown?".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><code>&lt;ul class="list card card--flush"&gt;</code></div><figcaption>Put a list of meeting rows in a flush card so the rows run edge to edge.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><code>&lt;div class="card"&gt;&lt;span class="skeleton …"&gt;&lt;span class="skeleton …"&gt;&lt;/div&gt;</code></div><figcaption>The loading card in meeting-edit/loading has no <code>.stack</code>, so its skeleton lines sit on one line with no gap; use <code>.card.stack</code> and add <code>aria-busy="true"</code>.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><code>&lt;h2 class="card__title"&gt;Upcoming&lt;/h2&gt;</code></div><figcaption>Use <code>.card__title</code> when a card needs a heading; inside <code>.card--flush</code> it pads itself.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><code>&lt;h1 style="text-align: center;"&gt;Sign in&lt;/h1&gt;</code></div><figcaption>The sign-in mocks centre the card heading with an inline style and the home mock centres its auth card inline. Centring belongs in a class, not on each mock.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Surface</td><td><code>--color-bg-surface</code> (via <code>--card-bg</code>)</td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+          <tr><td>Border</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Muted text</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Shadow</td><td><code>--shadow-1</code></td><td><span data-token="--shadow-1"></span></td><td><span data-theme="dark" data-token="--shadow-1"></span></td></tr>
+          <tr><td>Radius</td><td><code>--radius-lg</code></td><td colspan="2"><span data-token="--radius-lg"></span></td></tr>
+          <tr><td>Padding</td><td><code>--space-6</code></td><td colspan="2"><span data-token="--space-6"></span></td></tr>
+          <tr><td>Title font / gap below</td><td><code>--text-h4</code> / <code>--space-4</code></td><td colspan="2"><span data-token="--text-h4"></span> / <span data-token="--space-4"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;section class="card stack" aria-labelledby="next-meeting"&gt;
+  &lt;h2 class="card__title" id="next-meeting"&gt;Next meeting&lt;/h2&gt;
+  &lt;p&gt;Should cities ban cars from downtown?&lt;/p&gt;
+  &lt;p class="text-muted"&gt;Tomorrow · 7:00 pm–8:30 pm&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.card</code></td><td>Surface, border, radius, shadow, 24px padding.</td></tr>
+        <tr><td><code>.card.prose</code></td><td>A card around rendered rich text (see <a href="prose.html">Prose</a>).</td></tr>
+        <tr><td><code>.card--flush</code></td><td>No padding; clips content. Pair with <code>.list</code> and <code>.meeting</code> rows.</td></tr>
+        <tr><td><code>.card__title</code></td><td>Card heading; padded inside <code>.card--flush</code>.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks and from <a href="../assets/components.css">assets/ui.css</a> (<code>.card</code>, <code>.card--flush</code>, <code>.card__title</code>):</p>
+      <ul>
+        <li><a href="../../mocks/pages/meetings/default.html">pages/meetings/default</a> and <a href="../../mocks/pages/meetings/loading.html">loading</a> (flush list cards)</li>
+        <li><a href="../../mocks/pages/meeting/default.html">pages/meeting/default</a> and <a href="../../mocks/pages/meeting/edge.html">edge</a> (prose cards in tab panels)</li>
+        <li><a href="../../mocks/pages/sign-in/default.html">pages/sign-in/default</a> (form card in the auth card)</li>
+        <li><a href="../../mocks/pages/meeting-edit/loading.html">pages/meeting-edit/loading</a> (skeleton card)</li>
+      </ul>
+      <p>Drift recorded:</p>
+      <ul>
+        <li><b>Loading card</b>: meeting-edit/loading uses <code>.card</code> without <code>.stack</code> or <code>aria-busy</code>.</li>
+        <li><b>Inline centring</b>: sign-in mocks set <code>text-align: center</code> on the card heading inline; the home mock does the same on <code>.auth-card</code>.</li>
+        <li><b>Unused variants</b>: <code>.card--success</code>, <code>.card--warning</code>, <code>.stat</code> and cover tints remain in ui.css but no mock uses them.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>The Debate App design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 2026-10-19</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

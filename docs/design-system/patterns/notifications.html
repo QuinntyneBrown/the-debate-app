@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notifications — Debate App design system</title>
+<meta name="description" content="Toasts and banners: when to use each, status variants, timing, stacking and accessible announcement.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Debate App DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/save-bar.html">Save bar</a></li>
+      <li><a href="../components/rich-text-editor.html">Rich-text editor</a></li>
+      <li><a href="../components/prose.html">Prose</a></li>
+      <li><a href="../components/tab-strip.html">Tab strip</a></li>
+      <li><a href="../components/meeting-row.html">Meeting row</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/navigation.html">Navigation</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Pattern · Feedback</p>
+      <h1>Notifications</h1>
+      <p class="ds-lead">A toast reports something that just happened and then gets out of the way. A banner reports something that is still true, and stays until it is no longer true or is dismissed.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Pattern</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#when">When to use</a></li><li><a href="#structure">Structure</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>A toast reports something that just happened and then gets out of the way. A banner reports something that is still true, or news that is waiting, and stays until it is no longer true or is dismissed. Both use four statuses: success, info, warning and danger, each with an icon, a title and words, never colour alone.</p>
+      <ul><li><b>Toast:</b> bottom of the screen (bottom right from 640px), 8 seconds, pauses on hover and focus, newest at the bottom.</li><li><b>Banner:</b> full width under the top bar, above the page content, one at a time.</li><li><b>Inline alert:</b> for a problem tied to one form or dialog; see <a href="../components/alert.html">Alert</a>.</li></ul>
+    </section>
+
+    <section class="ds-section" id="when"><h2><a href="#when">When to use</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">Situation</th><th scope="col">Use</th><th scope="col">Example</th></tr></thead><tbody><tr><td>An action finished and nothing else is needed</td><td>Success toast</td><td>"Meeting saved"</td></tr><tr><td>An action failed and the person can retry</td><td>Danger toast with an action</td><td>"We couldn't save the meeting" · Try again</td></tr><tr><td>The app state changed and may matter</td><td>Info toast</td><td>"Signed in as Jordan Reyes"</td></tr><tr><td>A condition persists</td><td>Banner</td><td>"You're offline. Changes can't be saved until the connection is back."</td></tr><tr><td>A failure inside a form or dialog</td><td>Inline alert</td><td>"We couldn't delete it"</td></tr><tr><td>Something that needs a decision</td><td>Dialog</td><td>See <a href="dialogs-and-overlays.html">Dialogs and overlays</a></td></tr></tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="structure"><h2><a href="#structure">Structure</a></h2>
+      <p>The toast region exists in the page from the start so assistive technology announces new toasts. Each toast has an icon, a title, one line of text, an optional action and a timer bar.</p>
+      <div class="ds-example"><div class="ds-example__canvas "><div class="toast-region toast-region--static" role="status" aria-live="polite"><div class="toast toast--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="toast__body"><div class="toast__title">Meeting saved</div><div class="toast__text">Universal basic income · 4:12 pm</div></div></div><div class="toast toast--info"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><div class="toast__body"><div class="toast__title">Signed in as Jordan Reyes</div><div class="toast__text">Your session lasts 2 hours.</div></div></div><div class="toast toast--warning"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/></svg><div class="toast__body"><div class="toast__title">Not saved yet</div><div class="toast__text">You're offline. We'll save as soon as you're back.</div></div></div><div class="toast toast--danger"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="toast__body"><div class="toast__title">We couldn't save the meeting</div><div class="toast__text">Your changes are still in the form.</div><button class="toast__action" type="button">Try again</button></div></div></div></div><div class="ds-example__caption"><span>Success, info, warning and danger toasts. The danger toast carries a Try again action. From <a href="../../mocks/notifications/toast/success.html">notifications/toast/success</a>, <a href="../../mocks/notifications/toast/info.html">notifications/toast/info</a>, <a href="../../mocks/notifications/toast/warning.html">notifications/toast/warning</a>, <a href="../../mocks/notifications/toast/danger.html">notifications/toast/danger</a> and <a href="../../mocks/notifications/toast/with-action.html">notifications/toast/with-action</a>.</span></div></div>      <div class="ds-example"><div class="ds-example__canvas "><div class="stack" style="width: 100%;"><div class="alert alert--warning banner" role="status"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/></svg><div class="alert__body"><div class="alert__title">You're offline.</div><div>Changes can't be saved until the connection is back.</div></div></div><div class="alert alert--danger banner" role="alert"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body"><div class="alert__title">We couldn't reach the server.</div><div>Showing the meetings loaded at 4:05 pm.</div><div class="alert__actions"><button type="button" class="btn btn--sm">Try again</button></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><div class="alert alert--info banner" role="status"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><div class="alert__body"><div class="alert__title">The club meets tomorrow at 7:00 pm.</div><div class="alert__actions"><a href="../../mocks/pages/meeting/default.html">Open the agenda</a></div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><div class="alert alert--success banner" role="status"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="alert__body"><div class="alert__title">You're back online.</div><div>Everything is up to date.</div></div><button class="close" type="button" aria-label="Dismiss"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div></div></div><div class="ds-example__caption"><span>Banners: warning (persistent, cannot be dismissed), danger, info and success. From <a href="../../mocks/notifications/banner/persistent.html">notifications/banner/persistent</a>, <a href="../../mocks/notifications/banner/danger.html">notifications/banner/danger</a>, <a href="../../mocks/notifications/banner/info.html">notifications/banner/info</a> and <a href="../../mocks/notifications/banner/success.html">notifications/banner/success</a>.</span></div></div>
+      <p>Components: <a href="../components/toast.html">Toast</a>, <a href="../components/alert.html">Alert</a>, <a href="../components/inline-message.html">Inline message</a>.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">State</th><th scope="col">Behaviour</th><th scope="col">Mock</th></tr></thead><tbody><tr><td>Success</td><td>Check icon, title, detail</td><td><a href="../../mocks/notifications/toast/success.html">notifications/toast/success</a> · <a href="../../mocks/notifications/banner/success.html">notifications/banner/success</a></td></tr><tr><td>Info</td><td>Info icon; auto-dismiss after 8 s</td><td><a href="../../mocks/notifications/toast/info.html">notifications/toast/info</a> · <a href="../../mocks/notifications/banner/info.html">notifications/banner/info</a></td></tr><tr><td>Warning</td><td>Triangle icon; for conditions that need attention</td><td><a href="../../mocks/notifications/toast/warning.html">notifications/toast/warning</a> · <a href="../../mocks/notifications/banner/warning.html">notifications/banner/warning</a></td></tr><tr><td>Danger</td><td>Alert icon; never auto-dismisses when it holds an action</td><td><a href="../../mocks/notifications/toast/danger.html">notifications/toast/danger</a> · <a href="../../mocks/notifications/banner/danger.html">notifications/banner/danger</a></td></tr><tr><td>With action</td><td>A link or button inside the toast</td><td><a href="../../mocks/notifications/toast/with-action.html">notifications/toast/with-action</a></td></tr><tr><td>Stacked</td><td>Up to three at once, newest at the bottom</td><td><a href="../../mocks/notifications/toast/stacked.html">notifications/toast/stacked</a></td></tr><tr><td>Persistent banner</td><td>Offline banner stays until the connection returns, then is replaced by "You're back online."</td><td><a href="../../mocks/notifications/banner/persistent.html">notifications/banner/persistent</a></td></tr></tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive</a></h2>
+      <ul><li>Under 640px toasts are full width at the bottom; from 640px they are 24rem wide at the bottom right.</li><li>Banners stack text and actions on phones and centre in one row from 640px.</li><li>Toasts never cover the save bar or a focused control; the page keeps bottom padding while one is showing.</li></ul>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <ul><li>The toast region is <code>role="status"</code> with <code>aria-live="polite"</code>; danger banners use <code>role="alert"</code>.</li><li>Toasts last 8 seconds, pause on hover and focus, and have a Dismiss control; danger toasts with an action do not time out (2.2.1).</li><li>Actions inside a toast are real links or buttons and are reachable by keyboard.</li><li>Status is icon plus title plus words, and each icon meets 3:1 on its surface in both themes.</li><li>Toast text is short enough to be read in the time available.</li></ul>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul><li>Title says what happened in past tense: "Meeting saved", "Meeting deleted".</li><li>Detail names the meeting or the next step: "Universal basic income · 4:12 pm".</li><li>Failures say what did not happen and what is safe: "We couldn't save the meeting" / "Your changes are still in the form."</li><li>Offline copy is consistent: "You're offline. Changes can't be saved until the connection is back."</li></ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont"><figure class="ds-do"><div class="ds-example__canvas"><div class="toast-region toast-region--static"><div class="toast toast--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="toast__body"><div class="toast__title">Meeting saved</div><div class="toast__text">Universal basic income · 4:12 pm</div></div></div></div></div><figcaption>Confirm quietly and name the thing that changed.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><div class="toast-region toast-region--static"><div class="toast toast--success"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div class="toast__body"><div class="toast__title">Success!</div><div class="toast__text">Operation completed.</div></div></div></div></div><figcaption>Announce generic success with no detail.</figcaption></figure></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Mocks this pattern was extracted from:</p>
+      <ul><li><a href="../../mocks/notifications/banner/danger.html">notifications/banner/danger</a></li><li><a href="../../mocks/notifications/banner/info.html">notifications/banner/info</a></li><li><a href="../../mocks/notifications/banner/persistent.html">notifications/banner/persistent</a></li><li><a href="../../mocks/notifications/banner/success.html">notifications/banner/success</a></li><li><a href="../../mocks/notifications/banner/warning.html">notifications/banner/warning</a></li><li><a href="../../mocks/notifications/toast/danger.html">notifications/toast/danger</a></li><li><a href="../../mocks/notifications/toast/info.html">notifications/toast/info</a></li><li><a href="../../mocks/notifications/toast/stacked.html">notifications/toast/stacked</a></li><li><a href="../../mocks/notifications/toast/success.html">notifications/toast/success</a></li><li><a href="../../mocks/notifications/toast/warning.html">notifications/toast/warning</a></li><li><a href="../../mocks/notifications/toast/with-action.html">notifications/toast/with-action</a></li></ul>
+    </section>
+
+    <footer class="ds-footer"><span>Debate App design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 2026-10-19</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

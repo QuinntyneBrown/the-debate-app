@@ -1,0 +1,46 @@
+@startuml
+title UML sequence behaviour — Validate a bearer token
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Member" as actor
+box "Frontend — Web client (api library)" #E0F2FE
+  participant "Bearer-token interceptor" as client
+end box
+box "Backend — REST API application" #D1FADF
+  participant "jwtAuth" as jwt
+  participant "requireAuth" as guard
+  participant "Resource router" as router
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "Resource service" as service
+end box
+actor -> client : Call a protected endpoint
+client -> jwt : Request with Authorization header
+alt no Authorization header (L2-014 criterion 2)
+  jwt -> guard : No user set
+  guard --> client : 401
+else token expired, wrong audience, wrong issuer or bad signature (L2-014 criterion 3)
+  jwt -> jwt : Verify signature, exp, iss, aud
+  jwt --> client : 401
+else token valid (L2-014 criterion 1)
+  jwt -> jwt : Verify signature, exp, iss, aud
+  jwt -> guard : req.user.name = name claim
+  guard -> router : Authorised
+  router -> service : Invoke action
+  service --> router : Result
+  router --> client : 200 JSON
+end
+client --> actor : Result or sign-in prompt
+@enduml

@@ -1,0 +1,28 @@
+@startuml
+title UML sequence behaviour — Navigate from a link
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Member" as actor
+box "Frontend — projects/components" #E0F2FE
+  participant "LinkComponent" as link
+end box
+box "Frontend — Angular framework" #D1FADF
+  participant "Router" as router
+end box
+actor -> link : Click
+link -> router : navigate(routeSegments) (L2-020 criteria 1 and 2)
+router --> link : Navigation resolved
+
+@enduml

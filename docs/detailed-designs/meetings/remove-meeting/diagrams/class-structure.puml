@@ -1,0 +1,59 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Remove a meeting
+
+class Meeting {
+  +id: number
+  +isDeleted: boolean
+}
+class MeetingService {
+  +remove(id: number): Promise<number>
+}
+class MeetingRepository {
+  +findById(id: number): Promise<Meeting | null>
+  +markDeleted(meeting: Meeting): Promise<void>
+}
+class MeetingsService <<Angular>> {
+  +remove(id: number): Observable<number>
+}
+class DeleteMeetingDialogComponent <<Angular>> {
+  +meetingName: string
+  +state: 'default' | 'busy' | 'failed'
+  +confirm: EventEmitter<void>
+  +cancel: EventEmitter<void>
+}
+class DiscardChangesDialogComponent <<Angular>> {
+  +meetingName: string
+  +discard: EventEmitter<void>
+  +keepEditing: EventEmitter<void>
+}
+class MeetingListComponent <<Angular>> {
+  +requestDelete(id: number): void
+}
+class MeetingEditComponent <<Angular>> {
+  +dirty: boolean
+  +canDeactivate(): boolean
+  +requestDelete(): void
+}
+class ToastService <<Angular>> {
+  +success(message: string): void
+  +danger(message: string, retry?: () => void): void
+}
+MeetingListComponent --> DeleteMeetingDialogComponent : opens
+MeetingEditComponent --> DeleteMeetingDialogComponent : opens
+MeetingEditComponent --> DiscardChangesDialogComponent : opens
+MeetingListComponent --> MeetingsService : calls
+MeetingEditComponent --> MeetingsService : calls
+MeetingListComponent ..> ToastService : raises
+MeetingService --> MeetingRepository : uses
+MeetingRepository --> Meeting : updates
+@enduml

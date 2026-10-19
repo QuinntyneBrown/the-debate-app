@@ -1,0 +1,47 @@
+@startuml
+title UML sequence behaviour — Network failure and settlement
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Club member" as actor
+box "Frontend — Web client (feature library)" #E0F2FE
+  participant "Feature component" as page
+end box
+box "Frontend — Web client (api library)" #E0F2FE
+  participant "ApiClient" as client
+  participant "ConnectivityService" as conn
+end box
+box "Backend — REST API application" #D1FADF
+  participant "Express router" as api
+end box
+actor -> page : Load meetings
+page -> client : request('GET', 'api/meeting/get')
+client -> api : GET
+alt connection fails (status 0)
+  api --> client : HttpErrorResponse status 0
+  client -> client : console.error(statusText) (L2-025 criterion 4)
+  client -> conn : report offline
+  client --> page : ApiError kind offline (settles, TO SUPPLY: legacy never settled)
+  page --> actor : Show error state with Try again
+else status 401
+  api --> client : 401
+  client --> page : ApiError kind unauthorized
+else status 5xx
+  api --> client : 5xx
+  client --> page : ApiError kind server
+  page --> actor : Show error state with Try again
+end
+actor -> page : Select Try again
+page -> client : request again
+@enduml

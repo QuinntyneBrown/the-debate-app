@@ -1,0 +1,36 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Seed data
+
+class Migrator {
+  +migrate(pool: Pool): Promise<void>
+}
+class MigrationFile {
+  +name: string
+  +sql: string
+}
+class SeedUser {
+  +username: string = "admin"
+  +password: string
+}
+class SeedMeeting {
+  +name: string = "Introduction"
+  +agenda: string = "Introduction"
+}
+class PasswordTransform {
+  +transform(plain: string): string
+}
+Migrator o-- "*" MigrationFile : applies in order
+MigrationFile ..> SeedUser : upserts
+MigrationFile ..> SeedMeeting : upserts
+SeedUser ..> PasswordTransform : password from
+@enduml

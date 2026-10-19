@@ -1,0 +1,25 @@
+@startuml
+title UML sequence behaviour — Read the Swagger description
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "API client" as actor
+box "Backend — REST API application" #D1FADF
+  participant "swaggerSetup" as sw
+end box
+actor -> sw : GET /swagger/docs/v1
+sw --> actor : OpenAPI document, title TheDebateApp, version v1 (L2-017 criterion 4)
+actor -> sw : GET /swagger/ui/index
+sw --> actor : Swagger UI (L2-017 criterion 4)
+@enduml

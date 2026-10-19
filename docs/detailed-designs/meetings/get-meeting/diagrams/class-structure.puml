@@ -1,0 +1,54 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Get a meeting
+
+class MeetingDto {
+  +id: number
+  +name: string
+  +date: string
+  +start: string
+  +end: string
+  +abstract: string
+  +agenda: string
+  +minutes: string
+}
+
+class Meeting {
+  +id: number
+  +isDeleted: boolean
+}
+class MeetingService {
+  +getById(id: number): Promise<MeetingDto>
+}
+class MeetingRepository {
+  +findById(id: number): Promise<Meeting | null>
+}
+class MeetingsService <<Angular>> {
+  +getById(id: number): Observable<MeetingDto>
+}
+class MeetingViewComponent <<Angular>> {
+  +meeting: MeetingDto | null
+  +state: 'loading' | 'error' | 'ready'
+  +load(): void
+}
+class MeetingEditComponent <<Angular>> {
+  +meetingId: number | null
+  +form: FormGroup
+  +load(): void
+}
+MeetingViewComponent --> MeetingsService : calls
+MeetingEditComponent --> MeetingsService : calls
+MeetingsService ..> MeetingDto : returns
+MeetingService ..> MeetingDto : returns
+MeetingService --> MeetingRepository : uses
+MeetingRepository --> Meeting : reads
+@enduml

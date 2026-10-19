@@ -1,0 +1,59 @@
+@startuml
+title UML sequence behaviour — Read digital asset records
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "API client" as actor
+box "Backend — REST API application" #D1FADF
+  participant "digitalAssets.routes" as routes
+  participant "jwtAuth middleware" as auth
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "DigitalAssetService" as service
+end box
+box "Backend — Infrastructure" #FFF4E5
+  participant "DigitalAssetRepository" as repo
+  database "PostgreSQL" as db
+end box
+alt list: GET api/digitalasset/get (anonymous)
+  actor -> routes : GET api/digitalasset/get
+  routes -> service : getAll()
+  service -> repo : findAll() where NOT is_deleted (L2-016 criterion 2)
+  repo -> db : SELECT id, name FROM digital_assets WHERE NOT is_deleted
+  db --> repo : Rows without bytes (L2-010 criterion 3)
+  repo --> service : DigitalAsset[]
+  service --> routes : DigitalAssetDto[]
+  routes --> actor : HTTP 200 with array of id and name
+else getById: GET api/digitalasset/getById?id={id}
+  actor -> routes : GET api/digitalasset/getById?id={id}
+  routes -> auth : Validate bearer token (L2-014)
+  alt no valid token (L2-010 criterion 4)
+    auth --> routes : Rejected
+    routes --> actor : HTTP 401
+  else token valid
+    routes -> service : getById(id)
+    service -> repo : findById(id) where NOT is_deleted
+    repo -> db : SELECT ... WHERE id = $1 AND NOT is_deleted
+    db --> repo : Row or none
+    repo --> service : DigitalAsset or null
+    alt record found
+      service --> routes : DigitalAssetDto
+      routes --> actor : HTTP 200 with id and name
+    else none found
+      service --> routes : Not found
+      routes --> actor : Failure response
+    end
+  end
+end
+@enduml

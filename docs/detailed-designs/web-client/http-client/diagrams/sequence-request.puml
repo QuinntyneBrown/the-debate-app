@@ -1,0 +1,47 @@
+@startuml
+title UML sequence behaviour — Send an API request
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Club member" as actor
+box "Frontend — Web client (feature library)" #E0F2FE
+  participant "Feature component" as page
+end box
+box "Frontend — Web client (api library)" #E0F2FE
+  participant "MeetingsService" as svc
+  participant "ApiClient" as client
+  participant "defaultHeadersInterceptor" as defaults
+end box
+box "Backend — REST API application" #D1FADF
+  participant "Express router" as api
+end box
+actor -> page : Trigger load or save
+page -> svc : add(meeting)
+svc -> client : request('POST', 'api/meeting/add', { data })
+client -> defaults : HttpRequest with JSON body
+defaults -> defaults : No headers option, set Content-Type application/json;charset=UTF-8 (L2-025 criterion 1)
+defaults -> api : POST body is JSON.stringify(data) (L2-025 criterion 1)
+alt status 200 (L2-025 criterion 3)
+  api --> client : 200 camelCase JSON
+  client --> svc : Parsed response
+  svc --> page : MeetingDto
+  page --> actor : Show result
+else status not 200 (L2-025 criterion 4)
+  api --> client : Non-200 status
+  client -> client : console.error(statusText)
+  client --> svc : Observable error ApiError
+  svc --> page : ApiError, the Observable settles
+  page --> actor : Show error state
+end
+@enduml

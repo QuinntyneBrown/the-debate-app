@@ -1,0 +1,53 @@
+@startuml
+title UML sequence behaviour — Navigate between routes
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Club member" as actor
+box "Frontend — Web client (the-debate-app shell)" #E0F2FE
+  participant "LinkComponent" as link
+  participant "Router" as router
+  participant "numericIdMatcher" as matcher
+  participant "appRoutes" as routes
+  participant "Router outlet" as outlet
+end box
+box "Frontend — Web client (feature library)" #E0F2FE
+  participant "Feature route component" as feature
+end box
+box "Frontend — Browser" #E0F2FE
+  participant "History API" as history
+end box
+actor -> link : Click link (segments)
+link -> router : navigate(segments)
+router -> routes : Match path against root table (L2-019)
+routes -> matcher : Test :id segment
+alt segment is numeric (L2-019 criterion 5)
+  matcher --> routes : Match with id
+  routes -> feature : loadChildren() lazy-loads feature routes
+  feature --> routes : Route component
+  routes -> outlet : Remove previous view, create new view (L2-019 criterion 8)
+  router -> history : pushState(new path) (L2-019 criterion 9)
+  router -> link : Update active class by path
+  outlet --> actor : Show view
+else segment is not numeric (L2-019 criterion 7)
+  matcher --> routes : No match
+  routes -> outlet : Render not-found page via ** route
+  outlet --> actor : Show "We can't find that page"
+end
+actor -> history : Browser back or forward (popstate)
+history -> router : Location changed
+router -> routes : Re-resolve from location path (L2-019 criterion 9)
+routes -> outlet : Replace view
+outlet --> actor : Show previous or next view
+@enduml

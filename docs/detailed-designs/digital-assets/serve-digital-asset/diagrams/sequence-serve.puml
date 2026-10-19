@@ -1,0 +1,56 @@
+@startuml
+title UML sequence behaviour — Serve a digital asset
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Browser or API client" as actor
+box "Backend — REST API application" #D1FADF
+  participant "digitalAssets.routes" as routes
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "DigitalAssetService" as service
+  participant "AssetCache" as cache
+end box
+box "Backend — Infrastructure" #FFF4E5
+  participant "DigitalAssetRepository" as repo
+  database "PostgreSQL" as db
+end box
+actor -> routes : GET api/digitalasset/serve?uniqueId={guid} or ?name={name}
+routes -> service : serve(uniqueId, name)
+service -> cache : get(key = uniqueId, or name when no uniqueId)
+alt cache hit (L2-012 criterion 4)
+  cache --> service : Cached asset
+else cache miss
+  cache --> service : none
+  alt uniqueId supplied (L2-012 criterion 1)
+    service -> repo : findByUniqueId(uniqueId)
+    repo -> db : SELECT ... WHERE unique_id = $1
+  else name supplied (L2-012 criterion 2)
+    service -> repo : findFirstByName(name)
+    repo -> db : SELECT ... WHERE name = $1 LIMIT 1
+  end
+  db --> repo : Row or none
+  repo --> service : DigitalAsset or null
+  opt asset found
+    service -> cache : set(key, asset) for 1000 seconds
+  end
+end
+alt asset available
+  service --> routes : bytes and contentType
+  routes --> actor : HTTP 200 with bytes, stored Content-Type, Cache-Control max-age=1000
+else no match (L2-012 criterion 3)
+  service --> routes : none
+  routes --> actor : HTTP 200 with no content
+end
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Upload a digital asset
+
+Person(p, "Uploader", "Adds files, for example images for a meeting")
+System_Boundary(app, "The Debate App") {
+  Container(spa, "Web client", "Angular", "SPA under frontend/projects")
+  Container(api, "REST API", "Node.js, TypeScript, Express", "Anonymous multipart upload endpoint")
+  ContainerDb(db, "PostgreSQL", "PostgreSQL", "Stores asset rows, content type and bytes")
+}
+Rel(p, spa, "Uses", "HTTPS")
+Rel(spa, api, "Calls", "JSON/HTTPS")
+Rel(api, db, "Reads and writes", "SQL")
+@enduml

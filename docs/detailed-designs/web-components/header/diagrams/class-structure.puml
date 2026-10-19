@@ -1,0 +1,33 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Header component
+
+class HeaderLink {
+  +label: string
+  +routeSegments: string[]
+}
+class HeaderComponent <<Angular>> {
+  +title: string
+  +links: HeaderLink[]
+  +titleClick: EventEmitter<void>
+  +onTitleClick(): void
+}
+class LinkComponent <<Angular>> {
+  +routeSegments: string[]
+}
+class AppComponent <<Angular>> {
+  +onTitleClick(): void
+}
+HeaderComponent o-- HeaderLink : links
+HeaderComponent *-- LinkComponent : renders
+AppComponent --> HeaderComponent : binds
+@enduml
