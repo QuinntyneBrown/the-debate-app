@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Empty state — The Debate App design system</title>
+<meta name="description" content="What a page shows when there are no meetings to list or its data could not load: icon, title, one sentence and the next action, in both themes.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Debate App DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/save-bar.html">Save bar</a></li>
+      <li><a href="../components/rich-text-editor.html">Rich-text editor</a></li>
+      <li><a href="../components/prose.html">Prose</a></li>
+      <li><a href="../components/tab-strip.html">Tab strip</a></li>
+      <li><a href="../components/meeting-row.html">Meeting row</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/navigation.html">Navigation</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Feedback</p>
+      <h1>Empty state</h1>
+      <p class="ds-lead">What a page shows when there is nothing to list yet, or when its data could not load: a round icon, a short title, one sentence, and the one thing to do next.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Composition</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Use an empty state in place of a list or a page body that has no content: the Meetings page before the first meeting exists, a meeting that failed to open, a session that has ended. It always offers a way forward.</p>
+      <ul>
+        <li><b>Empty</b> (<code>.empty</code>): nothing here yet, and that is fine. Accent icon. Used by Meetings when no meeting exists.</li>
+        <li><b>Error</b> (<code>.empty.empty--error</code>): this part of the page didn't load. Danger icon and Try again.</li>
+        <li>Whole-page problems (page not found, offline, sign in to continue, server error) use the same classes at page scale, with an <code>&lt;h1&gt;</code> and extra top padding; see <a href="error-page.html">error page</a>.</li>
+        <li>For a failed action, not a failed load, use an <a href="alert.html">alert</a> or a <a href="toast.html">toast</a>.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="empty" style="padding: var(--space-4);">
+            <div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div>
+            <h3 class="empty__title">No meetings yet</h3>
+            <p class="empty__text">Create the first one and the club has a place to meet.</p>
+            <div class="empty__actions"><a class="btn btn--primary" href="../../mocks/pages/meeting-create/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New meeting</a></div>
+          </div>
+          <span class="ds-callout" style="left: 60%; top: 10%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 80%; top: 38%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 90%; top: 56%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 78%; top: 84%;" aria-hidden="true">4</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Icon</b><small><code>.empty__icon</code>: 64px circle, accent-subtle (danger-bg for errors), 32px line icon, <code>aria-hidden</code>.</small></div></li>
+          <li><div><b>Title</b><small><code>.empty__title</code>: an <code>&lt;h2&gt;</code> in the h3 style (an <code>&lt;h1&gt;</code> at page scale); says what is (not) here.</small></div></li>
+          <li><div><b>Text</b><small><code>.empty__text</code>: one sentence, muted, 36ch max.</small></div></li>
+          <li><div><b>Actions</b><small><code>.empty__actions</code>: one primary action, optionally one secondary.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack ds-example__canvas--canvas">
+          <div class="empty">
+            <div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div>
+            <h3 class="empty__title">No meetings yet</h3>
+            <p class="empty__text">Create the first one and the club has a place to meet.</p>
+            <div class="empty__actions"><a class="btn btn--primary" href="../../mocks/pages/meeting-create/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New meeting</a></div>
+          </div>
+          <div class="empty empty--error">
+            <div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M2 2l20 20M7 18h11a4 4 0 0 0 1.5-7.7A7 7 0 0 0 8 8.5M4.5 10.5A4 4 0 0 0 7 18"/></svg></div>
+            <h3 class="empty__title">We couldn't open this meeting</h3>
+            <p class="empty__text">It may have been deleted, or the connection dropped.</p>
+            <div class="empty__actions"><button class="btn btn--primary" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg>Try again</button><a class="btn" href="../../mocks/pages/meetings/default.html">Back to meetings</a></div>
+          </div>
+        </div>
+        <div class="ds-example__caption"><span>Empty: no meetings exist. Error: the meeting page failed to load.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="empty empty--error"&gt;
+  &lt;div class="empty__icon"&gt;&lt;svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"&gt;…&lt;/svg&gt;&lt;/div&gt;
+  &lt;h2 class="empty__title"&gt;We couldn't open this meeting&lt;/h2&gt;
+  &lt;p class="empty__text"&gt;It may have been deleted, or the connection dropped.&lt;/p&gt;
+  &lt;div class="empty__actions"&gt;
+    &lt;button class="btn btn--primary" type="button"&gt;…Try again&lt;/button&gt;
+    &lt;a class="btn" href="/meetings"&gt;Back to meetings&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="One size in sections; page scale is the error page"><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">One size inside a page. The page-scale version, with the page heading and extra top padding, is the <a href="error-page.html">error page</a>.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>The block itself is static; its buttons and links carry the interactive states (see <a href="button.html">button</a>). What changes is which variant shows and which actions it offers.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">State</th><th scope="col">Example</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Empty, first run</th><td><div class="empty" style="padding: var(--space-4);"><div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><h3 class="empty__title">No meetings yet</h3><p class="empty__text">Create the first one and the club has a place to meet.</p><div class="empty__actions"><a class="btn btn--primary" href="../../mocks/pages/meeting-create/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New meeting</a></div></div></td></tr>
+          <tr><th scope="row">Error</th><td><div class="empty empty--error" style="padding: var(--space-4);"><div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M2 2l20 20M7 18h11a4 4 0 0 0 1.5-7.7A7 7 0 0 0 8 8.5M4.5 10.5A4 4 0 0 0 7 18"/></svg></div><h3 class="empty__title">We couldn't load the meetings</h3><p class="empty__text">Check your connection and try again.</p><div class="empty__actions"><button class="btn btn--primary" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg>Try again</button></div></div></td></tr>
+          <tr><th scope="row">Offline</th><td><div class="empty" style="padding: var(--space-4);"><div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M2 2l20 20M9 17a4 4 0 0 1 6 0M5 12a9 9 0 0 1 4-2.5M19 12a9 9 0 0 0-3-2M2 8a14 14 0 0 1 5-3M22 8a14 14 0 0 0-8-4"/></svg></div><h3 class="empty__title">You're offline</h3><p class="empty__text">Meetings will load again when the connection is back.</p><div class="empty__actions"><button class="btn btn--primary" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg>Try again</button></div></div></td></tr>
+          <tr><th scope="row">Action focus</th><td><div class="empty" style="padding: var(--space-4);"><div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div><h3 class="empty__title">We can't find that page</h3><div class="empty__actions"><a class="btn btn--primary" href="../../mocks/pages/meetings/default.html" data-state="focus">Back to meetings</a></div></div></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="empty" style="padding: var(--space-4);"><div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><h3 class="empty__title">No meetings yet</h3><p class="empty__text">Create the first one and the club has a place to meet.</p></div><div class="empty empty--error" style="padding: var(--space-4);"><div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></div><h3 class="empty__title">We couldn't load the meetings</h3></div></div>
+        <div data-theme="dark"><div class="empty" style="padding: var(--space-4);"><div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><h3 class="empty__title">No meetings yet</h3><p class="empty__text">Create the first one and the club has a place to meet.</p></div><div class="empty empty--error" style="padding: var(--space-4);"><div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></div><h3 class="empty__title">We couldn't load the meetings</h3></div></div>
+      </div>
+      <ul>
+        <li>No mock shows a retrying state: Try again does not change while the request runs. When built, it should become a loading button (<code>aria-busy="true"</code>); on success the real content replaces the whole block.</li>
+        <li>Examples here use <code>&lt;h3&gt;</code> because this page already has its headings; in the product the title is an <code>&lt;h2&gt;</code> under the page's <code>&lt;h1&gt;</code>.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>Centred at every width, with 48px top and bottom and 24px sides.</li>
+        <li>Text stops at 36 characters wide so it never runs the width of a desktop.</li>
+        <li>Two actions sit side by side and wrap, centred, when they don't fit ("Try again" and "Back to meetings").</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The empty icon reads <code>--color-accent-subtle</code> with <code>--color-fg-accent</code>; the error icon <code>--color-danger-bg</code> with <code>--color-danger-fg</code>. Title and text read <code>--color-fg-default</code> and <code>--color-fg-muted</code> on the page canvas. All are theme tokens; nothing in the component changes between themes.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Plain content: a heading, a paragraph and native buttons or links. No ARIA role. When it replaces content after a failed load, the page's live region (or the alert role on the retry result) announces the change; the block itself is not a live region.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd></td><td>Moves to the primary action, then the secondary.</td></tr>
+        <tr><td><kbd>Enter</kbd> (and <kbd>Space</kbd> on buttons)</td><td>Runs the action.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>Focus does not jump to the empty state. After Try again fails, focus stays on the button.</p>
+      <h3>Labelling</h3>
+      <p>The icon is decorative. The title is a real heading, so it shows in the heading list. Retry is a <code>&lt;button&gt;</code> (it is an action); "Back to meetings" is a link (it goes somewhere).</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Title on page</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Text on page</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Empty icon</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-accent-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Error icon</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-danger-bg" data-min="4.5"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>None.</p>
+      <h3>Touch</h3>
+      <p>Actions are medium or large buttons (40–48px) with 12px between them.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Title says what is here, not what is missing in the abstract: "No meetings yet", "We can't find that page".</li>
+        <li>Text says why it is fine, or what to check: "Create the first one and the club has a place to meet.", "Check your connection and try again."</li>
+        <li>The action is the next step, in the reader's words: "New meeting", "Try again", "Back to meetings", "Sign in".</li>
+        <li>Errors never blame the reader and never show codes in a section; "Something went wrong on our side" belongs on the server error page.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas" style="justify-content: center;"><button class="btn btn--primary" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg>Try again</button></div><figcaption>Try again is a button: it runs the request again. Every error mock does this.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas" style="justify-content: center;"><a class="btn btn--primary" href="#main"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg>Try again</a></div><figcaption>A link to <code>#main</code> dressed as a button; it reloads nothing and is announced as a link.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas ds-example__canvas--canvas"><div class="empty" style="padding: var(--space-4);"><div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><h3 class="empty__title">No meetings yet</h3><div class="empty__actions"><a class="btn btn--primary" href="../../mocks/pages/meeting-create/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New meeting</a></div></div></div><figcaption>One clear next step.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas ds-example__canvas--canvas"><div class="empty" style="padding: var(--space-4);"><div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><h3 class="empty__title">No data</h3></div></div><figcaption>A dead end: a technical title and nothing to do.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><code>&lt;div class="empty" style="padding-top: var(--space-16);"&gt;</code></div><figcaption>The four page-scale mocks (forbidden, not-found, offline, server-error) repeat this inline padding and use <code>&lt;span class="empty__icon"&gt;</code> where sections use a block; page scale needs a class, not a per-mock style.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><code>offline: &lt;div class="empty"&gt;</code> vs <code>server-error: &lt;div class="empty empty--error"&gt;</code></div><figcaption>Both are failures with Try again, but offline gets the accent icon and server-error the danger icon. Decide once: connectivity is recoverable (accent), a server fault is an error (danger).</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Icon background</td><td><code>--color-accent-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td></tr>
+          <tr><td>Icon</td><td><code>--color-fg-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td></tr>
+          <tr><td>Error icon background</td><td><code>--color-danger-bg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-bg" data-swatch></i><span data-token="--color-danger-bg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-bg" data-swatch></i><span data-token="--color-danger-bg"></span></span></td></tr>
+          <tr><td>Error icon</td><td><code>--color-danger-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td></tr>
+          <tr><td>Title</td><td><code>--color-fg-default</code>, <code>--text-h3</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Text</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Icon circle</td><td><code>--size-avatar-xl</code></td><td colspan="2"><span data-token="--size-avatar-xl"></span></td></tr>
+          <tr><td>Padding</td><td><code>--space-12</code> / <code>--space-6</code></td><td colspan="2"><span data-token="--space-12"></span> / <span data-token="--space-6"></span></td></tr>
+          <tr><td>Page-scale top padding</td><td><code>--space-16</code></td><td colspan="2"><span data-token="--space-16"></span></td></tr>
+          <tr><td>Gap</td><td><code>--space-3</code></td><td colspan="2"><span data-token="--space-3"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="empty"&gt;
+  &lt;div class="empty__icon"&gt;&lt;svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"&gt;…&lt;/svg&gt;&lt;/div&gt;
+  &lt;h2 class="empty__title"&gt;No meetings yet&lt;/h2&gt;
+  &lt;p class="empty__text"&gt;Create the first one and the club has a place to meet.&lt;/p&gt;
+  &lt;div class="empty__actions"&gt;&lt;a class="btn btn--primary" href="/meetings/new"&gt;…New meeting&lt;/a&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.empty</code></td><td>Centred column, 48 × 24px padding.</td></tr>
+        <tr><td><code>.empty--error</code></td><td>Danger-tinted icon.</td></tr>
+        <tr><td><code>.empty__icon</code></td><td>64px circle around an <code>.icon--lg</code>.</td></tr>
+        <tr><td><code>.empty__title</code></td><td>h3 style; use the right heading level.</td></tr>
+        <tr><td><code>.empty__text</code></td><td>Muted, 36ch max.</td></tr>
+        <tr><td><code>.empty__actions</code></td><td>Centred, wrapping button row.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks and from <a href="../assets/components.css">assets/ui.css</a> (<code>.empty*</code>):</p>
+      <ul>
+        <li>Empty: <a href="../../mocks/pages/meetings/empty.html">pages/meetings/empty</a></li>
+        <li>Error: <a href="../../mocks/pages/meetings/error.html">pages/meetings/error</a>, <a href="../../mocks/pages/meeting/error.html">pages/meeting/error</a>, <a href="../../mocks/pages/meeting-edit/error.html">pages/meeting-edit/error</a></li>
+        <li>Page scale: <a href="../../mocks/pages/not-found/default.html">not-found</a>, <a href="../../mocks/pages/offline/default.html">offline</a>, <a href="../../mocks/pages/server-error/default.html">server-error</a>, <a href="../../mocks/pages/forbidden/default.html">forbidden</a></li>
+      </ul>
+      <p>Drift recorded:</p>
+      <ul>
+        <li><b>Inline page padding</b>: the four page-scale mocks set <code>style="padding-top: var(--space-16);"</code> on <code>.empty</code>.</li>
+        <li><b>Icon element</b>: the mocks use <code>&lt;span class="empty__icon"&gt;</code>; this page uses a <code>&lt;div&gt;</code>. Both render the same.</li>
+        <li><b>Icon colour</b>: offline uses the accent icon, server-error the danger icon, for the same Try again recovery.</li>
+        <li><b>Hard-coded name</b>: server-error says "tell Jordan"; the copy should name a role or a link, not a person.</li>
+        <li><b>Duplicate copy</b>: meeting/error and meeting-edit/error are word for word the same, including "We couldn't open this meeting", even on the edit page.</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>The Debate App design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 2026-10-19</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

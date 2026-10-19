@@ -1,0 +1,18 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Manage architectures
+
+Container_Boundary(api, "REST API (backend/src/architectures)") {
+  Component(routes, "architecture.routes", "Express router", "Maps api/architecture/add, update, get, getById, remove")
+  Component(auth, "jwtAuth middleware", "Express middleware", "Validates the bearer token on protected routes")
+  Component(service, "ArchitectureService", "TypeScript class", "Add-or-update, read and soft-delete logic")
+  Component(repo, "ArchitectureRepository", "TypeScript class", "Finds non-deleted rows, inserts, updates, sets is_deleted")
+}
+ContainerDb(db, "PostgreSQL", "architectures table", "Persists records")
+
+Rel(routes, auth, "Applies to protected routes")
+Rel(routes, service, "Calls")
+Rel(service, repo, "Calls findById, findAll, insert, update, markDeleted")
+Rel(repo, db, "Reads and writes", "SQL")
+@enduml

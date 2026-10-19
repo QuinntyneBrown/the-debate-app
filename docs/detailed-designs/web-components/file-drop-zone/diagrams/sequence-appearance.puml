@@ -1,0 +1,29 @@
+@startuml
+title UML sequence behaviour — Apply appearance inputs
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+box "Frontend — Parent component" #D1FADF
+  participant "Parent" as parent
+end box
+box "Frontend — projects/components" #E0F2FE
+  participant "FileDropZoneComponent" as zone
+  participant "Host element" as host
+end box
+parent -> zone : Set height, width, backgroundColor, color or fontFamily
+zone -> host : Set --height, --width, --backgroundColor, --color or --fontFamily (L2-029 criterion 4)
+parent -> zone : Set caption (optional)
+zone -> zone : Render anchor text: caption or "Drop Zone" (L2-029 criterion 1)
+
+@enduml

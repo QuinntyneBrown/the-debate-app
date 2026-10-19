@@ -1,0 +1,47 @@
+@startuml
+title UML sequence behaviour — Remove a user
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Administrator" as actor
+box "Frontend — API client (api library)" #E0F2FE
+  participant "UsersService" as client
+end box
+box "Backend — REST API application" #D1FADF
+  participant "requireAuth" as guard
+  participant "users.routes" as routes
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "UserService" as service
+end box
+box "Backend — Infrastructure" #FFF4E5
+  participant "UserRepository" as repo
+  database "PostgreSQL" as db
+end box
+actor -> client : remove(id)
+client -> guard : DELETE api/user/remove?id={id}
+alt no valid bearer token (L2-008 criterion 4)
+  guard --> client : 401
+else valid bearer token (L2-008 criterion 5)
+  guard -> routes : Authorised
+  routes -> service : remove(id)
+  service -> repo : softDelete(id)
+  repo -> db : UPDATE users SET is_deleted = true
+  db --> repo : Row updated
+  repo --> service : true
+  service --> routes : id
+  routes --> client : 200 with id
+end
+client --> actor : Result
+@enduml

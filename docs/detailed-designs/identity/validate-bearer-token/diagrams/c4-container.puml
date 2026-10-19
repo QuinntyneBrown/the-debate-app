@@ -1,0 +1,13 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Validate a bearer token
+
+Person(member, "Member", "Signed-in user")
+System_Boundary(app, "The Debate App") {
+  Container(spa, "Web client", "Angular", "Attaches the bearer token")
+  Container(api, "REST API", "Node.js, Express, TypeScript", "Validates tokens, then runs handlers")
+}
+Rel(member, spa, "Uses", "HTTPS")
+Rel(spa, api, "Sends Authorization: Bearer", "JSON/HTTPS")
+@enduml

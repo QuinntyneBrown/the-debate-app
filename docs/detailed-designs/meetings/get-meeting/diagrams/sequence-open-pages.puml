@@ -1,0 +1,57 @@
+@startuml
+title UML sequence behaviour — Open the meeting page and the edit form
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Club administrator" as actor
+box "Frontend — Web client (meetings and api libraries)" #E0F2FE
+  participant "MeetingViewComponent or MeetingEditComponent" as page
+  participant "MeetingsService" as client
+end box
+box "Backend — REST API application" #D1FADF
+  participant "meetings.routes" as routes
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "MeetingService" as service
+end box
+box "Backend — Infrastructure" #FFF4E5
+  participant "MeetingRepository" as repo
+  database "PostgreSQL" as db
+end box
+actor -> page : Open /meeting/{id} or /meeting/{id}/edit
+page -> page : Show skeleton (loading state)
+page -> client : getById(id)
+client -> routes : GET api/meeting/getById?id={id}
+routes -> service : getById(id)
+service --> routes : MeetingDto or failure
+alt request succeeds (L2-024 criterion 2)
+  routes --> client : HTTP 200 with MeetingDto
+  client --> page : MeetingDto
+  alt read-only page
+    page --> actor : Show name, date and times, Edit, tabs Abstract, Agenda and Minutes
+  else edit form
+    page -> page : Heading Edit Meeting, set name, start, end and date as YYYY-MM-DD
+    page -> page : Set abstract, agenda and minutes as HTML in the editors
+    page --> actor : Show populated form
+  end
+else unknown id or connection failure
+  routes --> client : Non-2xx response or network error
+  client --> page : Error
+  page --> actor : Show We couldn't open this meeting with Try again and Back to meetings
+  opt actor selects Try again
+    actor -> page : Select Try again
+    page -> client : getById(id)
+  end
+end
+@enduml

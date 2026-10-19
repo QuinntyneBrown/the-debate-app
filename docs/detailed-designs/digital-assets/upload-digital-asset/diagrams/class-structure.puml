@@ -1,0 +1,50 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Upload a digital asset
+
+class FileDropZoneComponent <<Angular>> {
+  +caption: string
+  +dropped: EventEmitter<FormData>
+}
+class DigitalAssetsService <<Angular>> {
+  +upload(files: FormData): Observable<UploadResultDto>
+}
+class UploadResultDto {
+  +files: DigitalAssetDto[]
+}
+class DigitalAssetDto {
+  +id: number
+  +name: string
+}
+
+class DigitalAsset {
+  +id: number
+  +uniqueId: string
+  +name: string
+  +contentType: string
+  +bytes: Buffer
+  +isDeleted: boolean
+}
+
+class DigitalAssetService {
+  +store(fileName: string, contentType: string, bytes: Buffer): Promise<DigitalAssetDto>
+  -sanitiseFileName(raw: string): string
+}
+class DigitalAssetRepository {
+  +insert(asset: DigitalAsset): Promise<DigitalAsset>
+}
+DigitalAssetsService ..> UploadResultDto : returns
+UploadResultDto o-- "*" DigitalAssetDto
+DigitalAssetService --> DigitalAssetRepository : uses
+DigitalAssetService ..> DigitalAssetDto : returns
+DigitalAssetRepository --> DigitalAsset : persists
+@enduml

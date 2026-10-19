@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meetings · edge — The Debate App mocks</title>
+<meta name="mock:kind" content="page">
+<meta name="mock:screen" content="meetings">
+<meta name="mock:state" content="edge">
+<meta name="mock:requirements" content="L2-002 L2-004 L2-019 L2-023">
+<meta name="description" content="A very long motion title, a meeting without a date, one without an abstract, accented text.">
+<link rel="stylesheet" href="../../../design-system/tokens/tokens.css">
+<link rel="stylesheet" href="../../../design-system/assets/components.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__brand" href="../../pages/meetings/default.html"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h9a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3H9l-4 3v-3a3 3 0 0 1-1-2.2V8a3 3 0 0 1 0-3z"/><path d="M16 9h2a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3h-1l-3 3v-3"/></svg> The Debate App</a>
+  <nav class="topbar__nav" aria-label="Primary">
+    <a class="nav-link" href="../../pages/meetings/default.html" aria-current="page">Meetings</a>
+    <a class="nav-link" href="../../pages/meeting-create/default.html">New meeting</a>
+  </nav>
+  <span class="topbar__spacer"></span>
+  <button class="avatar avatar--sm avatar--sky" type="button" aria-label="Account menu for Jordan Reyes" aria-haspopup="menu" aria-expanded="false">J</button>
+</header>
+
+<main id="main" class="container">
+  <div class="page-header">
+    <div><h1>Meetings</h1><p class="subtitle">2 upcoming · 1 without a date</p></div>
+    <div class="cluster"><a class="btn btn--primary" href="../../pages/meeting-create/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New meeting</a></div>
+  </div>
+
+  <section class="stack" aria-labelledby="upcoming-h">
+    <h2 class="overline" id="upcoming-h">Upcoming</h2>
+    <ul class="list card card--flush">
+      <li class="meeting">
+        <div class="meeting__date" aria-hidden="true"><span class="meeting__day">3</span><span class="meeting__month">Nov</span></div>
+        <div class="meeting__body">
+          <div class="meeting__title"><a href="../../pages/meeting/default.html" title="This house believes that international sporting bodies should be legally required to publish the full environmental and human-rights assessments of every host-city bid before a vote is taken">This house believes that international sporting bodies should be legally required to publish the full environmental and human-rights assessments of every host-city bid before a vote is taken</a></div>
+          <div class="meeting__when">Tue 3 Nov · 7:00 pm–10:15 pm</div>
+          <div class="meeting__excerpt" title="A long abstract that wraps across several lines. A long abstract that wraps across several lines. A long abstract that wraps across several lines. A long abstract that wraps across several lines. A long abstract that wraps across several lines. A long abstract that wraps across several lines.">A long abstract that wraps across several lines. A long abstract that wraps across several lines. A long abstract that wraps across several lines. A long abstract that wraps across several lines. A long abstract that wraps across several lines. A long abstract that wraps across several lines.</div>
+        </div>
+        <div class="meeting__actions">
+          <a class="btn btn--ghost btn--sm btn--icon" href="../../pages/meeting-edit/default.html" aria-label="Edit This house believes that international sporting bodies should be legally required to publish the full environmental and human-rights assessments of every host-city bid before a vote is taken"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a>
+          <button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete This house believes that international sporting bodies should be legally required to publish the full environmental and human-rights assessments of every host-city bid before a vote is taken"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+        </div>
+      </li>
+      <li class="meeting">
+        <div class="meeting__date" aria-hidden="true"><span class="meeting__day">—</span><span class="meeting__month">tbc</span></div>
+        <div class="meeting__body">
+          <div class="meeting__title"><a href="../../pages/meeting/default.html" title="¿Debería la educación universitaria ser gratuita? — a bilingual debate">¿Debería la educación universitaria ser gratuita? — a bilingual debate</a></div>
+          <div class="meeting__when">Date not set</div>
+          <div class="meeting__excerpt text-muted" title="No abstract yet">No abstract yet</div>
+        </div>
+        <div class="meeting__actions">
+          <a class="btn btn--ghost btn--sm btn--icon" href="../../pages/meeting-edit/default.html" aria-label="Edit ¿Debería la educación universitaria ser gratuita? — a bilingual debate"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a>
+          <button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete ¿Debería la educación universitaria ser gratuita? — a bilingual debate"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="stack" aria-labelledby="past-h">
+    <h2 class="overline" id="past-h">Past</h2>
+    <ul class="list card card--flush">
+      <li class="meeting meeting--past">
+        <div class="meeting__date" aria-hidden="true"><span class="meeting__day">13</span><span class="meeting__month">Oct</span></div>
+        <div class="meeting__body">
+          <div class="meeting__title"><a href="../../pages/meeting/default.html">Universal basic income</a></div>
+          <div class="meeting__when">Tue 13 Oct · 7:00 pm–8:30 pm</div>
+          <div class="meeting__excerpt" title="Priya Nair proposes a long abstract. Priya Nair proposes a long abstract. Priya Nair proposes a long abstract. Priya Nair proposes a long abstract. Priya Nair proposes a long abstract. Priya Nair proposes a long abstract. Priya Nair proposes a long abstract. Priya Nair proposes a long abstract.">Priya Nair proposes a long abstract. Priya Nair proposes a long abstract. Priya Nair proposes a long abstract. Priya Nair proposes a long abstract. Priya Nair proposes a long abstract. Priya Nair proposes a long abstract. Priya Nair proposes a long abstract. Priya Nair proposes a long abstract.</div>
+        </div>
+        <div class="meeting__actions">
+          <a class="btn btn--ghost btn--sm btn--icon" href="../../pages/meeting-edit/default.html" aria-label="Edit Universal basic income"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a>
+          <button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete Universal basic income"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+        </div>
+      </li>
+      <li class="meeting meeting--past">
+        <div class="meeting__date" aria-hidden="true"><span class="meeting__day">29</span><span class="meeting__month">Sep</span></div>
+        <div class="meeting__body">
+          <div class="meeting__title"><a href="../../pages/meeting/default.html">Introduction</a></div>
+          <div class="meeting__when">Tue 29 Sep · 7:00 pm–8:00 pm</div>
+          <div class="meeting__excerpt text-muted" title="No abstract yet">No abstract yet</div>
+        </div>
+        <div class="meeting__actions">
+          <a class="btn btn--ghost btn--sm btn--icon" href="../../pages/meeting-edit/default.html" aria-label="Edit Introduction"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a>
+          <button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete Introduction"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+        </div>
+      </li>
+    </ul>
+  </section>
+</main>
+<p class="mock-note" style="top: 5.5rem; right: 1rem;">Long titles wrap; the excerpt stays one line with the full text on hover. A meeting with no date sits last among upcoming.</p>
+
+<nav class="mock-bar" aria-label="Mock navigation">
+  <a class="mock-bar__home" href="../../index.html" aria-label="All mocks">⌂</a>
+  <span class="mock-bar__screen">Meetings</span>
+  <ul class="mock-bar__states"><li><a href="default.html">default</a></li><li><a href="loading.html">loading</a></li><li><a href="empty.html">empty</a></li><li><a href="error.html">error</a></li><li><a href="long.html">long</a></li><li><a href="edge.html" aria-current="page">edge</a></li></ul>
+  <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button>
+  <button type="button" data-chrome-toggle aria-label="Hide mock chrome">×</button>
+</nav>
+<script src="../../assets/mock.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Save a meeting
+
+class MeetingDto {
+  +id: number
+  +name: string
+  +date: string
+  +start: string
+  +end: string
+  +abstract: string
+  +agenda: string
+  +minutes: string
+}
+
+class Meeting {
+  +id: number
+  +name: string
+  +date: Date | null
+  +start: string
+  +end: string
+  +abstract: string
+  +agenda: string
+  +minutes: string
+  +isDeleted: boolean
+}
+
+class MeetingService {
+  +addOrUpdate(dto: MeetingDto): Promise<MeetingDto>
+}
+
+class MeetingRepository {
+  +findById(id: number): Promise<Meeting | null>
+  +insert(meeting: Meeting): Promise<Meeting>
+  +update(meeting: Meeting): Promise<void>
+}
+
+class MeetingsService <<Angular>> {
+  +add(meeting: MeetingDto): Observable<MeetingDto>
+}
+
+class MeetingEditComponent <<Angular>> {
+  +meetingId: number | null
+  +form: FormGroup
+  +save(): void
+}
+
+MeetingEditComponent --> MeetingsService : calls
+MeetingsService ..> MeetingDto : sends
+MeetingService ..> MeetingDto : accepts
+MeetingService --> MeetingRepository : uses
+MeetingRepository --> Meeting : persists
+@enduml

@@ -1,0 +1,42 @@
+@startuml
+title UML sequence behaviour — Migrate and seed at start
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Operator" as actor
+box "Backend — REST API application" #D1FADF
+  participant "main.ts" as main
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "migrate" as migrate
+end box
+box "Backend — Infrastructure" #FFF4E5
+  database "PostgreSQL" as db
+end box
+actor -> main : Start API
+main -> migrate : migrate(pool) (L2-018 criterion 4)
+migrate -> db : SELECT applied migrations
+db --> migrate : Applied names
+loop each unapplied migration file
+  migrate -> db : Execute SQL
+end
+alt empty database (L2-018 criteria 1 and 2)
+  migrate -> db : INSERT user admin and meeting Introduction
+else rows exist (L2-018 criterion 3)
+  migrate -> db : UPDATE user by username, meeting by name
+end
+db --> migrate : Committed
+migrate --> main : Done
+main -> main : Listen for requests
+@enduml

@@ -1,0 +1,52 @@
+@startuml
+title UML sequence behaviour — Add or update architectureItem
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "API client" as actor
+box "Backend — REST API application" #D1FADF
+  participant "architectureItem.routes" as routes
+  participant "jwtAuth middleware" as auth
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "ArchitectureItemService" as service
+end box
+box "Backend — Infrastructure" #FFF4E5
+  participant "ArchitectureItemRepository" as repo
+  database "PostgreSQL" as db
+end box
+actor -> routes : POST api/architectureItem/add or PUT api/architectureItem/update (JSON)
+routes -> auth : Validate bearer token (L2-014)
+alt no valid token (L2-007 criterion 4)
+  auth --> routes : Rejected
+  routes --> actor : HTTP 401
+else token valid
+  routes -> service : addOrUpdate(dto)
+  service -> repo : findById(dto.id) among non-deleted (L2-016 criterion 3)
+  repo -> db : SELECT ... WHERE id = $1 AND NOT is_deleted
+  db --> repo : Row or none
+  repo --> service : ArchitectureItem or null
+  alt non-deleted record found (L2-007 criterion 2)
+    service -> repo : update(name)
+    repo -> db : UPDATE architecture_items
+  else none found or soft-deleted (L2-007 criterion 1)
+    service -> repo : insert(new architectureItem with a null architectureId)
+    repo -> db : INSERT INTO architecture_items
+  end
+  db --> repo : Saved row
+  repo --> service : ArchitectureItem
+  service --> routes : ArchitectureItemDto
+  routes --> actor : HTTP 200 with camelCase JSON (L2-017)
+end
+@enduml

@@ -1,0 +1,39 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Manage articles
+
+class ArticleDto {
+  +id: number
+  +title: string
+}
+class Article {
+  +id: number
+  +title: string
+  +isDeleted: boolean
+}
+class ArticleService {
+  +addOrUpdate(dto: ArticleDto): Promise<ArticleDto>
+  +getAll(): Promise<ArticleDto[]>
+  +getById(id: number): Promise<ArticleDto>
+  +remove(id: number): Promise<number>
+}
+class ArticleRepository {
+  +findById(id: number): Promise<Article | null>
+  +findAll(): Promise<Article[]>
+  +insert(entity: Article): Promise<Article>
+  +update(entity: Article): Promise<void>
+  +markDeleted(entity: Article): Promise<void>
+}
+ArticleService ..> ArticleDto : accepts and returns
+ArticleService --> ArticleRepository : uses
+ArticleRepository --> Article : persists
+@enduml

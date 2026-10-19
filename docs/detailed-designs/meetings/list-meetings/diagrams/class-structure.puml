@@ -1,0 +1,65 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — List meetings
+
+class MeetingDto {
+  +id: number
+  +name: string
+  +date: string
+  +start: string
+  +end: string
+  +abstract: string
+  +agenda: string
+  +minutes: string
+}
+
+class Meeting {
+  +id: number
+  +name: string
+  +date: Date | null
+  +start: string
+  +end: string
+  +abstract: string
+  +agenda: string
+  +minutes: string
+  +isDeleted: boolean
+}
+class MeetingService {
+  +getAll(): Promise<MeetingDto[]>
+}
+class MeetingRepository {
+  +findAll(): Promise<Meeting[]>
+}
+class MeetingsService <<Angular>> {
+  +getAll(): Observable<MeetingDto[]>
+}
+class MeetingListComponent <<Angular>> {
+  +meetings: MeetingDto[]
+  +state: 'loading' | 'empty' | 'error' | 'ready'
+  +load(): void
+  +onEdit(id: number): void
+  +onView(id: number): void
+  +onDelete(id: number): void
+}
+class MeetingItemComponent <<Angular>> {
+  +meeting: MeetingDto
+  +edit: EventEmitter<number>
+  +view: EventEmitter<number>
+  +delete: EventEmitter<number>
+}
+MeetingListComponent --> MeetingsService : calls
+MeetingListComponent *-- "*" MeetingItemComponent : renders
+MeetingsService ..> MeetingDto : returns
+MeetingService ..> MeetingDto : returns
+MeetingService --> MeetingRepository : uses
+MeetingRepository --> Meeting : reads
+@enduml

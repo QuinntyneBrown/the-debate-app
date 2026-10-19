@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meeting row — Debate App design system</title>
+<meta name="description" content="A meeting row lists one debate meeting: a date tile, a title that opens the meeting, when it runs, an excerpt and edit and delete actions that appear on hover or focus.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Debate App DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/save-bar.html">Save bar</a></li>
+      <li><a href="../components/rich-text-editor.html">Rich-text editor</a></li>
+      <li><a href="../components/prose.html">Prose</a></li>
+      <li><a href="../components/tab-strip.html">Tab strip</a></li>
+      <li><a href="../components/meeting-row.html">Meeting row</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/navigation.html">Navigation</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Lists</p>
+      <h1>Meeting row</h1>
+      <p class="ds-lead">One row per meeting on the Meetings page. The whole row opens the meeting; Edit and Delete sit on top of it and appear when you hover or focus the row.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;li&gt;</code> + <code>&lt;a&gt;</code></span><span class="ds-pill">L2-023</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Use a meeting row inside a <a href="list.html">list</a> card (<code>.list.card.card--flush</code>) wherever meetings are listed: Upcoming and Past on the Meetings page. Use a <a href="card.html">card</a> for a single meeting on its own page, and a plain <a href="link.html">link</a> for a mention inside text.</p>
+      <ul>
+        <li><b>Date tile</b> shows day and month at a glance and is hidden from assistive technology; the same date is in the "when" line.</li>
+        <li><b>Title link</b> is the only link that opens the meeting. Its <code>::after</code> is stretched over the whole row, so the full row is one large click target without nesting interactive content in a link.</li>
+        <li><b>When and excerpt</b> give the time range and the first line of the abstract; the excerpt truncates to one line.</li>
+        <li><b>Actions</b> (Edit, Delete) are ghost icon buttons raised above the stretched link. They show on hover and keyboard focus on wide screens and always on touch and narrow screens.</li>
+        <li><b>Past</b> (<code>.meeting--past</code>) greys the date tile for meetings that have already happened.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <ul class="list card card--flush" style="width: 100%;"><li class="meeting" data-state="hover"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">20</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">Should cities ban cars from downtown?</a></div><div class="meeting__when">Tomorrow · 7:00 pm–8:30 pm</div><div class="meeting__excerpt">This house would ban private cars from city centres. Lena Fischer proposes; Tom Okafor opposes.</div></div><div class="meeting__actions"><a class="btn btn--ghost btn--sm btn--icon" href="../../mocks/pages/meeting-edit/default.html" aria-label="Edit Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li></ul>
+          <span class="ds-callout" style="left: 4%; top: 30%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 24%; top: 12%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 24%; top: 50%;" aria-hidden="true">3</span>
+          <span class="ds-callout" style="left: 24%; top: 74%;" aria-hidden="true">4</span>
+          <span class="ds-callout" style="left: 90%; top: 40%;" aria-hidden="true">5</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Date tile</b><small><code>.meeting__date</code>: day in <code>--font-size-2xl</code> bold, month as overline, <code>--color-accent-subtle</code> fill, <code>aria-hidden="true"</code>.</small></div></li>
+          <li><div><b>Title link</b><small><code>.meeting__title a</code>, <code>--text-h4</code>; its <code>::after</code> covers the row (<code>inset: 0</code>).</small></div></li>
+          <li><div><b>When</b><small><code>.meeting__when</code>: relative day or weekday and date, then start–end times, in <code>--color-fg-muted</code>.</small></div></li>
+          <li><div><b>Excerpt</b><small><code>.meeting__excerpt</code>: one line, ellipsis on overflow.</small></div></li>
+          <li><div><b>Actions</b><small><code>.meeting__actions</code>: <code>--z-raised</code> so they sit above the stretched link; each icon button names the meeting.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <p>Two variants: upcoming (default) and past. Past only changes the date tile; the row stays fully interactive so minutes can still be edited.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack"><ul class="list card card--flush" style="width: 100%;"><li class="meeting"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">20</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">Should cities ban cars from downtown?</a></div><div class="meeting__when">Tomorrow · 7:00 pm–8:30 pm</div><div class="meeting__excerpt">This house would ban private cars from city centres. Lena Fischer proposes; Tom Okafor opposes.</div></div><div class="meeting__actions"><a class="btn btn--ghost btn--sm btn--icon" href="../../mocks/pages/meeting-edit/default.html" aria-label="Edit Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li><li class="meeting meeting--past"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">13</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">Universal basic income</a></div><div class="meeting__when">Tue 13 Oct · 7:00 pm–8:30 pm</div><div class="meeting__excerpt">This house would introduce a universal basic income. Priya Nair proposes; Samir Haddad opposes.</div></div><div class="meeting__actions"><a class="btn btn--ghost btn--sm btn--icon" href="../../mocks/pages/meeting-edit/default.html" aria-label="Edit Universal basic income"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete Universal basic income"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li></ul></div>
+        <div class="ds-example__caption"><span>Upcoming and past, as on the Meetings page. Hover or focus a row on a wide pointer device to reveal Edit and Delete.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;ul class="list card card--flush"&gt;
+  &lt;li class="meeting"&gt;
+    &lt;div class="meeting__date" aria-hidden="true"&gt;&lt;span class="meeting__day"&gt;20&lt;/span&gt;&lt;span class="meeting__month"&gt;Oct&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="meeting__body"&gt;
+      &lt;div class="meeting__title"&gt;&lt;a href="/meetings/20"&gt;Should cities ban cars from downtown?&lt;/a&gt;&lt;/div&gt;
+      &lt;div class="meeting__when"&gt;Tomorrow · 7:00 pm–8:30 pm&lt;/div&gt;
+      &lt;div class="meeting__excerpt"&gt;This house would ban private cars from city centres.&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="meeting__actions"&gt;
+      &lt;a class="btn btn--ghost btn--sm btn--icon" href="/meetings/20/edit" aria-label="Edit Should cities ban cars from downtown?"&gt;…&lt;/a&gt;
+      &lt;button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete Should cities ban cars from downtown?"&gt;…&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li class="meeting meeting--past"&gt;…&lt;/li&gt;
+&lt;/ul&gt;</code></pre></details>
+      </div>
+      <h3>Without actions</h3>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack"><ul class="list card card--flush" style="width: 100%;"><li class="meeting meeting--past"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">29</span><span class="meeting__month">Sep</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">Introduction</a></div><div class="meeting__when">Tue 29 Sep · 7:00 pm–8:00 pm</div><div class="meeting__excerpt">First meeting of the season: who we are, how a debate runs.</div></div></li></ul></div>
+        <div class="ds-example__caption"><span>For a signed-out visitor the actions are omitted; the row stays one link.</span></div>
+        
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="A meeting row has one size; its height follows its content. Action buttons are small (36px) and the date tile is at least 3.5rem wide."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">A meeting row has one size; its height follows its content. Action buttons are small (36px) and the date tile is at least 3.5rem wide.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Hover and focus are forced with <code>data-state</code> on the row (and on the title link for link hover); real pages use <code>:hover</code>, <code>:focus-within</code> and <code>:has(a:focus-visible)</code>. On a wide pointer device the actions are transparent until the row is hovered or contains focus; the matrix shows both outcomes.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Row</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Link hover</th><th scope="col">Past</th><th scope="col">Delete busy</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Meeting</th><td><div style="min-width: 20rem;"><ul class="list card card--flush" style="width: 100%;"><li class="meeting"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">20</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">Should cities ban cars from downtown?</a></div><div class="meeting__when">Tomorrow · 7:00 pm–8:30 pm</div><div class="meeting__excerpt">This house would ban private cars from city centres. Lena Fischer proposes; Tom Okafor opposes.</div></div><div class="meeting__actions"><a class="btn btn--ghost btn--sm btn--icon" href="../../mocks/pages/meeting-edit/default.html" aria-label="Edit Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li></ul></div></td><td><div style="min-width: 20rem;"><ul class="list card card--flush" style="width: 100%;"><li class="meeting" data-state="hover"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">20</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">Should cities ban cars from downtown?</a></div><div class="meeting__when">Tomorrow · 7:00 pm–8:30 pm</div><div class="meeting__excerpt">This house would ban private cars from city centres. Lena Fischer proposes; Tom Okafor opposes.</div></div><div class="meeting__actions"><a class="btn btn--ghost btn--sm btn--icon" href="../../mocks/pages/meeting-edit/default.html" aria-label="Edit Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li></ul></div></td><td><div style="min-width: 20rem;"><ul class="list card card--flush" style="width: 100%;"><li class="meeting" data-state="focus"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">20</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">Should cities ban cars from downtown?</a></div><div class="meeting__when">Tomorrow · 7:00 pm–8:30 pm</div><div class="meeting__excerpt">This house would ban private cars from city centres. Lena Fischer proposes; Tom Okafor opposes.</div></div><div class="meeting__actions"><a class="btn btn--ghost btn--sm btn--icon" href="../../mocks/pages/meeting-edit/default.html" aria-label="Edit Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li></ul></div></td><td><div style="min-width: 20rem;"><ul class="list card card--flush" style="width: 100%;"><li class="meeting"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">20</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html" data-state="hover">Should cities ban cars from downtown?</a></div><div class="meeting__when">Tomorrow · 7:00 pm–8:30 pm</div><div class="meeting__excerpt">This house would ban private cars from city centres. Lena Fischer proposes; Tom Okafor opposes.</div></div><div class="meeting__actions"><a class="btn btn--ghost btn--sm btn--icon" href="../../mocks/pages/meeting-edit/default.html" aria-label="Edit Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li></ul></div></td><td><div style="min-width: 20rem;"><ul class="list card card--flush" style="width: 100%;"><li class="meeting meeting--past"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">13</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">Universal basic income</a></div><div class="meeting__when">Tue 13 Oct · 7:00 pm–8:30 pm</div><div class="meeting__excerpt">This house would introduce a universal basic income. Priya Nair proposes; Samir Haddad opposes.</div></div><div class="meeting__actions"><a class="btn btn--ghost btn--sm btn--icon" href="../../mocks/pages/meeting-edit/default.html" aria-label="Edit Universal basic income"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete Universal basic income"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li></ul></div></td><td><div style="min-width: 20rem;"><ul class="list card card--flush" style="width: 100%;"><li class="meeting" data-state="hover"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">20</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">Should cities ban cars from downtown?</a></div><div class="meeting__when">Tomorrow · 7:00 pm–8:30 pm</div><div class="meeting__excerpt">This house would ban private cars from city centres. Lena Fischer proposes; Tom Okafor opposes.</div></div><div class="meeting__actions"><a class="btn btn--ghost btn--sm btn--icon" href="../../mocks/pages/meeting-edit/default.html" aria-label="Edit Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete Should cities ban cars from downtown?" aria-busy="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li></ul></div></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><ul class="list card card--flush" style="width: 100%;"><li class="meeting" data-state="hover"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">20</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">Should cities ban cars from downtown?</a></div><div class="meeting__when">Tomorrow · 7:00 pm–8:30 pm</div><div class="meeting__excerpt">This house would ban private cars from city centres. Lena Fischer proposes; Tom Okafor opposes.</div></div><div class="meeting__actions"><a class="btn btn--ghost btn--sm btn--icon" href="../../mocks/pages/meeting-edit/default.html" aria-label="Edit Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li><li class="meeting meeting--past"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">13</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">Universal basic income</a></div><div class="meeting__when">Tue 13 Oct · 7:00 pm–8:30 pm</div><div class="meeting__excerpt">This house would introduce a universal basic income. Priya Nair proposes; Samir Haddad opposes.</div></div><div class="meeting__actions"><a class="btn btn--ghost btn--sm btn--icon" href="../../mocks/pages/meeting-edit/default.html" aria-label="Edit Universal basic income"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete Universal basic income"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li></ul></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><ul class="list card card--flush" style="width: 100%;"><li class="meeting" data-state="hover"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">20</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">Should cities ban cars from downtown?</a></div><div class="meeting__when">Tomorrow · 7:00 pm–8:30 pm</div><div class="meeting__excerpt">This house would ban private cars from city centres. Lena Fischer proposes; Tom Okafor opposes.</div></div><div class="meeting__actions"><a class="btn btn--ghost btn--sm btn--icon" href="../../mocks/pages/meeting-edit/default.html" aria-label="Edit Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li><li class="meeting meeting--past"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">13</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">Universal basic income</a></div><div class="meeting__when">Tue 13 Oct · 7:00 pm–8:30 pm</div><div class="meeting__excerpt">This house would introduce a universal basic income. Priya Nair proposes; Samir Haddad opposes.</div></div><div class="meeting__actions"><a class="btn btn--ghost btn--sm btn--icon" href="../../mocks/pages/meeting-edit/default.html" aria-label="Edit Universal basic income"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete Universal basic income"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li></ul></div></div>
+      </div>
+      <ul>
+        <li><b>Hover</b>: <code>--color-bg-subtle</code> background; the title turns <code>--color-fg-accent</code>; actions fade in over <code>--duration-fast</code>.</li>
+        <li><b>Focus</b>: the title link takes focus; the row shows the shared ring inside its edge (offset by minus <code>--focus-ring-width</code>) so rows in a flush card do not clip it. Actions are revealed by <code>:focus-within</code>.</li>
+        <li><b>Loading</b>: a <a href="skeleton.html">skeleton</a> row stands in; the row itself has no loading state. <b>Disabled</b> does not apply: a meeting is always openable.</li>
+        <li><b>Deleting</b>: the Delete button opens a confirmation <a href="dialog.html">dialog</a>; while the request runs it carries <code>aria-busy="true"</code> (see <a href="button.html">button</a>).</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li><b>Under 48rem</b>: two columns (date tile, body). Actions form a second line under the text, always visible, nudged left by <code>--space-2</code> to align icon with text.</li>
+        <li><b>48rem and up with <code>hover: hover</code></b>: three columns; actions are a right-hand column with <code>opacity: 0</code> until the row is hovered or has focus inside.</li>
+        <li><b>48rem and up with <code>hover: none</code></b> (tablets, touch laptops): three columns, actions always visible, since touch cannot hover.</li>
+        <li>The body has <code>min-width: 0</code> so a long title wraps and a long excerpt truncates instead of widening the card (see the <a href="../../mocks/pages/meetings/long.html">long</a> mock).</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The row reads semantic tokens only: <code>--color-accent-subtle</code> and <code>--color-fg-accent</code> for the upcoming tile, <code>--color-bg-subtle</code> and <code>--color-fg-muted</code> for the past tile, <code>--color-bg-subtle</code> for hover and <code>--color-border-default</code> for the divider. Dark mode swaps these through the theme tokens; nothing in the row is theme-specific.</p>
+      <pre><code>/* A denser list reassigns spacing only; it never edits .meeting */
+.compact .meeting { padding: var(--space-3); gap: var(--space-3); }</code></pre>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>A list item in a <code>&lt;ul&gt;</code> that has a heading before it (Upcoming, Past). The title is one native <code>&lt;a href&gt;</code>; the whole-row hit area is a pseudo-element on that link, so there is a single link per meeting and no nested interactive content. Edit is an <code>&lt;a&gt;</code> (it navigates), Delete is a <code>&lt;button type="button"&gt;</code> (it opens a dialog). The date tile is <code>aria-hidden="true"</code>; the same date is read from the "when" line.</p>
+      <h3>Keyboard</h3>
+<table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves through title link, Edit, Delete for each row in DOM order. Focusing any of them reveals the actions.</td></tr>
+        <tr><td><kbd>Enter</kbd> on the title</td><td>Opens the meeting.</td></tr>
+        <tr><td><kbd>Enter</kbd> on Edit</td><td>Opens the edit page.</td></tr>
+        <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd> on Delete</td><td>Opens the Delete meeting dialog.</td></tr>
+      </tbody></table>
+      <p>Hidden actions are only visually hidden (<code>opacity: 0</code>), never <code>display: none</code>, so they stay in the tab order and a keyboard user reaches them without a pointer. Where hover is unavailable (<code>hover: none</code>) they are always shown.</p>
+      <h3>Focus</h3>
+      <p>The ring is drawn on the row (<code>:has(.meeting__title a:focus-visible)</code>) in <code>--color-focus-ring</code>, inside the edge. The link's own outline is removed because the row ring replaces it. Edit and Delete use the standard button ring.</p>
+      <h3>Labelling</h3>
+      <p>The title is the link name. Each icon button names verb and meeting: "Edit Universal basic income", "Delete Universal basic income", so a list of buttons is unambiguous in a screen reader's links and buttons lists. Do not add a "Read more" link; the title is the link.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Title on row</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Title on hover</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-bg-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>When and excerpt on row</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>When and excerpt on hover</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Upcoming date tile</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-accent-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Past date tile</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-subtle" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring on row</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-surface" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>Background and action opacity transition over <code>--duration-fast</code>; the tokens zero it under <code>prefers-reduced-motion</code>. Nothing moves.</p>
+      <h3>Touch</h3>
+      <p>The whole row is the target (well over 44px). Action buttons are 36px with <code>--space-1</code> between them; on touch they are always visible so nothing depends on hover.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>The title is the meeting name, as typed: "Should cities ban cars from downtown?". Never "Meeting 12".</li>
+        <li>When reads "Tomorrow · 7:00 pm–8:30 pm" within a week and "Tue 27 Oct · 7:00 pm–8:30 pm" beyond; times use a lowercase am/pm and an en dash.</li>
+        <li>The excerpt is the first sentence or two of the abstract as plain text, one line.</li>
+        <li>Action names are "Edit {meeting name}" and "Delete {meeting name}". Sentence case, no ellipsis.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><ul class="list card card--flush" style="width: 100%;"><li class="meeting"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">20</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">Should cities ban cars from downtown?</a></div><div class="meeting__when">Tomorrow · 7:00 pm–8:30 pm</div><div class="meeting__excerpt">This house would ban private cars from city centres. Lena Fischer proposes; Tom Okafor opposes.</div></div><div class="meeting__actions"><a class="btn btn--ghost btn--sm btn--icon" href="../../mocks/pages/meeting-edit/default.html" aria-label="Edit Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li></ul></div><figcaption>The title is the link and the whole row opens the meeting. Actions are separate controls.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><ul class="list card card--flush" style="width: 100%;"><li class="meeting"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">20</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title">Should cities ban cars from downtown?</div><div class="meeting__when">Tomorrow · 7:00 pm–8:30 pm</div><div class="meeting__excerpt">This house would ban private cars from city centres.</div><a href="../../mocks/pages/meeting/default.html">Read more</a></div></li></ul></div><figcaption>A bare title and a "Read more" link: two names for one destination and a small target. Make the title the link.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><ul class="list card card--flush" style="width: 100%;"><li class="meeting" data-state="focus"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">20</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">Should cities ban cars from downtown?</a></div><div class="meeting__when">Tomorrow · 7:00 pm–8:30 pm</div><div class="meeting__excerpt">This house would ban private cars from city centres. Lena Fischer proposes; Tom Okafor opposes.</div></div><div class="meeting__actions"><a class="btn btn--ghost btn--sm btn--icon" href="../../mocks/pages/meeting-edit/default.html" aria-label="Edit Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></a><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete Should cities ban cars from downtown?"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li></ul></div><figcaption>Actions stay in the tab order and appear on focus, so keyboard users get Edit and Delete.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><ul class="list card card--flush" style="width: 100%;"><li class="meeting"><div class="meeting__date" aria-hidden="true"><span class="meeting__day">20</span><span class="meeting__month">Oct</span></div><div class="meeting__body"><div class="meeting__title"><a href="../../mocks/pages/meeting/default.html">Should cities ban cars from downtown?</a></div><div class="meeting__when">Tomorrow · 7:00 pm–8:30 pm</div></div><div class="meeting__actions"><button class="btn btn--ghost btn--sm btn--icon" type="button" aria-label="Delete"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></li></ul></div><figcaption>A generic "Delete" label: in a list of buttons nobody knows which meeting. Name the verb and the meeting.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Row background</td><td><code>--color-bg-surface</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-surface" data-swatch></i><span data-token="--color-bg-surface"></span></span></td></tr>
+          <tr><td>Row hover</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Row divider</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Upcoming tile</td><td><code>--color-accent-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent-subtle" data-swatch></i><span data-token="--color-accent-subtle"></span></span></td></tr>
+          <tr><td>Upcoming tile text, title hover</td><td><code>--color-fg-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-accent" data-swatch></i><span data-token="--color-fg-accent"></span></span></td></tr>
+          <tr><td>Past tile</td><td><code>--color-bg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-bg-subtle" data-swatch></i><span data-token="--color-bg-subtle"></span></span></td></tr>
+          <tr><td>Past tile text, when, excerpt</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Row focus ring</td><td><code>--color-focus-ring</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td></tr>
+          <tr><td>Row padding and gap</td><td><code>--space-4</code></td><td><span data-token="--space-4"></span></td><td><span data-theme="dark"><span data-token="--space-4"></span></span></td></tr>
+          <tr><td>Tile padding / actions gap</td><td><code>--space-2</code> / <code>--space-1</code></td><td><span data-token="--space-2"></span> / <span data-token="--space-1"></span></td><td><span data-theme="dark"><span data-token="--space-2"></span> / <span data-token="--space-1"></span></span></td></tr>
+          <tr><td>Tile radius</td><td><code>--radius-md</code></td><td><span data-token="--radius-md"></span></td><td><span data-theme="dark"><span data-token="--radius-md"></span></span></td></tr>
+          <tr><td>Day number</td><td><code>--font-size-2xl</code></td><td><span data-token="--font-size-2xl"></span></td><td><span data-theme="dark"><span data-token="--font-size-2xl"></span></span></td></tr>
+          <tr><td>Title / when and excerpt</td><td><code>--text-h4</code> / <code>--text-body-sm</code></td><td><span data-token="--text-h4"></span> / <span data-token="--text-body-sm"></span></td><td><span data-theme="dark"><span data-token="--text-h4"></span> / <span data-token="--text-body-sm"></span></span></td></tr>
+          <tr><td>Actions layer</td><td><code>--z-raised</code></td><td><span data-token="--z-raised"></span></td><td><span data-theme="dark"><span data-token="--z-raised"></span></span></td></tr>
+          <tr><td>Transition</td><td><code>--duration-fast</code></td><td><span data-token="--duration-fast"></span></td><td><span data-theme="dark"><span data-token="--duration-fast"></span></span></td></tr>
+          <tr><td>Ring width</td><td><code>--focus-ring-width</code></td><td><span data-token="--focus-ring-width"></span></td><td><span data-theme="dark"><span data-token="--focus-ring-width"></span></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;section aria-labelledby="past-h"&gt;
+  &lt;h2 class="overline" id="past-h"&gt;Past&lt;/h2&gt;
+  &lt;ul class="list card card--flush"&gt;
+    &lt;li class="meeting meeting--past"&gt;
+      &lt;div class="meeting__date" aria-hidden="true"&gt;&lt;span class="meeting__day"&gt;13&lt;/span&gt;&lt;span class="meeting__month"&gt;Oct&lt;/span&gt;&lt;/div&gt;
+      &lt;div class="meeting__body"&gt;
+        &lt;div class="meeting__title"&gt;&lt;a href="/meetings/13"&gt;Universal basic income&lt;/a&gt;&lt;/div&gt;
+        &lt;div class="meeting__when"&gt;Tue 13 Oct · 7:00 pm–8:30 pm&lt;/div&gt;
+        &lt;div class="meeting__excerpt"&gt;This house would introduce a universal basic income.&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="meeting__actions"&gt;…&lt;/div&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.meeting</code></td><td>Row: grid with date tile, body and actions; hover and focus-within background.</td></tr>
+        <tr><td><code>.meeting--past</code></td><td>Greys the date tile.</td></tr>
+        <tr><td><code>.meeting__date</code> <code>__day</code> <code>__month</code></td><td>Date tile and its two lines; <code>aria-hidden="true"</code>.</td></tr>
+        <tr><td><code>.meeting__title a</code></td><td>The one link; <code>::after</code> stretches it over the row.</td></tr>
+        <tr><td><code>.meeting__when</code> <code>.meeting__excerpt</code></td><td>Metadata lines; the excerpt truncates.</td></tr>
+        <tr><td><code>.meeting__actions</code></td><td>Raised action group; hover and focus revealed at 48rem and up with hover.</td></tr>
+        <tr><td><code>data-state="hover|focus"</code></td><td>Documentation only: forces a state in static pages.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/meetings/default.html">pages/meetings/default</a> (upcoming and past rows, actions, hover note)</li>
+        <li><a href="../../mocks/pages/meetings/long.html">long</a> and <a href="../../mocks/pages/meetings/edge.html">edge</a> (wrapping title, truncated excerpt)</li>
+        <li><a href="../../mocks/pages/meetings/loading.html">loading</a>, <a href="../../mocks/pages/meetings/empty.html">empty</a> and <a href="../../mocks/pages/meetings/error.html">error</a> (what stands in for the rows)</li>
+        <li><a href="../../mocks/pages/meeting/default.html">pages/meeting/default</a> and <a href="../../mocks/pages/meeting-edit/default.html">pages/meeting-edit/default</a> (row destinations)</li>
+      </ul>
+      <p>Requirement: L2-023 (meeting list with date tile, title link and actions).</p>
+    </section>
+
+    <footer class="ds-footer"><span>Debate App design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+@startuml
+title UML sequence behaviour — Save a meeting
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Club administrator" as actor
+box "Frontend — Web client (meetings and api libraries)" #E0F2FE
+  participant "MeetingEditComponent" as page
+  participant "MeetingsService" as client
+end box
+box "Backend — REST API application" #D1FADF
+  participant "meetings.routes" as routes
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "MeetingService" as service
+end box
+box "Backend — Infrastructure" #FFF4E5
+  participant "MeetingRepository" as repo
+  database "PostgreSQL" as db
+end box
+actor -> page : Select Save
+page -> client : add(meeting)
+client -> routes : POST api/meeting/add (JSON)
+routes -> service : addOrUpdate(dto)
+service -> repo : findById(dto.id) among non-deleted (L2-016)
+repo -> db : SELECT ... WHERE id AND NOT is_deleted
+db --> repo : Row or none
+repo --> service : Meeting or null
+alt non-deleted meeting found (L2-001 criterion 2)
+  service -> repo : update(name, abstract, agenda, minutes, start, end)
+  opt date is non-empty (L2-001 criteria 3 and 4)
+    service -> service : Parse date and set on meeting
+  end
+  repo -> db : UPDATE meetings
+else none found or soft-deleted (L2-001 criteria 1 and 5)
+  service -> repo : insert(new meeting)
+  repo -> db : INSERT INTO meetings
+end
+db --> repo : Saved row
+repo --> service : Meeting
+service --> routes : MeetingDto
+routes --> client : HTTP 200 with camelCase JSON (L2-017)
+client --> page : MeetingDto
+page --> actor : Navigate to /meetings with success toast
+@enduml

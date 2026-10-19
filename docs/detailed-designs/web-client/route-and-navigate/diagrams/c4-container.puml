@@ -1,0 +1,13 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Route and navigate
+
+Person(member, "Club member", "Uses a browser")
+System_Boundary(app, "The Debate App") {
+  Container(spa, "Web client", "Angular standalone SPA", "App shell, root routes, header, home and status pages")
+  Container(api, "REST API", "Node.js, Express", "Serves data to routed pages")
+}
+Rel(member, spa, "Navigates with links, back and forward", "HTTPS")
+Rel(spa, api, "Loads data for the routed page", "JSON/HTTPS")
+@enduml

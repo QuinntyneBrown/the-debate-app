@@ -1,0 +1,18 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Manage digital assets
+
+Container_Boundary(api, "REST API (backend/src/digital-assets)") {
+  Component(routes, "digitalAssets.routes", "Express router", "Maps api/digitalasset/add, update, get, getById, remove")
+  Component(auth, "jwtAuth middleware", "Express middleware", "Validates the bearer token on protected routes")
+  Component(service, "DigitalAssetService", "TypeScript class", "Add-or-update, read and soft-delete logic")
+  Component(repo, "DigitalAssetRepository", "TypeScript class", "Finds non-deleted rows, never selects bytes for lists")
+}
+ContainerDb(db, "PostgreSQL", "digital_assets table", "Persists asset records and bytes")
+
+Rel(routes, auth, "Applies to protected routes")
+Rel(routes, service, "Calls")
+Rel(service, repo, "Calls findById, findAll, insert, update, markDeleted")
+Rel(repo, db, "Reads and writes", "SQL")
+@enduml

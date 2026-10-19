@@ -1,0 +1,9 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — HTTP client
+
+Person(user, "Club member", "Uses pages that load and save data")
+System(app, "The Debate App", "Web client and REST API for debate meetings")
+Rel(user, app, "Loads and saves data through")
+@enduml

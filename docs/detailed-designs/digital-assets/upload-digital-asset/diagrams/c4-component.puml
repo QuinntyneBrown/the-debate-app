@@ -1,0 +1,24 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Upload a digital asset
+
+Container_Boundary(spa, "Web client (projects/components, projects/api)") {
+  Component(dz, "FileDropZoneComponent", "Angular standalone component", "Captures dropped files as FormData")
+  Component(svc, "DigitalAssetsService", "Angular HTTP service", "Posts FormData to the upload endpoint")
+}
+Container_Boundary(api, "REST API (backend/src/digital-assets)") {
+  Component(routes, "digitalAssets.routes", "Express router", "Anonymous POST api/digitalasset/upload")
+  Component(parser, "Multipart parser", "busboy or equivalent", "Reads file parts and form fields")
+  Component(service, "DigitalAssetService", "TypeScript class", "Sanitises names and stores assets")
+  Component(repo, "DigitalAssetRepository", "TypeScript class", "Inserts asset rows")
+}
+ContainerDb(db, "PostgreSQL", "digital_assets table", "Persists asset rows and bytes")
+
+Rel(dz, svc, "Hands FormData to, through a feature component")
+Rel(svc, routes, "POST api/digitalasset/upload", "multipart/HTTPS")
+Rel(routes, parser, "Reads body with")
+Rel(routes, service, "Calls store per file")
+Rel(service, repo, "Calls insert")
+Rel(repo, db, "Writes", "SQL")
+@enduml

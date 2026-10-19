@@ -1,0 +1,27 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Sign in
+
+Container_Boundary(spa, "Web client (login, api, components, the-debate-app)") {
+  Component(page, "LoginComponent", "Angular standalone component, login", "Form, validation summary and the six page states")
+  Component(menu, "AccountMenuComponent", "Angular standalone component, components", "Avatar, name, username and Sign out")
+  Component(auth, "AuthService", "Angular service, api", "tryToLogin, getCurrentUser, signOut")
+  Component(session, "SessionService", "Angular service, api", "Named items persisted under theDebateApp")
+  Component(interceptor, "bearerInterceptor", "HttpInterceptorFn, api", "Attaches the token and reports 401")
+  Component(shell, "AppComponent", "Angular standalone component, the-debate-app", "Reacts to sessionExpired and navigates to /login")
+}
+Container_Boundary(api, "REST API (backend/src/auth, backend/src/users)") {
+  Component(token, "Token endpoint", "Express route", "POST /api/user/token")
+  Component(current, "Current user route", "Express route", "GET /api/user/current")
+}
+ComponentDb(ls, "localStorage", "Browser storage", "Key theDebateApp")
+Rel(page, auth, "Calls tryToLogin")
+Rel(menu, shell, "Emits signOut to")
+Rel(shell, auth, "Calls signOut")
+Rel(auth, session, "put, get and clear token")
+Rel(interceptor, session, "Reads token from")
+Rel(auth, token, "POST credentials", "form-urlencoded")
+Rel(auth, current, "GET without bearer", "JSON")
+Rel(session, ls, "Writes on window unload", "JSON")
+@enduml

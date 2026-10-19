@@ -1,0 +1,9 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Sign in
+
+Person(admin, "Club administrator", "Signs in with username and password")
+System(app, "The Debate App", "Web client and REST API with JWT bearer authentication")
+Rel(admin, app, "Signs in to and signs out of")
+@enduml

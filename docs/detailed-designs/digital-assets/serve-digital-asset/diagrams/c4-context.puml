@@ -1,0 +1,10 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Serve a digital asset
+
+Person(p, "Browser or API client", "Requests asset bytes by URL")
+System(app, "The Debate App", "Organises debate meetings and publishes related content")
+
+Rel(p, app, "Requests assets from")
+@enduml

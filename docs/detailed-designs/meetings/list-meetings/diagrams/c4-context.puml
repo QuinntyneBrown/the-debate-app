@@ -1,0 +1,10 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — List meetings
+
+Person(p, "Club administrator", "Reviews the meetings of the club")
+System(app, "The Debate App", "Organises debate meetings and publishes related content")
+
+Rel(p, app, "Views the list of meetings using")
+@enduml

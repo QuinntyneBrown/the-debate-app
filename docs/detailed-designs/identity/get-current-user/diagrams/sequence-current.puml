@@ -1,0 +1,53 @@
+@startuml
+title UML sequence behaviour — Get the current user
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Visitor or member" as actor
+box "Frontend — Web client (api library)" #E0F2FE
+  participant "UsersService" as client
+end box
+box "Backend — REST API application" #D1FADF
+  participant "jwtAuth" as jwt
+  participant "users.routes" as routes
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "UserService" as service
+end box
+box "Backend — Infrastructure" #FFF4E5
+  participant "UserRepository" as repo
+  database "PostgreSQL" as db
+end box
+actor -> client : getCurrent()
+client -> jwt : GET api/user/current
+jwt -> routes : Continue with or without req.user
+routes -> service : getCurrent(req.user)
+alt no token or invalid token (L2-009 criterion 1)
+  service --> routes : null
+  routes --> client : 200 with empty body
+else valid token
+  service -> repo : findByUsername(name claim) among non-deleted
+  repo -> db : SELECT ... WHERE username AND NOT is_deleted
+  db --> repo : Row or none
+  repo --> service : User or null
+  alt user found (L2-009 criterion 2)
+    service --> routes : UserDto { id, name }
+    routes --> client : 200 JSON
+  else no matching user (L2-009 criterion 3)
+    service --> routes : Failure
+    routes --> client : Error status <TO SUPPLY>
+  end
+end
+client --> actor : Current user or none
+@enduml

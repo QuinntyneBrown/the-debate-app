@@ -1,0 +1,21 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — API conventions
+
+Container_Boundary(api, "REST API (backend/src)") {
+  Component(app, "createApp", "TypeScript function", "Builds the Express application in a fixed middleware order")
+  Component(cors, "corsMiddleware", "cors package", "Allows any origin, header and method")
+  Component(json, "jsonResponse", "Express helper", "Indented JSON, reference loops ignored")
+  Component(camel, "toCamelCase", "TypeScript function", "Maps column names to camelCase")
+  Component(routes, "routeTable", "Express routers", "Mounts resource routers under /api")
+  Component(swagger, "swaggerSetup", "swagger-ui-express", "Serves the OpenAPI document and UI")
+  Component(err, "errorHandler", "Express middleware", "Converts errors to JSON responses")
+}
+Rel(app, cors, "Installs first")
+Rel(app, json, "Installs")
+Rel(app, routes, "Mounts")
+Rel(app, swagger, "Mounts")
+Rel(app, err, "Installs last")
+Rel(routes, camel, "Maps DTOs with")
+@enduml

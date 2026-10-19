@@ -1,0 +1,302 @@
+{
+  "project": "The Debate App",
+  "required_states": {
+    "page": [
+      "default",
+      "loading",
+      "empty",
+      "error"
+    ],
+    "dialog": [
+      "default",
+      "busy",
+      "invalid"
+    ],
+    "notification": [
+      "info",
+      "success",
+      "warning",
+      "danger"
+    ]
+  },
+  "screens": [
+    {
+      "id": "home",
+      "kind": "page",
+      "title": "Home",
+      "route": "/",
+      "requirements": [
+        "L2-019",
+        "L2-022"
+      ],
+      "states": [
+        "default"
+      ],
+      "not_applicable": {
+        "loading": "A static landing page; nothing is fetched.",
+        "empty": "No collection on the landing page.",
+        "error": "Nothing can fail to load on the landing page."
+      }
+    },
+    {
+      "id": "sign-in",
+      "kind": "page",
+      "title": "Sign in",
+      "route": "/login",
+      "requirements": [
+        "L2-013",
+        "L2-014",
+        "L2-019",
+        "L2-026"
+      ],
+      "states": [
+        "default",
+        "invalid",
+        "submitting",
+        "error",
+        "expired",
+        "signed-out"
+      ],
+      "not_applicable": {
+        "loading": "The form needs no data before it renders.",
+        "empty": "A single form; no collection to be empty."
+      }
+    },
+    {
+      "id": "meetings",
+      "kind": "page",
+      "title": "Meetings",
+      "route": "/meetings",
+      "requirements": [
+        "L2-002",
+        "L2-004",
+        "L2-019",
+        "L2-023"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error",
+        "long",
+        "edge"
+      ],
+      "not_applicable": {}
+    },
+    {
+      "id": "meeting",
+      "kind": "page",
+      "title": "Meeting",
+      "route": "/meeting/:id",
+      "requirements": [
+        "L2-003",
+        "L2-023",
+        "L2-030"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "error",
+        "edge"
+      ],
+      "not_applicable": {
+        "empty": "A single record; an empty section shows inside its tab instead."
+      }
+    },
+    {
+      "id": "meeting-edit",
+      "kind": "page",
+      "title": "Edit meeting",
+      "route": "/meeting/:id/edit",
+      "requirements": [
+        "L2-001",
+        "L2-003",
+        "L2-004",
+        "L2-024",
+        "L2-028"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "error",
+        "invalid",
+        "submitting",
+        "saved",
+        "edge"
+      ],
+      "not_applicable": {
+        "empty": "A single record is edited; blank sections are shown as empty editors."
+      }
+    },
+    {
+      "id": "meeting-create",
+      "kind": "page",
+      "title": "New meeting",
+      "route": "/meeting/create",
+      "requirements": [
+        "L2-001",
+        "L2-024",
+        "L2-028"
+      ],
+      "states": [
+        "default",
+        "invalid",
+        "submitting",
+        "error"
+      ],
+      "not_applicable": {
+        "loading": "A blank form needs no data.",
+        "empty": "A blank form is the empty state."
+      }
+    },
+    {
+      "id": "not-found",
+      "kind": "page",
+      "title": "Page not found",
+      "route": "*",
+      "requirements": [],
+      "states": [
+        "default"
+      ],
+      "not_applicable": {
+        "loading": "A static page.",
+        "empty": "No collection.",
+        "error": "This page is the error."
+      }
+    },
+    {
+      "id": "forbidden",
+      "kind": "page",
+      "title": "Sign in needed",
+      "route": "(shown in place of the requested page)",
+      "requirements": [
+        "L2-014"
+      ],
+      "states": [
+        "default"
+      ],
+      "not_applicable": {
+        "loading": "A static page.",
+        "empty": "No collection.",
+        "error": "This page is the error."
+      }
+    },
+    {
+      "id": "server-error",
+      "kind": "page",
+      "title": "Something went wrong",
+      "route": "(shown in place of the requested page)",
+      "requirements": [],
+      "states": [
+        "default"
+      ],
+      "not_applicable": {
+        "loading": "A static page.",
+        "empty": "No collection.",
+        "error": "This page is the error."
+      }
+    },
+    {
+      "id": "offline",
+      "kind": "page",
+      "title": "Offline",
+      "route": "(shown in place of the requested page)",
+      "requirements": [],
+      "states": [
+        "default"
+      ],
+      "not_applicable": {
+        "loading": "A static page.",
+        "empty": "No collection.",
+        "error": "This page is the error."
+      }
+    },
+    {
+      "id": "delete-meeting",
+      "kind": "dialog",
+      "title": "Delete meeting",
+      "opens_from": "meetings",
+      "requirements": [
+        "L2-004",
+        "L2-023"
+      ],
+      "states": [
+        "default",
+        "busy",
+        "failed"
+      ],
+      "not_applicable": {
+        "invalid": "No inputs; the dialog only confirms."
+      }
+    },
+    {
+      "id": "discard-changes",
+      "kind": "dialog",
+      "title": "Discard changes",
+      "opens_from": "meeting-edit",
+      "requirements": [
+        "L2-024"
+      ],
+      "states": [
+        "default"
+      ],
+      "not_applicable": {
+        "busy": "No server call; both buttons act instantly.",
+        "invalid": "No inputs."
+      }
+    },
+    {
+      "id": "account-menu",
+      "kind": "dialog",
+      "title": "Account menu",
+      "opens_from": "meetings",
+      "requirements": [
+        "L2-009",
+        "L2-026"
+      ],
+      "states": [
+        "default"
+      ],
+      "not_applicable": {
+        "busy": "Sign out is instant: it clears local storage and opens Sign in.",
+        "invalid": "No inputs."
+      }
+    },
+    {
+      "id": "toast",
+      "kind": "notification",
+      "title": "Toast",
+      "opens_from": "meetings",
+      "requirements": [
+        "L2-001",
+        "L2-004",
+        "L2-024"
+      ],
+      "states": [
+        "info",
+        "success",
+        "warning",
+        "danger",
+        "with-action",
+        "stacked"
+      ]
+    },
+    {
+      "id": "banner",
+      "kind": "notification",
+      "title": "Banner",
+      "opens_from": "meetings",
+      "requirements": [
+        "L2-013",
+        "L2-014"
+      ],
+      "states": [
+        "info",
+        "success",
+        "warning",
+        "danger",
+        "persistent"
+      ]
+    }
+  ]
+}

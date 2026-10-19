@@ -1,0 +1,18 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Serve a digital asset
+
+Container_Boundary(api, "REST API (backend/src/digital-assets)") {
+  Component(routes, "digitalAssets.routes", "Express router", "Anonymous GET api/digitalasset/serve; sets Content-Type and cache headers")
+  Component(service, "DigitalAssetService", "TypeScript class", "Builds the cache key and resolves the asset")
+  Component(cache, "AssetCache", "In-process cache", "Holds assets for 1000 seconds")
+  Component(repo, "DigitalAssetRepository", "TypeScript class", "Finds by unique id or first by name")
+}
+ContainerDb(db, "PostgreSQL", "digital_assets table", "Persists asset rows and bytes")
+
+Rel(routes, service, "Calls serve")
+Rel(service, cache, "Gets and sets")
+Rel(service, repo, "Calls on cache miss")
+Rel(repo, db, "Reads", "SQL")
+@enduml

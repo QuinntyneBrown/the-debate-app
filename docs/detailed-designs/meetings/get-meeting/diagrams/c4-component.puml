@@ -1,0 +1,28 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Get a meeting
+
+Container_Boundary(spa, "Web client (projects/meetings, projects/components, projects/api)") {
+  Component(view, "MeetingViewComponent", "Angular standalone component", "Read-only page with Abstract, Agenda and Minutes tabs")
+  Component(edit, "MeetingEditComponent", "Angular standalone component", "Edit form populated from the loaded meeting")
+  Component(tabs, "TabStripComponent", "Angular standalone component", "Tab strip")
+  Component(editor, "RichTextEditorComponent", "Angular standalone component", "Rich-text editor for abstract, agenda and minutes")
+  Component(msvc, "MeetingsService", "Angular HTTP service", "Calls GET api/meeting/getById")
+}
+Container_Boundary(api, "REST API (backend/src/meetings)") {
+  Component(routes, "meetings.routes", "Express router", "Anonymous GET api/meeting/getById")
+  Component(service, "MeetingService", "TypeScript class", "Returns MeetingDto or fails")
+  Component(repo, "MeetingRepository", "TypeScript class", "Finds a non-deleted meeting by id")
+}
+ContainerDb(db, "PostgreSQL", "meetings table", "Persists meetings")
+
+Rel(view, tabs, "Shows sections in")
+Rel(edit, editor, "Loads HTML into")
+Rel(view, msvc, "Calls getById")
+Rel(edit, msvc, "Calls getById")
+Rel(msvc, routes, "GET api/meeting/getById", "JSON/HTTPS")
+Rel(routes, service, "Calls getById")
+Rel(service, repo, "Calls findById")
+Rel(repo, db, "Reads", "SQL")
+@enduml

@@ -1,0 +1,24 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Route and navigate
+
+Container_Boundary(spa, "Web client (the-debate-app, home, components, api)") {
+  Component(shell, "AppComponent", "Angular standalone component, the-debate-app", "Hosts header, banner and router outlet")
+  Component(routes, "appRoutes", "Angular Routes, the-debate-app", "Root route table with lazy feature routes and numeric id matcher")
+  Component(home, "HomePageComponent", "Angular standalone component, home", "Logo, tagline and ENTER link")
+  Component(status, "Status pages", "Angular standalone components, home", "NotFound, Forbidden, ServerError and Offline pages")
+  Component(header, "HeaderComponent", "Angular standalone component, components", "Title and navigation links")
+  Component(link, "LinkComponent", "Angular standalone component, components", "Navigates and marks the active link")
+  Component(banner, "BannerComponent", "Angular standalone component, components", "Persistent or timed page-wide message")
+  Component(conn, "ConnectivityService", "Angular service, api", "Online and offline signal")
+}
+Rel(shell, routes, "Is configured with")
+Rel(shell, header, "Renders")
+Rel(shell, banner, "Renders from connectivity state")
+Rel(shell, conn, "Reads online state from")
+Rel(header, link, "Renders three")
+Rel(routes, home, "Lazy-loads")
+Rel(routes, status, "Lazy-loads for unmatched and error paths")
+Rel(home, link, "Renders ENTER with")
+@enduml

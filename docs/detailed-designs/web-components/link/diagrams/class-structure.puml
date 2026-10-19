@@ -1,0 +1,28 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Link component
+
+class LinkComponent <<Angular>> {
+  +routeSegments: string[]
+  +active: boolean
+  +path: string
+  +onClick(): void
+  -updateActive(url: string): void
+}
+class HeaderComponent <<Angular>>
+class Router <<Angular framework>> {
+  +navigate(commands: string[]): Promise<boolean>
+  +events: Observable<Event>
+}
+HeaderComponent *-- LinkComponent : renders 1..*
+LinkComponent --> Router : uses
+@enduml

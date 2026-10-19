@@ -1,0 +1,45 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Rich-text editor component
+
+class RichTextEditorComponent <<Angular>> {
+  +value: string
+  +placeholder: string
+  +ariaLabel: string
+  +readonly: boolean
+  +invalid: boolean
+  +busy: boolean
+  +valueChange: EventEmitter<string>
+  +imageRequested: EventEmitter<void>
+  +onToolbar(action: ToolbarAction): void
+}
+enum ToolbarAction {
+  heading1
+  heading2
+  bold
+  italic
+  underline
+  image
+  codeBlock
+}
+interface RichTextEngine {
+  +mount(host: HTMLElement): void
+  +setHtml(html: string): void
+  +format(action: ToolbarAction): void
+  +onChange(handler: (html: string) => void): void
+  +destroy(): void
+}
+class LibraryEngine <<TO SUPPLY>>
+RichTextEditorComponent --> RichTextEngine : uses
+RichTextEditorComponent ..> ToolbarAction : handles
+LibraryEngine ..|> RichTextEngine
+@enduml

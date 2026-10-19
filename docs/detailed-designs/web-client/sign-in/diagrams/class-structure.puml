@@ -1,0 +1,64 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Sign in
+class SessionItem {
+  +name: string
+  +value: unknown
+}
+class SessionService <<Angular, api>> {
+  +put(item: SessionItem): void
+  +get(name: string): unknown | null
+  +clear(): void
+  +sessionExpired$: Observable<void>
+  -items: SessionItem[]
+  -flush(): void
+}
+class Credentials {
+  +username: string
+  +password: string
+}
+class TokenResponse {
+  +access_token: string
+  +token_type: string
+  +expires_in: number
+}
+class UserDto {
+  +id: number
+  +name: string
+}
+class AuthService <<Angular, api>> {
+  +tryToLogin(credentials: Credentials): Observable<TokenResponse>
+  +getCurrentUser(): Observable<UserDto | null>
+  +signOut(): void
+}
+class bearerInterceptor <<HttpInterceptorFn, api>> {
+  +intercept(req, next): Observable<HttpEvent>
+}
+class LoginComponent <<Angular, login>> {
+  +state: 'default'|'invalid'|'submitting'|'error'|'expired'|'signed-out'
+  +form: FormGroup
+  +submit(): void
+}
+class AccountMenuComponent <<Angular, components>> {
+  +name: input<string>
+  +username: input<string>
+  +signOut: output<void>
+}
+SessionService "1" *-- "*" SessionItem : holds
+AuthService --> SessionService : stores token in
+AuthService ..> Credentials : accepts
+AuthService ..> TokenResponse : returns
+AuthService ..> UserDto : returns
+bearerInterceptor --> SessionService : reads token
+LoginComponent --> AuthService : calls
+AccountMenuComponent ..> UserDto : displays
+@enduml

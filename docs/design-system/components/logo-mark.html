@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logo mark — The Debate App design system</title>
+<meta name="description" content="The logo mark is The Debate App icon as its own 64px tile above the sign-in card: a violet-tinted rounded square with a speech-bubble pair.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Debate App DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/save-bar.html">Save bar</a></li>
+      <li><a href="../components/rich-text-editor.html">Rich-text editor</a></li>
+      <li><a href="../components/prose.html">Prose</a></li>
+      <li><a href="../components/tab-strip.html">Tab strip</a></li>
+      <li><a href="../components/meeting-row.html">Meeting row</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/navigation.html">Navigation</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Identity</p>
+      <h1>Logo mark</h1>
+      <p class="ds-lead">The Debate App icon as its own tile: a violet-tinted rounded square holding two speech bubbles. It sits centred above the sign-in card and on the home page.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill"><code>&lt;span&gt;</code> with inline SVG</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Use the logo mark on the landing page and the sign-in screens (default, invalid, error, expired, signed out, submitting). It goes above the heading, once per page, and it is decoration, so it is hidden from assistive technology.</p>
+      <p>The top bar does not use it. The top bar shows a plain brand link with the same small icon and "The Debate App", described on the <a href="top-bar.html">top bar</a> page. Do not use the mark as an <a href="avatar.html">avatar</a> for Jordan Reyes or anyone else.</p>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <span class="logo-mark" style="background: var(--color-accent-subtle); color: var(--color-fg-accent);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h9a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3H9l-4 3v-3a3 3 0 0 1-1-2.2V8a3 3 0 0 1 0-3z"/><path d="M16 9h2a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3h-1l-3 3v-3"/></svg></span>
+          <span class="ds-callout" style="left: 50%; top: 20%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 50%; top: 55%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 50%; top: 92%;" aria-hidden="true">3</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Tile</b><small>A grid box that centres the glyph, sized by <code>--size-avatar-xl</code>, with <code>--radius-lg</code> corners and clipped overflow. The mocks tint it with <code>--color-accent-subtle</code> inline.</small></div></li>
+          <li><div><b>Glyph</b><small>The speech-bubble pair as an inline <code>&lt;svg class="icon icon--lg"&gt;</code> in <code>--color-fg-accent</code>. It is the same glyph the top bar brand uses.</small></div></li>
+          <li><div><b>Shadow</b><small><code>--shadow-2</code> lifts the tile off the page so it reads as an icon, not a flat picture.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants" data-na="One look only"><h2><a href="#variants">Variants</a></h2>
+      <p>Not applicable: there is one logo mark. The mocks do not animate it.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <span class="logo-mark" style="background: var(--color-accent-subtle); color: var(--color-fg-accent);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h9a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3H9l-4 3v-3a3 3 0 0 1-1-2.2V8a3 3 0 0 1 0-3z"/><path d="M16 9h2a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3h-1l-3 3v-3"/></svg></span>
+        </div>
+        <div class="ds-example__caption"><span>The only form, still.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;span class="logo-mark" style="background: var(--color-accent-subtle); color: var(--color-fg-accent);"&gt;&lt;svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"&gt;&lt;path d="M4 5h9a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3H9l-4 3v-3a3 3 0 0 1-1-2.2V8a3 3 0 0 1 0-3z"/&gt;&lt;path d="M16 9h2a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3h-1l-3 3v-3"/&gt;&lt;/svg&gt;&lt;/span&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <p>The tile is fixed at 64px, which is <code>--size-avatar-xl</code>. It has no small or large form.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas">
+          <span class="logo-mark" style="background: var(--color-accent-subtle); color: var(--color-fg-accent);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h9a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3H9l-4 3v-3a3 3 0 0 1-1-2.2V8a3 3 0 0 1 0-3z"/><path d="M16 9h2a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3h-1l-3 3v-3"/></svg></span>
+        </div>
+        <div class="ds-example__caption"><span>64px square, <code>--radius-lg</code> corners.</span></div>
+      </div>
+      <p>The glyph is SVG, so it stays crisp on every screen density. The tile size does not change.</p>
+    </section>
+
+    <section class="ds-section" id="states" data-na="Decorative, no interaction"><h2><a href="#states">States</a></h2>
+      <p>Not applicable: the logo mark is decorative and cannot be focused, hovered, disabled or loading. It has no motion.</p>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>The tile stays 64px at every viewport width. It does not scale with the screen.</li>
+        <li>On sign-in it is centred in the card column by <code>.auth-card .logo</code>, so it stays centred from phone to desktop. On the home page it sits above the heading in the page column.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The tile and glyph read <code>--color-accent-subtle</code> and <code>--color-fg-accent</code>, which are redefined per theme, and the shadow changes with <code>--shadow-2</code>.</p>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="cluster"><span class="logo-mark" style="background: var(--color-accent-subtle); color: var(--color-fg-accent);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h9a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3H9l-4 3v-3a3 3 0 0 1-1-2.2V8a3 3 0 0 1 0-3z"/><path d="M16 9h2a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3h-1l-3 3v-3"/></svg></span></div></div>
+        <div data-theme="dark"><div class="cluster"><span class="logo-mark" style="background: var(--color-accent-subtle); color: var(--color-fg-accent);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h9a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3H9l-4 3v-3a3 3 0 0 1-1-2.2V8a3 3 0 0 1 0-3z"/><path d="M16 9h2a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3h-1l-3 3v-3"/></svg></span></div></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Decorative. The SVG has <code>aria-hidden="true"</code> and the wrapper does too, so a screen reader skips it. The page <code>&lt;h1&gt;</code> names the screen, for example "Sign in".</p>
+      <h3>Keyboard and focus</h3>
+      <p>Not interactive, so it is never in the tab order.</p>
+      <h3>Contrast</h3>
+      <p>The glyph is decoration and carries no information, so no ratio is required. It still clears the non-text minimum:</p>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Glyph on tile</span><span class="ds-pair__ratio" data-contrast="--color-fg-accent|--color-accent-subtle" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>None. The tile never moves.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Never put text inside the tile or draw a caption over it.</li>
+        <li>Never replace the glyph with an emoji. Emoji glyphs are not symmetric, so they sit off-centre in a shape.</li>
+        <li>Keep it decorative with <code>aria-hidden="true"</code>. A label would make a screen reader announce the logo above every heading.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="logo" aria-hidden="true"><span class="logo-mark" style="background: var(--color-accent-subtle); color: var(--color-fg-accent);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h9a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3H9l-4 3v-3a3 3 0 0 1-1-2.2V8a3 3 0 0 1 0-3z"/><path d="M16 9h2a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3h-1l-3 3v-3"/></svg></span></div></div><figcaption>Use the tile with the shared glyph. Grid centring puts it exactly in the middle.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><span class="logo-mark" aria-hidden="true">💬</span></div><figcaption>An emoji in the bare tile. The glyph sits off-centre and the tile has no tint of its own.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><span class="logo-mark" style="background: var(--color-accent-subtle); color: var(--color-fg-accent);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h9a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3H9l-4 3v-3a3 3 0 0 1-1-2.2V8a3 3 0 0 1 0-3z"/><path d="M16 9h2a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3h-1l-3 3v-3"/></svg></span></div><figcaption>Drift: the tint is an inline <code>style</code> repeated in 8 mocks (<code>home</code> and every <code>sign-in</code> state) because <code>.logo-mark</code> has no background. Also, <code>home</code> omits the <code>aria-hidden</code> wrapper that <code>sign-in</code> uses. Target: one tinted rule, and the mark hidden from assistive technology everywhere.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Value</th></tr></thead>
+        <tbody>
+          <tr><td>Tile size</td><td><code>--size-avatar-xl</code></td><td><span data-token="--size-avatar-xl"></span></td></tr>
+          <tr><td>Corner radius</td><td><code>--radius-lg</code></td><td><span data-token="--radius-lg"></span></td></tr>
+          <tr><td>Shadow</td><td><code>--shadow-2</code></td><td><span data-token="--shadow-2"></span></td></tr>
+          <tr><td>Tile tint</td><td><code>--color-accent-subtle</code></td><td><span data-token="--color-accent-subtle"></span></td></tr>
+          <tr><td>Glyph colour</td><td><code>--color-fg-accent</code></td><td><span data-token="--color-fg-accent"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="logo" aria-hidden="true"&gt;
+  &lt;span class="logo-mark" style="background: var(--color-accent-subtle); color: var(--color-fg-accent);"&gt;
+    &lt;svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"&gt;&lt;path d="M4 5h9a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3H9l-4 3v-3a3 3 0 0 1-1-2.2V8a3 3 0 0 1 0-3z"/&gt;&lt;path d="M16 9h2a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3h-1l-3 3v-3"/&gt;&lt;/svg&gt;
+  &lt;/span&gt;
+&lt;/div&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.logo-mark</code></td><td>64px grid tile with large radius, clipped overflow and the level 2 shadow.</td></tr>
+        <tr><td><code>.icon.icon--lg</code></td><td>The inline SVG glyph inside the tile.</td></tr>
+        <tr><td><code>.auth-card .logo</code></td><td>Centres the tile in the auth card column.</td></tr>
+        <tr><td><code>aria-hidden="true"</code></td><td>Required. The mark is decoration.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/sign-in/default.html">pages/sign-in/default</a> (with the <code>.logo</code> wrapper), and its siblings <a href="../../mocks/pages/sign-in/invalid.html">invalid</a>, <a href="../../mocks/pages/sign-in/error.html">error</a>, <a href="../../mocks/pages/sign-in/expired.html">expired</a>, <a href="../../mocks/pages/sign-in/signed-out.html">signed-out</a> and <a href="../../mocks/pages/sign-in/submitting.html">submitting</a></li>
+        <li><a href="../../mocks/pages/home/default.html">pages/home/default</a> (the tile without the wrapper)</li>
+        <li>Styles: <a href="../assets/components.css">mocks/assets/ui.css</a> (<code>.logo-mark</code>, <code>.auth-card .logo</code>)</li>
+      </ul>
+      <p>Drift recorded: the tile tint is set inline in every mock that uses it, and the home mock omits the <code>aria-hidden</code> wrapper. The design-system asset <code>assets/logo.png</code> is a leftover from the seed and is not used by any mock.</p>
+    </section>
+
+    <footer class="ds-footer"><span>The Debate App design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 2026-10-18</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Content — Debate App design system</title>
+<meta name="description" content="Debate App content rules: voice for members and organisers, sentence case, button verbs, dates and times, error and empty-state formulas, and a microcopy library from the mocks.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Debate App DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/save-bar.html">Save bar</a></li>
+      <li><a href="../components/rich-text-editor.html">Rich-text editor</a></li>
+      <li><a href="../components/prose.html">Prose</a></li>
+      <li><a href="../components/tab-strip.html">Tab strip</a></li>
+      <li><a href="../components/meeting-row.html">Meeting row</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/navigation.html">Navigation</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Foundation · Content</p>
+      <h1>Content</h1>
+      <p class="ds-lead">Short, plain words for club members and organisers, in sentence case, with real verbs and no blame.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Foundation</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#voice">Voice and tone</a></li><li><a href="#case">Sentence case and punctuation</a></li><li><a href="#buttons">Button verbs</a></li><li><a href="#dates">Numbers, dates and times</a></li><li><a href="#errors">Error messages</a></li><li><a href="#empty">Empty states</a></li><li><a href="#library">Microcopy library</a></li><li><a href="#usage">Usage</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The Debate App talks to two people. Members read the meeting list and the abstract, agenda and minutes of a meeting, so their copy is short, welcoming and specific. Organisers create and edit meetings, often between other things, so their copy is brief and gets them to the next action. Both get the same plain-English rules: sentence case, real verbs, specific dates and times, no blame.</p>
+      <p>Lift copy from the mocks before writing new copy; the <a href="#library">microcopy library</a> below is the starting point. The pattern page <a href="../patterns/content-and-tone.html">Content and tone</a> shows these rules applied to whole flows.</p>
+    </section>
+
+    <section class="ds-section" id="voice"><h2><a href="#voice">Voice and tone</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col"></th><th scope="col">Talking to members (readers)</th><th scope="col">Talking to organisers (editors)</th></tr></thead>
+        <tbody><tr><td>Who</td><td>A club member checking when the next debate is</td><td>An organiser creating or editing a meeting, often on a laptop</td></tr><tr><td>Person</td><td>"You" and "your": "Your session may have ended"</td><td>"You" for them, the meeting by name: "Save changes to Universal basic income?"</td></tr><tr><td>Tone</td><td>Warm, welcoming, brief</td><td>Friendly, factual; gets them to the next action</td></tr><tr><td>Words</td><td>Everyday words; one idea per sentence</td><td>Plain words; no jargon or system terms ("meeting", not "record")</td></tr><tr><td>Exclamation marks</td><td>Almost never</td><td>Never in errors; at most once for a real success</td></tr><tr><td>Emoji</td><td>No</td><td>No</td></tr><tr><td>Example</td><td>"Create the first one and the club has a place to meet."</td><td>"Fix 2 things to save"</td></tr></tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="case"><h2><a href="#case">Sentence case and punctuation</a></h2>
+      <ul>
+        <li><b>Sentence case everywhere:</b> titles, buttons, labels, menu items, toasts. Only the first word and names are capitalised: "New meeting", "Delete meeting", "Should cities ban cars from downtown?".</li>
+        <li><b>Motions</b> keep the wording the organiser typed: "This house would introduce a universal basic income."</li>
+        <li><b>Curly quotes and apostrophes</b> in product copy: ’ “ ”. Meeting names in running text are plain; in a dialog title they go in quotes: Delete “Universal basic income”?</li>
+        <li><b>No full stop</b> on titles, labels, buttons or single-phrase toasts; full stops on sentences in help, error and toast text.</li>
+        <li><b>Middle dot</b> separates short facts on one line: "Tomorrow · 7:00 pm–8:30 pm".</li>
+        <li><b>Contractions</b> are fine and friendlier: "didn’t", "you’re", "can’t".</li>
+        <li>"E-mail" with a hyphen; "sign in" (verb) and "sign-in" (noun).</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="buttons"><h2><a href="#buttons">Button verbs</a></h2>
+      <p>A button says what happens when you press it, starting with a verb, in as few words as that takes.</p>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Say</th><th scope="col">Not</th><th scope="col">Why</th></tr></thead>
+        <tbody><tr><td>New meeting</td><td>Add</td><td>Verb plus object; names what is created</td></tr><tr><td>Save</td><td>Submit</td><td>The organiser is saving a meeting, not filling in a form</td></tr><tr><td>Delete meeting</td><td>Delete</td><td>Names what is lost</td></tr><tr><td>Keep meeting</td><td>Cancel</td><td>The safe choice in a destructive dialog says what it keeps</td></tr><tr><td>Discard changes</td><td>OK</td><td>Names the consequence</td></tr><tr><td>Try again</td><td>Retry</td><td>Plain words</td></tr><tr><td>Back to meetings</td><td>Home</td><td>Says where it goes</td></tr><tr><td>Sign in</td><td>Log in</td><td>One verb for the action, used everywhere</td></tr></tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="dates"><h2><a href="#dates">Numbers, dates and times</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Case</th><th scope="col">Format</th><th scope="col">Example from the mocks</th></tr></thead>
+        <tbody><tr><td>Tomorrow</td><td>Tomorrow · h:mm am/pm–h:mm am/pm</td><td>Tomorrow · 7:00 pm–8:30 pm</td></tr><tr><td>This year</td><td>Ddd D Mmm</td><td>Tue 13 Oct · Tue 27 Oct</td></tr><tr><td>Date badge</td><td>D Mmm on two lines</td><td>20 Oct</td></tr><tr><td>Time range</td><td>h:mm am/pm–h:mm am/pm, en dash, no spaces</td><td>7:00 pm–8:30 pm</td></tr><tr><td>Save status</td><td>"Saved just now"</td><td>Saved just now</td></tr><tr><td>Counts</td><td>Digits</td><td>"2 upcoming", "Fix 2 things to save"</td></tr><tr><td>Votes and attendance</td><td>Digits, en dash between sides</td><td>"The motion carried 9–5", "Fourteen members attended" (spell out at the start of a sentence)</td></tr></tbody>
+      </table></div>
+      <ul>
+        <li>12-hour clock with a space and lower-case "am" or "pm": "4:12 pm".</li>
+        <li>Short day and month names, day before month, no comma between them: "Fri 17 Oct". No year in the current year.</li>
+        <li>Digits for all numbers in lists and status text, including one to nine, because people scan them: "2 upcoming", "8 min".</li>
+        <li>Plurals follow the number: "1 meeting", "2 meetings".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="errors"><h2><a href="#errors">Error messages</a></h2>
+      <p>Formula: <b>what happened</b> (or what to do), <b>why</b> if it helps, and <b>that nothing is lost</b> whenever that is true. Never blame the person, never say "invalid", "error" or "failed" on their own, and always offer the way forward.</p>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Where</th><th scope="col">Formula</th><th scope="col">Example</th></tr></thead>
+        <tbody><tr><td>Field error</td><td>What to do, then why or how (one or two short sentences)</td><td>"Enter a name." · "End must be after start."</td></tr><tr><td>Error summary</td><td>"Fix N things to save" / "One thing to fix", then a linked list</td><td>"Fix 2 things to save"</td></tr><tr><td>Failed action (dialog, toast)</td><td>What did not happen + why + that nothing is lost</td><td>"The meeting wasn’t deleted" · "The Debate App couldn’t reach the server. Nothing has changed; try again in a moment."</td></tr><tr><td>Failed load</td><td>"We couldn’t load [thing]" + the fix + Try again</td><td>"We couldn’t load the meetings" · "Check your connection and try again."</td></tr><tr><td>Wrong username or password</td><td>One generic sentence, never saying which was wrong</td><td>"Username or password is wrong."</td></tr><tr><td>Expired session</td><td>Say what happened, offer sign-in</td><td>"Your session may have ended." · "Sign in to continue"</td></tr><tr><td>Server error</td><td>Not your fault + try again + who to tell</td><td>"Something went wrong on our side" · "Try again in a moment. If it keeps happening, tell Jordan."</td></tr></tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="empty"><h2><a href="#empty">Empty states</a></h2>
+      <p>Formula: a <b>title that says what is here</b> (not "No data"), <b>one or two sentences on why it is empty and what will fill it</b>, and <b>one action</b> that fills it.</p>
+      <div class="ds-example"><div class="ds-example__canvas ds-example__canvas--stack">
+        <div class="empty">
+          <div class="empty__icon"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg></div>
+          <h3 class="empty__title">No meetings yet</h3>
+          <p class="empty__text">Create the first one and the club has a place to meet.</p>
+          <div class="empty__actions"><a class="btn btn--primary" href="../../mocks/pages/meeting-create/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New meeting</a></div>
+        </div>
+      </div><div class="ds-example__caption"><span>From <a href="../../mocks/pages/meetings/empty.html">pages/meetings/empty</a></span></div></div>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Screen</th><th scope="col">Title (what is here)</th><th scope="col">Text (why, and what to do)</th><th scope="col">Action</th></tr></thead>
+        <tbody><tr><td>Meetings</td><td>No meetings yet</td><td>Create the first one and the club has a place to meet.</td><td>New meeting</td></tr><tr><td>Meetings (load failed)</td><td>We couldn’t load the meetings</td><td>Check your connection and try again.</td><td>Try again</td></tr><tr><td>Not found</td><td>We can’t find that page</td><td>The link may be old, or the meeting may have been deleted.</td><td>Back to meetings</td></tr></tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="library"><h2><a href="#library">Microcopy library</a></h2>
+      <p>Real copy from the mocks, grouped by job. Reuse it verbatim where the situation matches.</p>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Group</th><th scope="col">Copy</th></tr></thead>
+        <tbody><tr><td>Titles</td><td>"Meetings" · "New meeting" · "Edit meeting" · "Sign in" · "Sign in to continue" · "You’re offline"</td></tr><tr><td>Actions</td><td>"New meeting" · "Edit" · "Save" · "Delete meeting" · "Keep meeting" · "Discard changes" · "Try again" · "Back to meetings" · "Sign out"</td></tr><tr><td>Status</td><td>"2 upcoming · next is tomorrow at 7:00 pm" · "Saved just now" · "Unsaved changes" · "Fix 2 things to save"</td></tr><tr><td>Sign-in</td><td>"We couldn’t sign you in" · "Check the password" · "Username or password is wrong." · "Your session may have ended." · "Sign in"</td></tr><tr><td>Toasts and banners</td><td>"You’re offline. Changes can’t be saved until the connection is back." · "Meeting saved" · "Meeting deleted"</td></tr><tr><td>Field labels</td><td>"Name" · "Date" · "Start" · "End" · "Abstract" · "Agenda" · "Minutes" · "Username" · "Password"</td></tr><tr><td>Field errors</td><td>"Enter a name." · "End must be after start."</td></tr><tr><td>Accessible names</td><td>"Account menu" · "Dismiss" · "Bold" · "Italic" · "Underline" · "Heading 1"</td></tr><tr><td>Length rules</td><td>Headline plus at most one short subtitle line · help text only where a wrong entry is likely · a field error is one short sentence · summary items are 2 to 5 words ("Enter a name") · an alert is a title plus at most one short sentence · a mock note is one line</td></tr></tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
+      <ul>
+        <li>Use the names from the club: "member", "organiser", and the person’s own name where known. Never "the user" or "the record".</li>
+        <li>Talk about meetings, abstracts, agendas and minutes, not "items" or "entries".</li>
+        <li>Say what happened and what to do next; do not celebrate or scold.</li>
+        <li>Keep a toast to a title plus one sentence; keep a field error to two short sentences.</li>
+        <li>Write the accessible name as carefully as the visible text; read it aloud.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <ul>
+        <li><b>Plain language</b> with short sentences helps everyone, including people reading in a second language.</li>
+        <li><b>Link and button text stands alone</b> (2.4.4): "Back to meetings", not "Click here".</li>
+        <li><b>Do not rely on emoji;</b> the sentence must make sense without them. The Debate App uses none in product copy.</li>
+        <li><b>Counts in accessible names</b> say what they count: "2 upcoming meetings", not "2".</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <p>This page owns no tokens. Colour tokens are on <a href="color.html#tokens">Color</a>, layout tokens on <a href="layout.html#tokens">Layout</a>, motion on <a href="motion.html#tokens">Motion</a>, and the interaction tokens (targets, control heights, focus ring) on <a href="accessibility.html#tokens">Accessibility</a>.</p>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Mocks this foundation was checked against:</p>
+      <ul><li><a href="../../mocks/pages/meetings/default.html">pages/meetings/default</a></li><li><a href="../../mocks/pages/meetings/empty.html">pages/meetings/empty</a></li><li><a href="../../mocks/pages/meetings/error.html">pages/meetings/error</a></li><li><a href="../../mocks/pages/sign-in/invalid.html">pages/sign-in/invalid</a></li><li><a href="../../mocks/pages/meeting-edit/invalid.html">pages/meeting-edit/invalid</a></li><li><a href="../../mocks/pages/server-error/default.html">pages/server-error/default</a></li><li><a href="../../mocks/notifications/toast/success.html">notifications/toast/success</a></li></ul>
+    </section>
+
+    <footer class="ds-footer"><span>Debate App design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 2026-10-19</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

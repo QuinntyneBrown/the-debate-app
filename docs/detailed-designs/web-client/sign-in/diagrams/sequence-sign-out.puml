@@ -1,0 +1,42 @@
+@startuml
+title UML sequence behaviour — Sign out through the account menu
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Club administrator" as actor
+box "Frontend — Web client (the-debate-app shell)" #E0F2FE
+  participant "AppComponent" as shell
+  participant "Router" as router
+end box
+box "Frontend — Web client (components library)" #E0F2FE
+  participant "AccountMenuComponent" as menu
+end box
+box "Frontend — Web client (api library)" #E0F2FE
+  participant "AuthService" as auth
+  participant "SessionService" as session
+end box
+box "Frontend — Web client (login library)" #E0F2FE
+  participant "LoginComponent" as page
+end box
+actor -> menu : Open menu (Enter, Space or ArrowDown)
+menu --> actor : Name, @username, Sign out
+actor -> menu : Choose Sign out
+menu -> shell : signOut
+shell -> auth : signOut()
+auth -> session : clear() removes token (L2-026 criterion 5, TO SUPPLY: not in L2)
+shell -> router : navigate /login, state signed-out
+router -> page : Render signed-out state
+page --> actor : "You're signed out"; notice clears when typing starts
+actor -> menu : Escape closes menu, focus returns to avatar
+@enduml

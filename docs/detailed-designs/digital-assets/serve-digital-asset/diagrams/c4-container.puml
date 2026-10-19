@@ -1,0 +1,13 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Serve a digital asset
+
+Person(p, "Browser or API client", "Requests asset bytes by URL")
+System_Boundary(app, "The Debate App") {
+  Container(api, "REST API", "Node.js, TypeScript, Express", "Anonymous serve endpoint with in-memory cache")
+  ContainerDb(db, "PostgreSQL", "PostgreSQL", "Stores asset rows, content type and bytes")
+}
+Rel(p, api, "Calls", "JSON/HTTPS")
+Rel(api, db, "Reads and writes", "SQL")
+@enduml

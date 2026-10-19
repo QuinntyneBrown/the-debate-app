@@ -1,0 +1,13 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — HTTP client
+
+Person(user, "Club member", "Uses a browser")
+System_Boundary(app, "The Debate App") {
+  Container(spa, "Web client", "Angular standalone SPA", "api library: HTTP services and interceptors")
+  Container(api, "REST API", "Node.js, Express", "api/{resource}/{action} routes, camelCase JSON")
+}
+Rel(user, spa, "Triggers requests in", "HTTPS")
+Rel(spa, api, "Sends requests to", "JSON/HTTPS")
+@enduml

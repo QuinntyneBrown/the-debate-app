@@ -1,0 +1,60 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Route and navigate
+class AppComponent <<Angular, the-debate-app>> {
+  +online: Signal<boolean>
+  +onTitleClick(): void
+}
+class appRoutes <<Routes, the-debate-app>> {
+  +home: ''
+  +login: 'login'
+  +meetings: 'meetings'
+  +create: 'meeting/create'
+  +view: 'meeting/:id'
+  +statusPages: 'forbidden', 'server-error', 'offline'
+  +notFound: '**'
+}
+class numericIdMatcher <<UrlMatcher>> {
+  +match(segments: UrlSegment[]): UrlMatchResult | null
+}
+class HeaderComponent <<Angular, components>> {
+  +title: input<string>
+  +links: input<NavLink[]>
+  +titleClick: output<void>
+}
+class NavLink {
+  +label: string
+  +segments: string[]
+}
+class LinkComponent <<Angular, components>> {
+  +segments: input<string[]>
+  +active: boolean
+}
+class BannerComponent <<Angular, components>> {
+  +tone: input<string>
+  +persistent: input<boolean>
+}
+class HomePageComponent <<Angular, home>> {
+  +enter(): void
+}
+class ConnectivityService <<Angular, api>> {
+  +online: Signal<boolean>
+}
+AppComponent --> HeaderComponent : renders
+AppComponent --> BannerComponent : renders
+AppComponent --> ConnectivityService : reads
+AppComponent ..> appRoutes : outlet resolves
+appRoutes ..> numericIdMatcher : uses
+HeaderComponent "1" *-- "3" NavLink : has
+HeaderComponent --> LinkComponent : renders
+HomePageComponent --> LinkComponent : renders
+@enduml

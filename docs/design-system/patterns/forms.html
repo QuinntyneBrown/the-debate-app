@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forms — Debate App design system</title>
+<meta name="description" content="How Debate App forms are laid out, validated, submitted and confirmed: labels above fields, errors on submit with a linked summary, a save bar with status, and a dialog before anything destructive.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Debate App DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/save-bar.html">Save bar</a></li>
+      <li><a href="../components/rich-text-editor.html">Rich-text editor</a></li>
+      <li><a href="../components/prose.html">Prose</a></li>
+      <li><a href="../components/tab-strip.html">Tab strip</a></li>
+      <li><a href="../components/meeting-row.html">Meeting row</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/navigation.html">Navigation</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Pattern · Input</p>
+      <h1>Forms</h1>
+      <p class="ds-lead">Every form in the Debate App is a labelled field header followed by rich-text sections, checked when it is sent, with one primary button in the save bar.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Pattern</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#when">When to use</a></li><li><a href="#structure">Structure</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The Debate App has three forms: sign in, create a meeting and edit a meeting. Create and edit share one layout, so an organiser learns it once. A meeting is a short header of fields (name, date, start, end) followed by a tab strip of three rich-text editors (abstract, agenda, minutes).</p>
+      <ul><li><b>Labels sit above fields</b>, always visible, never inside the field as placeholder text.</li><li><b>Short fields share a header.</b> <code>.meeting-form__header</code> lays name, date, start and end out in one block; long content gets its own tab so the form never becomes a long scroll.</li><li><b>Only the primary action is filled.</b> Save (or Create meeting) sits in the page header beside the save status; Delete lives in a separate <code>.danger-zone</code> below the form.</li><li><b>Checked when sent.</b> Nothing is validated while typing; errors appear on submit with a linked summary and the first problem field is focused.</li></ul>
+    </section>
+
+    <section class="ds-section" id="when"><h2><a href="#when">When to use</a></h2>
+      <p>Use a form to collect or change information that is saved together. Use a dialog for a one-question decision ("Delete this meeting?") and an inline control for an instant toggle. Do not build a multi-step wizard: a meeting has seven fields and fits on one page.</p>
+    </section>
+
+    <section class="ds-section" id="structure"><h2><a href="#structure">Structure</a></h2>
+      <p>Every form follows the same top-to-bottom order. The save bar is in the page header, outside the <code>&lt;form&gt;</code>, and points back to it with the <code>form</code> attribute.</p>
+      <div class="ds-example"><div class="ds-example__canvas "><div class="stack" style="width: 100%;"><div class="page-header" style="margin: 0;"><div><h2 style="margin: 0;">Edit meeting</h2></div><div class="cluster"><div class="save-bar"><span class="inline-status" role="status"><span class="inline-status--success"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> Saved just now</span></span><button class="btn btn--primary" type="button">Save</button></div></div></div><div class="meeting-form__header"><div class="field"><label class="field__label" for="fs-name">Name</label><input class="input" id="fs-name" type="text" value="Universal basic income"></div><div class="field"><label class="field__label" for="fs-date">Date</label><input class="input" id="fs-date" type="date" value="2026-10-13"></div><div class="field"><label class="field__label" for="fs-start">Start</label><input class="input" id="fs-start" type="time" value="19:00"></div><div class="field"><label class="field__label" for="fs-end">End</label><input class="input" id="fs-end" type="time" value="20:30"></div></div></div></div><div class="ds-example__caption"><span>Page header with title and save bar, then the field header. The tab strip of editors follows (see <a href="../components/tab-strip.html">Tab strip</a> and <a href="../components/rich-text-editor.html">Rich-text editor</a>).</span></div></div>
+      <ol>
+        <li>Back link ("Meetings") above the title.</li>
+        <li>Page header: <code>h1</code> ("New meeting" or "Edit meeting") and the <code>.save-bar</code>.</li>
+        <li>Error summary, only after a failed submit.</li>
+        <li>Field header: name, date, start, end.</li>
+        <li>Tab strip with one rich-text editor per section: abstract, agenda, minutes.</li>
+        <li>Danger zone (edit only): "Delete this meeting" with the Delete meeting button.</li>
+      </ol>
+      <p>Components: <a href="../components/form-layout.html">Form layout</a>, <a href="../components/form-field.html">Form field</a>, <a href="../components/text-field.html">Text field</a>, <a href="../components/save-bar.html">Save bar</a>, <a href="../components/tab-strip.html">Tab strip</a>, <a href="../components/rich-text-editor.html">Rich-text editor</a>, <a href="../components/button.html">Button</a>.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>Each state has its own mock; the examples here are the parts that change.</p>
+      <div class="ds-example"><div class="ds-example__canvas "><div class="stack" style="width: 100%;"><div class="alert alert--danger form-summary" role="alert"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><div class="alert__body"><div class="alert__title">Fix 2 things to save</div><div class="alert__actions"><a href="#fx-name">Enter a name</a> <a href="#fx-end">End must be after start</a></div></div></div><div class="meeting-form__header"><div class="field"><label class="field__label" for="fx-name">Name</label><input class="input" id="fx-name" type="text" value="" aria-invalid="true" aria-describedby="fx-name-e"><div class="field__error" id="fx-name-e">Enter a name.</div></div><div class="field"><label class="field__label" for="fx-date">Date</label><input class="input" id="fx-date" type="date" value="2026-10-13"></div><div class="field"><label class="field__label" for="fx-start">Start</label><input class="input" id="fx-start" type="time" value="20:30"></div><div class="field"><label class="field__label" for="fx-end">End</label><input class="input" id="fx-end" type="time" value="19:00" aria-invalid="true" aria-describedby="fx-end-e"><div class="field__error" id="fx-end-e">End must be after start.</div></div></div></div></div><div class="ds-example__caption"><span>Invalid: summary with links to each problem, <code>aria-invalid</code> and an error under each field. From <a href="../../mocks/pages/meeting-edit/invalid.html">pages/meeting-edit/invalid</a>.</span></div></div>      <div class="ds-example"><div class="ds-example__canvas "><div class="save-bar"><span class="inline-status" role="status"><span class="dot dot--pulse" aria-hidden="true"></span> Saving…</span><button class="btn btn--primary" type="button" aria-busy="true">Saving…</button></div><div class="save-bar"><span class="inline-status" role="status"><span class="inline-status--success"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> Saved just now</span></span><button class="btn btn--primary" type="button">Save</button></div></div><div class="ds-example__caption"><span>Submitting and saved. The button shows busy and is not disabled for assistive tech; the status text announces the result. From <a href="../../mocks/pages/meeting-edit/submitting.html">pages/meeting-edit/submitting</a> and <a href="../../mocks/pages/meeting-edit/saved.html">pages/meeting-edit/saved</a>.</span></div></div>      <div class="ds-table-wrap"><table class="ds-table"><thead><tr><th scope="col">State</th><th scope="col">What the person sees</th><th scope="col">Mock</th></tr></thead><tbody><tr><td>Default</td><td>Fields filled (edit) or empty (create), Save or Create meeting enabled</td><td><a href="../../mocks/pages/meeting-edit/default.html">pages/meeting-edit/default</a> · <a href="../../mocks/pages/meeting-create/default.html">pages/meeting-create/default</a></td></tr><tr><td>Loading</td><td>Skeleton in place of the fields while the meeting loads</td><td><a href="../../mocks/pages/meeting-edit/loading.html">pages/meeting-edit/loading</a></td></tr><tr><td>Invalid</td><td>Summary "Fix 2 things to save", field errors, focus on the summary</td><td><a href="../../mocks/pages/meeting-edit/invalid.html">pages/meeting-edit/invalid</a> · <a href="../../mocks/pages/meeting-create/invalid.html">pages/meeting-create/invalid</a></td></tr><tr><td>Submitting</td><td>Busy primary button and "Saving…" status; inputs keep their values</td><td><a href="../../mocks/pages/meeting-edit/submitting.html">pages/meeting-edit/submitting</a> · <a href="../../mocks/pages/meeting-create/submitting.html">pages/meeting-create/submitting</a></td></tr><tr><td>Saved</td><td>"Saved just now" with a check</td><td><a href="../../mocks/pages/meeting-edit/saved.html">pages/meeting-edit/saved</a></td></tr><tr><td>Server error</td><td>Alert above the form with the problem and Try again; nothing typed is lost</td><td><a href="../../mocks/pages/meeting-edit/error.html">pages/meeting-edit/error</a> · <a href="../../mocks/pages/meeting-create/error.html">pages/meeting-create/error</a></td></tr><tr><td>Edge</td><td>Very long name and long content</td><td><a href="../../mocks/pages/meeting-edit/edge.html">pages/meeting-edit/edge</a></td></tr><tr><td>Sign in</td><td>Username and password; wrong credentials, expired session and signed-out variants</td><td><a href="../../mocks/pages/sign-in/default.html">pages/sign-in/default</a> · <a href="../../mocks/pages/sign-in/invalid.html">pages/sign-in/invalid</a> · <a href="../../mocks/pages/sign-in/error.html">pages/sign-in/error</a> · <a href="../../mocks/pages/sign-in/expired.html">pages/sign-in/expired</a></td></tr></tbody></table></div>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive</a></h2>
+      <ul><li>At 360px the header fields stack to one column; from 768px name takes a full row and date, start and end share the next.</li><li>The save bar wraps below the title on phones; the status text stays next to the button.</li><li>The editor toolbar wraps and the tab strip scrolls sideways rather than truncating tab names.</li></ul>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <ul><li>Every control has a visible <code>&lt;label&gt;</code> tied by <code>for</code>/<code>id</code> (3.3.2).</li><li>Errors use <code>aria-invalid="true"</code> and <code>aria-describedby</code> to the error text; the summary has <code>role="alert"</code>, receives focus and links to each field (3.3.1, 3.3.3).</li><li>Date and time use native <code>type="date"</code> and <code>type="time"</code> inputs, so pickers and keyboard entry come from the platform.</li><li>The save status is a <code>role="status"</code> live region; busy state sets <code>aria-busy="true"</code> on the button.</li><li>Leaving the editor with unsaved changes opens the "Leave without saving?" dialog (3.3.4); see <a href="dialogs-and-overlays.html">Dialogs and overlays</a>.</li><li>The rich-text toolbar is a <code>role="toolbar"</code> with <code>aria-pressed</code> on toggle buttons and an <code>aria-label</code> on every icon button.</li></ul>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul><li>Field labels are single nouns: Name, Date, Start, End, Abstract, Agenda, Minutes.</li><li>Field errors say what to do: "Enter a name." and "End must be after start."</li><li>The summary title counts the problems: "Fix 2 things to save".</li><li>Buttons: "Save" when editing, "Create meeting" when creating, "Sign in" on the sign-in form.</li></ul>
+      <p>More rules on <a href="../foundations/content.html">Content</a>.</p>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont"><figure class="ds-do"><div class="ds-example__canvas"><div class="field" style="width: 100%;"><label class="field__label" for="dd1">Name</label><input class="input" id="dd1" type="text" value=""  aria-invalid="true" aria-describedby="dd1e"><div class="field__error" id="dd1e">Enter a name.</div></div></div><figcaption>Put the label above the field and the error under it, in words.</figcaption></figure><figure class="ds-dont"><div class="ds-example__canvas"><div class="field" style="width: 100%;"><input class="input" type="text" placeholder="Name" aria-label="Name"><div class="text-muted">Invalid</div></div></div><figcaption>Use a placeholder as the only label, or say "Invalid" without the fix.</figcaption></figure></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Mocks this pattern was extracted from:</p>
+      <ul><li><a href="../../mocks/pages/meeting-edit/default.html">pages/meeting-edit/default</a></li><li><a href="../../mocks/pages/meeting-edit/invalid.html">pages/meeting-edit/invalid</a></li><li><a href="../../mocks/pages/meeting-edit/submitting.html">pages/meeting-edit/submitting</a></li><li><a href="../../mocks/pages/meeting-edit/saved.html">pages/meeting-edit/saved</a></li><li><a href="../../mocks/pages/meeting-create/default.html">pages/meeting-create/default</a></li><li><a href="../../mocks/pages/meeting-create/invalid.html">pages/meeting-create/invalid</a></li><li><a href="../../mocks/pages/sign-in/default.html">pages/sign-in/default</a></li><li><a href="../../mocks/pages/sign-in/invalid.html">pages/sign-in/invalid</a></li></ul>
+    </section>
+
+    <footer class="ds-footer"><span>Debate App design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 2026-10-19</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

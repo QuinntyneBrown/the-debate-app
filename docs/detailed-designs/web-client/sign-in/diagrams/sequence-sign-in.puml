@@ -1,0 +1,45 @@
+@startuml
+title UML sequence behaviour — Sign in
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Club administrator" as actor
+box "Frontend — Web client (login library)" #E0F2FE
+  participant "LoginComponent" as page
+end box
+box "Frontend — Web client (api library)" #E0F2FE
+  participant "AuthService" as auth
+  participant "SessionService" as session
+end box
+box "Backend — REST API application" #D1FADF
+  participant "POST /api/user/token" as token
+end box
+actor -> page : Enter username and password, press Enter
+page -> page : state = submitting, fields read-only
+page -> auth : tryToLogin(username, password)
+auth -> token : POST form body username, password, grant_type=password, URL-encoded (L2-027 criterion 2)
+alt valid credentials (L2-013 criterion 1)
+  token --> auth : 200 access_token, token_type, expires_in
+  auth -> session : put(name token, value access_token) (L2-026 criterion 1)
+  auth --> page : TokenResponse
+  page --> actor : Navigate to the page asked for, else /meetings
+else wrong username or password (L2-013 criteria 2 and 3)
+  token --> auth : 400 error_description Invalid credentials
+  auth --> page : ApiError (credentials)
+  page --> actor : state = invalid, summary focused, password kept
+else server unreachable
+  auth --> page : ApiError (offline)
+  page --> actor : state = error, button reads Try again, fields kept
+end
+@enduml

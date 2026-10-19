@@ -1,0 +1,17 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Soft deletion
+
+Container_Boundary(api, "REST API (backend/src)") {
+  Component(routes, "meetings.routes", "Express router", "Maps DELETE api/meeting/remove")
+  Component(service, "MeetingService", "TypeScript class", "remove, get, getById, addOrUpdate")
+  Component(base, "SoftDeletableRepository", "TypeScript abstract class", "Shared filter and flag update")
+  Component(repo, "MeetingRepository", "TypeScript class", "Extends the base for the meetings table")
+}
+ContainerDb(db, "PostgreSQL", "meetings table", "Rows with is_deleted")
+Rel(routes, service, "Calls remove")
+Rel(service, repo, "Calls softDelete, findForUpdate")
+Rel(repo, base, "Inherits filter from")
+Rel(base, db, "Reads and flags rows", "SQL")
+@enduml

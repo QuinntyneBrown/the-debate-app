@@ -1,0 +1,59 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Issue a token
+
+class TokenRequest {
+  +grant_type: string
+  +username: string
+  +password: string
+}
+class TokenResponse {
+  +access_token: string
+  +token_type: string
+  +expires_in: number
+}
+class OAuthError {
+  +error: string
+  +error_description: string
+}
+class AuthConfig {
+  +tokenPath: string
+  +expirationMinutes: number
+  +jwtIssuer: string
+  +jwtAudience: string
+  +authType: string
+  +jwtKey: string
+}
+class IdentityService {
+  +validate(username: string, password: string): Promise<IdentityClaims | null>
+}
+class IdentityClaims {
+  +username: string
+  +roles: string[]
+}
+class TokenService {
+  +sign(claims: IdentityClaims): TokenResponse
+}
+class PasswordTransform {
+  +transform(plain: string): string
+}
+class UserRepository {
+  +findByUsername(username: string): Promise<User | null>
+}
+IdentityService ..> TokenRequest : reads
+IdentityService --> UserRepository : uses
+IdentityService ..> PasswordTransform : uses
+IdentityService --> IdentityClaims : returns
+TokenService --> AuthConfig : uses
+TokenService ..> TokenResponse : returns
+IdentityService ..> OAuthError : failure maps to
+@enduml

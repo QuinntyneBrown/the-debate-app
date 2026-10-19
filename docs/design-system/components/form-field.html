@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Form field — The Debate App design system</title>
+<meta name="description" content="The field wraps one control with a visible label and, when the value is wrong, an error message that says how to fix it. Anatomy, states, both themes and accessibility.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Debate App DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/save-bar.html">Save bar</a></li>
+      <li><a href="../components/rich-text-editor.html">Rich-text editor</a></li>
+      <li><a href="../components/prose.html">Prose</a></li>
+      <li><a href="../components/tab-strip.html">Tab strip</a></li>
+      <li><a href="../components/meeting-row.html">Meeting row</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/navigation.html">Navigation</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Inputs</p>
+      <h1>Form field</h1>
+      <p class="ds-lead">The field wraps one control with a visible label and, when the value is wrong, an error message that says how to fix it. There is no help text and no optional marker.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;label&gt;</code></span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>Every <a href="text-field.html">text field</a>, date input and time input sits inside a <code>.field</code>. The field stacks its parts in a fixed order: label, control, error. It has no look of its own beyond spacing and type.</p>
+      <ul>
+        <li><b>Label</b> (<code>.field__label</code>) is always visible and is a short noun: "Name", "Date", "Start", "End", "Username", "Password".</li>
+        <li><b>No help text and no optional marker.</b> The product stance is no help unless a rule exists, and the mocks use neither <code>.field__help</code> nor <code>.optional</code>. Both classes still exist in ui.css; do not use them without a requirement.</li>
+        <li><b>Error</b> (<code>.field__error</code>) is added below the control when the value is wrong, and says how to fix it: "Enter a name.", "End must be after start."</li>
+      </ul>
+      <p>The rich-text editors on the meeting form (abstract, agenda, minutes) are labelled the same way; see <a href="form-layout.html">form layout</a> and <a href="rich-text-editor.html">rich-text editor</a>.</p>
+    </section>
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="field" style="width: 100%; max-width: 22rem;"><label class="field__label" for="ff-anatomy-end">End</label><input class="input" id="ff-anatomy-end" type="time" value="19:00" style="max-width: 10rem;" aria-invalid="true" aria-describedby="ff-anatomy-end-error"><div class="field__error" id="ff-anatomy-end-error">End must be after start.</div></div>
+          <span class="ds-callout" style="left: 6%; top: 6%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 38%; top: 46%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 6%; top: 86%;" aria-hidden="true">3</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Label</b><small><code>&lt;label class="field__label" for&gt;</code>, <code>--text-label</code>, always visible.</small></div></li>
+          <li><div><b>Control</b><small>An <code>.input</code> or <code>.textarea</code>.</small></div></li>
+          <li><div><b>Error (when invalid)</b><small><code>.field__error</code> in <code>--color-danger-fg</code> with a ⚠ glyph, so colour is not the only cue.</small></div></li>
+        </ol>
+      </div>
+    </section>
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <p>One component; the parts you include make the variant.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack">
+          <div class="field" style="width: 100%;"><label class="field__label" for="ff-var-name">Name</label><input class="input" id="ff-var-name" type="text" value="Universal basic income" required></div>
+          <div class="field" style="width: 100%;"><label class="field__label" for="ff-var-date">Date</label><input class="input" id="ff-var-date" type="date" value="2026-10-13" style="max-width: 12rem;"></div>
+          <div class="field" style="width: 100%;"><label class="field__label" for="ff-var-user">Username</label><input class="input" id="ff-var-user" type="text" value="admin" autocomplete="username" required></div>
+          <div class="field" style="width: 100%;"><label class="field__label" for="ff-var-end">End</label><input class="input" id="ff-var-end" type="time" value="19:00" aria-invalid="true" aria-describedby="ff-var-end-error" style="max-width: 10rem;"><div class="field__error" id="ff-var-end-error">End must be after start.</div></div>
+        </div>
+        <div class="ds-example__caption"><span>Label only (text, date, credentials); label with an error.</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="field"&gt;
+  &lt;label class="field__label" for="end"&gt;End&lt;/label&gt;
+  &lt;input class="input" id="end" name="end" type="time" aria-invalid="true"
+         aria-describedby="end-error"&gt;
+  &lt;div class="field__error" id="end-error"&gt;End must be after start.&lt;/div&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="The field takes its control's size; label and error text do not scale."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">The field takes its control's size; label and error text do not scale.</p>
+    </section>
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>The field's state is its control's state, plus the error text when invalid. Focus and hover are forced on the control with <code>data-state</code>.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Field</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Invalid</th><th scope="col">Read-only</th><th scope="col">Disabled</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Name</th>
+            <td><div class="field"><label class="field__label" for="ff-st-default">Name</label><input class="input" id="ff-st-default" type="text" value="Four-day work week"></div></td><td><div class="field"><label class="field__label" for="ff-st-hover">Name</label><input class="input" id="ff-st-hover" type="text" value="Four-day work week" data-state="hover"></div></td><td><div class="field"><label class="field__label" for="ff-st-focus">Name</label><input class="input" id="ff-st-focus" type="text" value="Four-day work week" data-state="focus"></div></td><td><div class="field"><label class="field__label" for="ff-st-invalid">Name</label><input class="input" id="ff-st-invalid" type="text" value="" aria-invalid="true" aria-describedby="ff-st-invalid-error"><div class="field__error" id="ff-st-invalid-error">Enter a name.</div></div></td><td><div class="field"><label class="field__label" for="ff-st-readonly">Name</label><input class="input" id="ff-st-readonly" type="text" value="Four-day work week" readonly></div></td><td><div class="field"><label class="field__label" for="ff-st-disabled">Name</label><input class="input" id="ff-st-disabled" type="text" value="Four-day work week" disabled></div></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><div class="field" style="width: 100%;"><label class="field__label" for="ff-th-light-name">Name</label><input class="input" id="ff-th-light-name" type="text" value="Four-day work week"></div><div class="field" style="width: 100%;"><label class="field__label" for="ff-th-light-end">End</label><input class="input" id="ff-th-light-end" type="time" value="19:00" aria-invalid="true" aria-describedby="ff-th-light-end-error" style="max-width: 10rem;"><div class="field__error" id="ff-th-light-end-error">End must be after start.</div></div></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><div class="field" style="width: 100%;"><label class="field__label" for="ff-th-dark-name">Name</label><input class="input" id="ff-th-dark-name" type="text" value="Four-day work week"></div><div class="field" style="width: 100%;"><label class="field__label" for="ff-th-dark-end">End</label><input class="input" id="ff-th-dark-end" type="time" value="19:00" aria-invalid="true" aria-describedby="ff-th-dark-end-error" style="max-width: 10rem;"><div class="field__error" id="ff-th-dark-end-error">End must be after start.</div></div></div></div>
+        
+      </div>
+      <ul>
+        <li>Errors appear after a submit attempt, never while typing; they clear when the field is next changed.</li>
+        <li>An invalid field keeps the value that was typed, so a typo can be fixed rather than retyped.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>The field is full width of its container on phones. Date and time inputs are capped (12rem and 10rem) so the box hints at the length of the answer; the meeting name takes the full width.</li>
+        <li>Label and error wrap freely; nothing truncates.</li>
+        <li>Fields stack in a single column, including Date, Start and End on the meeting form.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The field reads <code>--color-fg-default</code> (label) and <code>--color-danger-fg</code> (error). Both are re-mapped by the dark theme; the field itself has no component tokens. The gap between parts is <code>--space-1</code>.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>Native <code>&lt;label for&gt;</code> tied to the control's <code>id</code>. The error is tied with <code>aria-describedby</code>: <code>aria-describedby="end-error"</code>. An invalid control sets <code>aria-invalid="true"</code>.</p>
+      <h3>Keyboard</h3>
+      <table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Moves between controls; label and error are not focusable.</td></tr>
+        <tr><td>Error-summary link</td><td>Moves focus straight to the field; see <a href="form-layout.html">form layout</a>.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>Focus is shown on the control, not the field. Clicking or tapping the label also focuses the control.</p>
+      <h3>Labelling</h3>
+      <p>Every control has a visible label (WCAG 3.3.2). The Debate App uses no placeholders, so nothing disappears when typing starts.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Label on card</span><span class="ds-pair__ratio" data-contrast="--color-fg-default|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Error on card</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-surface" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Error in a dialog</span><span class="ds-pair__ratio" data-contrast="--color-danger-fg|--color-bg-surface-raised" data-min="4.5"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>None. Errors appear without animation.</p>
+      <h3>Touch</h3>
+      <p>The label is part of the target: tapping it focuses the control, which helps on narrow time and date fields.</p>
+    </section>
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Labels are short nouns in sentence case: "Name", "Date", "Start", "End", "Username", "Password".</li>
+        <li>Errors say how to fix it, not what went wrong in system terms: "Enter a name.", "End must be after start." Never "Invalid value".</li>
+        <li>Errors are one short sentence with a full stop, and do not blame the person.</li>
+        <li>No help text and no "(optional)" marker unless a requirement needs one.</li>
+      </ul>
+    </section>
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="field" style="width: 100%;"><label class="field__label" for="ff-do-end">End</label><input class="input" id="ff-do-end" type="time" value="19:00" aria-invalid="true" aria-describedby="ff-do-end-error" style="max-width: 10rem;"><div class="field__error" id="ff-do-end-error">End must be after start.</div></div></div><figcaption>A visible label and an error that says how to fix it, tied with <code>aria-describedby</code>.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="field" style="width: 100%;"><input class="input" id="ff-dont-user" type="text" aria-label="Username" placeholder="Username"></div></div><figcaption>A placeholder as the label vanishes as soon as typing starts.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="field" style="width: 100%;"><label class="field__label" for="ff-do-name">Name</label><input class="input" id="ff-do-name" type="text" value="" aria-invalid="true" aria-describedby="ff-do-name-error" required><div class="field__error" id="ff-do-name-error">Enter a name.</div></div></div><figcaption>Required is the default, so the label carries no marker; the control says <code>required</code>.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="field" style="width: 100%;"><label class="field__label" for="ff-dont-name">Name <span class="optional">(optional)</span></label><input class="input" id="ff-dont-name" type="text" value="Four-day work week"></div></div><figcaption>No field on the meeting form is optional in a way that needs flagging: the mocks never use <code>.optional</code> or <code>.field__help</code>.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="field" style="width: 100%;"><label class="field__label" for="ff-dont-date">Date</label><input class="input" id="ff-dont-date" type="date" value="2026-10-13" required></div></div><figcaption>Drift in the mocks: the meeting form marks only Name as <code>required</code>, though Date, Start and End are shown without any cue; a missing date is only caught on save.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Label</td><td><code>--color-fg-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-default" data-swatch></i><span data-token="--color-fg-default"></span></span></td></tr>
+          <tr><td>Error</td><td><code>--color-danger-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-danger-fg" data-swatch></i><span data-token="--color-danger-fg"></span></span></td></tr>
+          <tr><td>Label font</td><td><code>--text-label</code></td><td><span data-token="--text-label"></span></td><td><span data-theme="dark" data-token="--text-label"></span></td></tr>
+          <tr><td>Error font</td><td><code>--text-body-sm</code></td><td><span data-token="--text-body-sm"></span></td><td><span data-theme="dark" data-token="--text-body-sm"></span></td></tr>
+          <tr><td>Gap between parts</td><td><code>--space-1</code></td><td><span data-token="--space-1"></span></td><td><span data-theme="dark" data-token="--space-1"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="field"&gt;
+  &lt;label class="field__label" for="name"&gt;Name&lt;/label&gt;
+  &lt;input class="input" id="name" name="name" type="text" required autocomplete="off"&gt;
+&lt;/div&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.field</code></td><td>Column of label, control and error with a <code>--space-1</code> gap.</td></tr>
+        <tr><td><code>.field__label</code></td><td>Label text on a <code>&lt;label for&gt;</code>.</td></tr>
+        <tr><td><code>.field__error</code></td><td>Error text with a ⚠ glyph; give it an <code>id</code> and reference it in <code>aria-describedby</code>.</td></tr>
+        <tr><td><code>aria-invalid="true"</code> on the control</td><td>Red border and inset ring on the control.</td></tr>
+      </tbody></table>
+    </section>
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/meeting-edit/invalid.html">pages/meeting-edit/invalid</a> (name and end-time errors)</li>
+        <li><a href="../../mocks/pages/meeting-create/invalid.html">pages/meeting-create/invalid</a> (name error)</li>
+        <li><a href="../../mocks/pages/meeting-edit/default.html">pages/meeting-edit/default</a> (label-only fields)</li>
+        <li><a href="../../mocks/pages/sign-in/invalid.html">pages/sign-in/invalid</a> (password error)</li>
+        <li><a href="../assets/components.css">assets/ui.css</a> (<code>.field</code>)</li>
+      </ul>
+      <p>Drift found in the mocks: only Name carries <code>required</code> although Date, Start and End are needed to save; the sign-in password error ("Username or password is wrong.") sits under the password field only, though it concerns both fields.</p>
+    </section>
+
+    <footer class="ds-footer"><span>The Debate App design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 2026-10-19</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — File drop zone component
+
+Person(user, "Club administrator", "Edits debate meetings")
+System_Boundary(app, "The Debate App") {
+  Container(spa, "Web client", "Angular", "File drop zone component and a parent component")
+}
+
+Rel(user, spa, "Uses", "HTTPS")
+@enduml

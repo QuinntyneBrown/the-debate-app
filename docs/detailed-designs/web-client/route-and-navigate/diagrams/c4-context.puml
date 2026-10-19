@@ -1,0 +1,9 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Route and navigate
+
+Person(member, "Club member", "Moves between home, sign in and meetings")
+System(app, "The Debate App", "Single-page web client and REST API for debate meetings")
+Rel(member, app, "Opens pages and follows links in")
+@enduml

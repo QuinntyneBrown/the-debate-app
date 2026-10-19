@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Save bar — Debate App design system</title>
+<meta name="description" content="The save bar sits in the page header of the meeting forms: a live status, a keyboard shortcut hint and the Save button.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Debate App DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/save-bar.html">Save bar</a></li>
+      <li><a href="../components/rich-text-editor.html">Rich-text editor</a></li>
+      <li><a href="../components/prose.html">Prose</a></li>
+      <li><a href="../components/tab-strip.html">Tab strip</a></li>
+      <li><a href="../components/meeting-row.html">Meeting row</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/navigation.html">Navigation</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Component · Actions</p>
+      <h1>Save bar</h1>
+      <p class="ds-lead">Tells the organiser whether the meeting is saved, saving or still to create, and offers Save with its keyboard shortcut.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Status: stable</span><span class="ds-pill">Native <code>&lt;button type="submit"&gt;</code></span><span class="ds-pill">Live region</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#anatomy">Anatomy</a></li><li><a href="#variants">Variants</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#states">States</a></li><li><a href="#responsive">Responsive</a></li><li><a href="#theming">Theming</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#content">Content</a></li><li><a href="#do-dont">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#code">Code</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The save bar is one flex row in the header of the Edit meeting and New meeting pages, beside the title. It is not a toolbar and not sticky: it holds the status, the shortcut hint and the single primary button of the page. For the button itself see <a href="button.html">button</a>; for the form it submits see <a href="form-layout.html">form layout</a>.</p>
+      <ul>
+        <li><b>Status</b> (<code>.inline-status</code>, <code>role="status"</code>) says "Saved 3:40 pm", "Saved just now" or "Saving…". Hidden on a new meeting until the first save.</li>
+        <li><b>Shortcut hint</b> shows <kbd>Ctrl</kbd>+<kbd>S</kbd> in <code>kbd</code> styling; the shortcut saves from anywhere in the form.</li>
+        <li><b>Save</b> is the primary button, tied to the form with <code>form="meeting-form"</code> because it lives outside the <code>&lt;form&gt;</code>.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="anatomy"><h2><a href="#anatomy">Anatomy</a></h2>
+      <div class="ds-anatomy">
+        <figure class="ds-anatomy__figure">
+          <div class="save-bar"><span class="inline-status" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> Saved 3:40 pm</span><span class="text-muted"><kbd>Ctrl</kbd>+<kbd>S</kbd></span><button class="btn btn--primary" type="submit">Save</button></div>
+          <span class="ds-callout" style="left: 4%; top: 6%;" aria-hidden="true">1</span>
+          <span class="ds-callout" style="left: 44%; top: 6%;" aria-hidden="true">2</span>
+          <span class="ds-callout" style="left: 80%; top: 6%;" aria-hidden="true">3</span>
+        </figure>
+        <ol class="ds-anatomy__list">
+          <li><div><b>Status</b><small><code>.inline-status</code> with a <code>role="status"</code> live region, 16px check icon, <code>--text-body-sm</code> in <code>--color-fg-muted</code>.</small></div></li>
+          <li><div><b>Shortcut hint</b><small><code>kbd</code> keys: <code>--text-caption</code>, hairline border, <code>--radius-sm</code>.</small></div></li>
+          <li><div><b>Save button</b><small><code>.btn.btn--primary</code>, <code>type="submit"</code>, <code>form="meeting-form"</code>.</small></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ds-section" id="variants"><h2><a href="#variants">Variants</a></h2>
+      <p>Two variants, set by the page: Edit shows status and Save; Create shows only the named action until the first save.</p>
+      <div class="ds-example">
+        <div class="ds-example__canvas ds-example__canvas--stack"><div class="save-bar"><span class="inline-status" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> Saved 3:40 pm</span><span class="text-muted"><kbd>Ctrl</kbd>+<kbd>S</kbd></span><button class="btn btn--primary" type="submit">Save</button></div><div class="save-bar"><button class="btn btn--primary" type="submit">Create meeting</button></div></div>
+        <div class="ds-example__caption"><span>Edit meeting (status, hint, Save) and New meeting (Create meeting only).</span></div>
+        <details class="ds-example__code"><summary>HTML</summary><pre><code>&lt;div class="save-bar"&gt;
+  &lt;span class="inline-status" id="save-status" role="status"&gt;… Saved 3:40 pm&lt;/span&gt;
+  &lt;span class="text-muted"&gt;&lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;S&lt;/kbd&gt;&lt;/span&gt;
+  &lt;button class="btn btn--primary" type="submit" form="meeting-form"&gt;Save&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="save-bar"&gt;
+  &lt;button class="btn btn--primary" type="submit" form="meeting-form"&gt;Create meeting&lt;/button&gt;
+&lt;/div&gt;</code></pre></details>
+      </div>
+    </section>
+
+    <section class="ds-section" id="sizes" data-na="The save bar has one size; the button inside is the medium primary and the status and hint are body-small text."><h2><a href="#sizes">Sizes</a></h2>
+      <p class="ds-na">The save bar has one size; the button inside is the medium primary and the status and hint are body-small text.</p>
+    </section>
+
+    <section class="ds-section" id="states"><h2><a href="#states">States</a></h2>
+      <p>The button takes the usual <a href="button.html">button</a> states; <code>data-state</code> forces hover, focus and active in this static page. The status text changes with the save outcome and is announced because it is a live region.</p>
+      <div class="ds-matrix"><table>
+        <thead><tr><th scope="col">Variant</th><th scope="col">Default</th><th scope="col">Hover</th><th scope="col">Focus</th><th scope="col">Active</th><th scope="col">Saving</th><th scope="col">Saved</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Edit</th><td><div class="save-bar"><span class="inline-status" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> Saved 3:40 pm</span><span class="text-muted"><kbd>Ctrl</kbd>+<kbd>S</kbd></span><button class="btn btn--primary" type="submit">Save</button></div></td><td><div class="save-bar"><span class="inline-status" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> Saved 3:40 pm</span><span class="text-muted"><kbd>Ctrl</kbd>+<kbd>S</kbd></span><button class="btn btn--primary" type="submit" data-state="hover">Save</button></div></td><td><div class="save-bar"><span class="inline-status" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> Saved 3:40 pm</span><span class="text-muted"><kbd>Ctrl</kbd>+<kbd>S</kbd></span><button class="btn btn--primary" type="submit" data-state="focus">Save</button></div></td><td><div class="save-bar"><span class="inline-status" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> Saved 3:40 pm</span><span class="text-muted"><kbd>Ctrl</kbd>+<kbd>S</kbd></span><button class="btn btn--primary" type="submit" data-state="active">Save</button></div></td><td><div class="save-bar"><span class="inline-status" role="status"><span class="dot dot--pulse" aria-hidden="true"></span> Saving…</span><span class="text-muted"><kbd>Ctrl</kbd>+<kbd>S</kbd></span><button class="btn btn--primary" type="submit" disabled aria-busy="true">Saving…</button></div></td><td><div class="save-bar"><span class="inline-status" role="status"><span class="inline-status--success"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> Saved just now</span></span><span class="text-muted"><kbd>Ctrl</kbd>+<kbd>S</kbd></span><button class="btn btn--primary" type="submit">Save</button></div></td></tr>
+          <tr><th scope="row">Create</th><td><div class="save-bar"><button class="btn btn--primary" type="submit">Create meeting</button></div></td><td><div class="save-bar"><button class="btn btn--primary" type="submit" data-state="hover">Create meeting</button></div></td><td><div class="save-bar"><button class="btn btn--primary" type="submit" data-state="focus">Create meeting</button></div></td><td><div class="save-bar"><button class="btn btn--primary" type="submit" data-state="active">Create meeting</button></div></td><td><div class="save-bar"><span class="inline-status" role="status"><span class="dot dot--pulse" aria-hidden="true"></span> Saving…</span><button class="btn btn--primary" type="submit" disabled aria-busy="true">Saving…</button></div></td><td data-na="Create navigates to the Meetings page on success; there is no saved state.">Not applicable</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Both themes</h3>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><div class="save-bar"><span class="inline-status" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> Saved 3:40 pm</span><span class="text-muted"><kbd>Ctrl</kbd>+<kbd>S</kbd></span><button class="btn btn--primary" type="submit">Save</button></div><div class="save-bar"><span class="inline-status" role="status"><span class="dot dot--pulse" aria-hidden="true"></span> Saving…</span><span class="text-muted"><kbd>Ctrl</kbd>+<kbd>S</kbd></span><button class="btn btn--primary" type="submit" disabled aria-busy="true">Saving…</button></div></div></div>
+        <div data-theme="dark"><div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0;"><div class="save-bar"><span class="inline-status" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> Saved 3:40 pm</span><span class="text-muted"><kbd>Ctrl</kbd>+<kbd>S</kbd></span><button class="btn btn--primary" type="submit">Save</button></div><div class="save-bar"><span class="inline-status" role="status"><span class="dot dot--pulse" aria-hidden="true"></span> Saving…</span><span class="text-muted"><kbd>Ctrl</kbd>+<kbd>S</kbd></span><button class="btn btn--primary" type="submit" disabled aria-busy="true">Saving…</button></div></div></div>
+      </div>
+      <ul>
+        <li><b>Saving</b>: the button is <code>aria-busy="true"</code> and disabled, its label becomes "Saving…", and the status shows a pulsing dot. Fields become read-only (see <a href="form-layout.html">form layout</a>).</li>
+        <li><b>Saved</b>: "Saved just now" in <code>--color-success-fg</code> with a check; it settles to "Saved 3:40 pm" in muted text.</li>
+        <li><b>Failed or invalid</b>: the status is removed and the error appears in the form summary or an alert; focus moves there, and the button returns to its default state.</li>
+        <li><b>Disabled</b> is used only while saving.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="responsive"><h2><a href="#responsive">Responsive behaviour</a></h2>
+      <ul>
+        <li>The bar is <code>display: flex; flex-wrap: wrap</code> with <code>--space-3</code> gaps. Next to the page title it sits at the end; on phones the header stacks and the bar wraps under the title.</li>
+        <li>The shortcut hint is of no use on touch screens; hide it where the device has no keyboard (for example inside <code>@media (hover: none)</code>) and keep the status and Save.</li>
+        <li>At 360px the status and Save share one line; if "Saved just now" and Save do not fit, the status wraps first, never the button label.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="theming"><h2><a href="#theming">Theming</a></h2>
+      <p>The bar adds no tokens of its own. The status uses <code>--color-fg-muted</code> and, when just saved, <code>--color-success-fg</code>; the hint uses <code>--color-fg-subtle</code> and <code>--color-border-default</code>; the button reads the button component tokens. In dark theme all four swap through the semantic tokens.</p>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <h3>Role and pattern</h3>
+      <p>A plain <code>&lt;div&gt;</code> group (no toolbar role: only one control is interactive). The status is a polite live region (<code>role="status"</code>) that exists in the DOM before it changes, so "Saving…" and "Saved just now" are announced without moving focus. The button is a native <code>type="submit"</code> associated with the form by <code>form="meeting-form"</code>, so <kbd>Enter</kbd> in a text field and a click both submit.</p>
+      <h3>Keyboard</h3>
+<table class="ds-table ds-keys"><thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead><tbody>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>S</kbd> (<kbd>Cmd</kbd>+<kbd>S</kbd> on Mac)</td><td>Saves the meeting from anywhere on the page, including inside the rich-text editors. The page prevents the browser save dialog.</td></tr>
+        <tr><td><kbd>Tab</kbd></td><td>Reaches Save after the page title; the status and hint are not focusable.</td></tr>
+        <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd> on Save</td><td>Submits the form.</td></tr>
+      </tbody></table>
+      <h3>Focus</h3>
+      <p>Standard button ring (<code>--focus-ring-width</code> of <code>--color-focus-ring</code>). While saving, the button is disabled and loses focus, so the page moves focus to the result: the status stays a live region, and on error focus goes to the summary.</p>
+      <h3>Labelling</h3>
+      <p>The visible label is the name: "Save" on edit, "Create meeting" on new. The shortcut is also stated in text next to it, so the hint is not the only way to learn it. The busy button keeps its name and sets <code>aria-busy="true"</code>.</p>
+      <h3>Contrast</h3>
+      <div class="ds-example__canvas ds-example__canvas--stack" style="padding: 0; gap: var(--space-2);">
+        <div class="ds-pair"><span>Status on page</span><span class="ds-pair__ratio" data-contrast="--color-fg-muted|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Saved just now</span><span class="ds-pair__ratio" data-contrast="--color-success-fg|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Hint text</span><span class="ds-pair__ratio" data-contrast="--color-fg-subtle|--color-bg-canvas" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Hint border</span><span class="ds-pair__ratio" data-contrast="--color-border-default|--color-bg-canvas" data-min="1"></span></div>
+        <div class="ds-pair"><span>Save label</span><span class="ds-pair__ratio" data-contrast="--color-fg-on-accent|--color-accent" data-min="4.5"></span></div>
+        <div class="ds-pair"><span>Focus ring</span><span class="ds-pair__ratio" data-contrast="--color-focus-ring|--color-bg-canvas" data-min="3"></span></div>
+      </div>
+      <h3>Motion</h3>
+      <p>The status dot pulses once every <code>--duration-loop</code> while saving and stops under <code>prefers-reduced-motion</code>; the text carries the meaning on its own.</p>
+      <h3>Touch</h3>
+      <p>Save is 44px tall. The bar's gap is <code>--space-3</code>, keeping the status clear of the button.</p>
+    </section>
+
+    <section class="ds-section" id="content"><h2><a href="#content">Content</a></h2>
+      <ul>
+        <li>Edit pages say "Save"; new pages say "Create meeting". Never "Submit" or "OK".</li>
+        <li>Status text is short and in the past or present tense: "Saved 3:40 pm", "Saved just now", "Saving…". The time uses lowercase am/pm.</li>
+        <li>The hint names the keys as written on the keyboard: <kbd>Ctrl</kbd>+<kbd>S</kbd>.</li>
+        <li>Errors are not written in the bar; they go to the form summary or an alert so they can hold detail and a link.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="do-dont"><h2><a href="#do-dont">Do and don't</a></h2>
+      <div class="ds-dodont">
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="save-bar"><span class="inline-status" role="status"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> Saved 3:40 pm</span><span class="text-muted"><kbd>Ctrl</kbd>+<kbd>S</kbd></span><button class="btn btn--primary" type="submit">Save</button></div></div><figcaption>Status, hint and one primary Save, all in a single row.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="save-bar"><button class="btn btn--primary" type="submit">Save</button><button class="btn btn--primary" type="button">Save and close</button></div></div><figcaption>Two primaries make the organiser choose. Keep one Save; leaving uses the Meetings link.</figcaption></figure>
+        <figure class="ds-do"><div class="ds-example__canvas"><div class="save-bar"><span class="inline-status" role="status"><span class="dot dot--pulse" aria-hidden="true"></span> Saving…</span><span class="text-muted"><kbd>Ctrl</kbd>+<kbd>S</kbd></span><button class="btn btn--primary" type="submit" disabled aria-busy="true">Saving…</button></div></div><figcaption>While saving, the button is busy and the status says so in words.</figcaption></figure>
+        <figure class="ds-dont"><div class="ds-example__canvas"><div class="save-bar"><span class="inline-status"><span class="dot" aria-hidden="true"></span></span><button class="btn btn--primary" type="submit">Save</button></div></div><figcaption>A dot with no words and no live region: nothing is announced and colour alone carries the state.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Part</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Status text</td><td><code>--color-fg-muted</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-muted" data-swatch></i><span data-token="--color-fg-muted"></span></span></td></tr>
+          <tr><td>Saved just now</td><td><code>--color-success-fg</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-success-fg" data-swatch></i><span data-token="--color-success-fg"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-success-fg" data-swatch></i><span data-token="--color-success-fg"></span></span></td></tr>
+          <tr><td>Shortcut hint</td><td><code>--color-fg-subtle</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-subtle" data-swatch></i><span data-token="--color-fg-subtle"></span></span></td></tr>
+          <tr><td>Hint border</td><td><code>--color-border-default</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-border-default" data-swatch></i><span data-token="--color-border-default"></span></span></td></tr>
+          <tr><td>Save background</td><td><code>--color-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-accent" data-swatch></i><span data-token="--color-accent"></span></span></td></tr>
+          <tr><td>Save label</td><td><code>--color-fg-on-accent</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-fg-on-accent" data-swatch></i><span data-token="--color-fg-on-accent"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-fg-on-accent" data-swatch></i><span data-token="--color-fg-on-accent"></span></span></td></tr>
+          <tr><td>Focus ring</td><td><code>--color-focus-ring</code></td><td><span class="ds-swatch-cell" data-theme="light"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td><td><span class="ds-swatch-cell" data-theme="dark"><i data-token="--color-focus-ring" data-swatch></i><span data-token="--color-focus-ring"></span></span></td></tr>
+          <tr><td>Gap</td><td><code>--space-3</code></td><td><span data-token="--space-3"></span></td><td><span data-theme="dark"><span data-token="--space-3"></span></span></td></tr>
+          <tr><td>Status icon gap</td><td><code>--space-2</code></td><td><span data-token="--space-2"></span></td><td><span data-theme="dark"><span data-token="--space-2"></span></span></td></tr>
+          <tr><td>Hint radius / border</td><td><code>--radius-sm</code>, <code>--border-width-hairline</code></td><td><span data-token="--radius-sm"></span> / <span data-token="--border-width-hairline"></span></td><td><span data-theme="dark"><span data-token="--radius-sm"></span> / <span data-token="--border-width-hairline"></span></span></td></tr>
+          <tr><td>Status / hint font</td><td><code>--text-body-sm</code> / <code>--text-caption</code></td><td><span data-token="--text-body-sm"></span> / <span data-token="--text-caption"></span></td><td><span data-theme="dark"><span data-token="--text-body-sm"></span> / <span data-token="--text-caption"></span></span></td></tr>
+          <tr><td>Saving dot pulse</td><td><code>--duration-loop</code></td><td><span data-token="--duration-loop"></span></td><td><span data-theme="dark"><span data-token="--duration-loop"></span></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="code"><h2><a href="#code">Code</a></h2>
+      <pre><code>&lt;div class="page-header"&gt;
+  &lt;h1&gt;Edit meeting&lt;/h1&gt;
+  &lt;div class="save-bar"&gt;
+    &lt;span class="inline-status" id="save-status" role="status"&gt;Saved 3:40 pm&lt;/span&gt;
+    &lt;span class="text-muted"&gt;&lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;S&lt;/kbd&gt;&lt;/span&gt;
+    &lt;button class="btn btn--primary" type="submit" form="meeting-form"&gt;Save&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;form id="meeting-form" novalidate&gt;…&lt;/form&gt;
+
+&lt;!-- while saving --&gt;
+&lt;button class="btn btn--primary" type="submit" form="meeting-form" disabled aria-busy="true"&gt;Saving…&lt;/button&gt;</code></pre>
+      <table class="ds-table"><thead><tr><th scope="col">Class / attribute</th><th scope="col">Effect</th></tr></thead><tbody>
+        <tr><td><code>.save-bar</code></td><td>Wrapping flex row, centred, <code>--space-3</code> gap.</td></tr>
+        <tr><td><code>.save-bar kbd</code></td><td>Shortcut key styling.</td></tr>
+        <tr><td><code>.inline-status</code> <code>role="status"</code></td><td>Live status text; add <code>.inline-status--success</code> for just saved.</td></tr>
+        <tr><td><code>form="meeting-form"</code></td><td>Associates the outside button with the form.</td></tr>
+        <tr><td><code>aria-busy="true"</code> + <code>disabled</code></td><td>Saving.</td></tr>
+        <tr><td><code>data-state="hover|focus|active"</code></td><td>Documentation only: forces a state in static pages.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Extracted from these mocks:</p>
+      <ul>
+        <li><a href="../../mocks/pages/meeting-edit/default.html">pages/meeting-edit/default</a>, <a href="../../mocks/pages/meeting-edit/saved.html">saved</a> and <a href="../../mocks/pages/meeting-edit/submitting.html">submitting</a> (status, Save, busy; the Ctrl+S note)</li>
+        <li><a href="../../mocks/pages/meeting-edit/error.html">pages/meeting-edit/error</a> and <a href="../../mocks/pages/meeting-edit/invalid.html">invalid</a> (bar without status)</li>
+        <li><a href="../../mocks/pages/meeting-create/default.html">pages/meeting-create/default</a> and <a href="../../mocks/pages/meeting-create/submitting.html">submitting</a> (Create meeting)</li>
+      </ul>
+    </section>
+
+    <footer class="ds-footer"><span>Debate App design system · extracted from <a href="../../mocks/index.html">docs/mocks</a></span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

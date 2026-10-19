@@ -1,0 +1,39 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — API conventions
+
+interface ResourceRouter {
+  +path: string
+  +router: Router
+}
+class ApiApp {
+  +createApp(routers: ResourceRouter[]): Express
+}
+class SwaggerSetup {
+  +title: string = "TheDebateApp"
+  +version: string = "v1"
+  +docsPath: string = "/swagger/docs/v1"
+  +uiPath: string = "/swagger/ui/index"
+}
+class CorsOptions {
+  +origin: string = "*"
+  +allowedHeaders: string = "*"
+  +methods: string = "*"
+}
+class CaseMapper {
+  +toCamelCase(row: Record<string, unknown>): Record<string, unknown>
+}
+ApiApp o-- "*" ResourceRouter : mounts
+ApiApp --> SwaggerSetup : uses
+ApiApp --> CorsOptions : uses
+ResourceRouter ..> CaseMapper : maps DTOs
+@enduml

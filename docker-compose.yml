@@ -1,0 +1,38 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: debate
+      POSTGRES_PASSWORD: debate
+      POSTGRES_DB: debate
+    ports: ["5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U debate"]
+      interval: 5s
+      retries: 10
+
+  api:
+    image: node:22
+    working_dir: /app
+    volumes: ["./backend:/app"]
+    command: sh -c "npm ci && npm start"
+    environment:
+      PORT: "3000"
+      DATABASE_URL: postgres://debate:debate@postgres:5432/debate
+      JWT_KEY: ZGV2LW9ubHktand0LWtleS1jaGFuZ2UtbWU=
+    ports: ["3000:3000"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  web:
+    image: node:22
+    working_dir: /app
+    volumes: ["./frontend:/app"]
+    command: sh -c "npm ci && npx ng serve the-debate-app --host 0.0.0.0 --proxy-config proxy.docker.json"
+    ports: ["4200:4200"]
+    depends_on: [api]
+
+volumes:
+  pgdata:

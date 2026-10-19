@@ -1,0 +1,16 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Header component
+
+Container_Boundary(spa, "Web client (projects/components, projects/the-debate-app and feature libraries)") {
+  Component(app, "AppComponent", "Angular standalone component (projects/the-debate-app)", "Supplies title and links, handles titleClick")
+  Component(hdr, "HeaderComponent", "Angular standalone component", "Renders the title heading and the links")
+  Component(link, "LinkComponent", "Angular standalone component", "Renders one navigation link")
+  Component(router, "Router", "Angular framework", "Resolves routes")
+}
+
+Rel(app, hdr, "Binds title and links, listens to titleClick")
+Rel(hdr, link, "Renders one per link")
+Rel(app, router, "navigate(['/'])")
+@enduml

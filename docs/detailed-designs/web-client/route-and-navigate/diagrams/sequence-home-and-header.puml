@@ -1,0 +1,40 @@
+@startuml
+title UML sequence behaviour — Home page and header navigation
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Club member" as actor
+box "Frontend — Web client (the-debate-app shell)" #E0F2FE
+  participant "AppComponent" as shell
+  participant "HeaderComponent" as header
+  participant "Router" as router
+end box
+box "Frontend — Web client (home library)" #E0F2FE
+  participant "HomePageComponent" as home
+  participant "LinkComponent (ENTER)" as enter
+end box
+actor -> shell : Open /
+shell -> router : Resolve '' route (L2-019 criterion 1)
+router -> home : Lazy-load and render
+home --> actor : Logo, tagline, ENTER (L2-022)
+actor -> enter : Click ENTER
+enter -> router : navigate(['meetings'])
+router --> actor : Show meeting list
+actor -> header : Click MEETINGS, CREATE or LOGIN (L2-021 criterion 1)
+header -> router : navigate to /meetings, /meeting/create or /login
+actor -> header : Click title (L2-021 criterion 2)
+header -> shell : titleClick
+shell -> router : navigate(['/'])
+router --> actor : Show home
+@enduml

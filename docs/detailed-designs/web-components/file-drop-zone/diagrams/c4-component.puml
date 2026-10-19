@@ -1,0 +1,12 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — File drop zone component
+
+Container_Boundary(spa, "Web client (projects/components, projects/the-debate-app and feature libraries)") {
+  Component(parent, "Parent component", "Angular standalone component", "Binds the zone and receives filesDropped")
+  Component(zone, "FileDropZoneComponent", "Angular standalone component", "Accepts dropped files and emits FormData")
+}
+
+Rel(parent, zone, "Binds caption and appearance, listens to filesDropped")
+@enduml

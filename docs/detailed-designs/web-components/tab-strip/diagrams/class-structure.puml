@@ -1,0 +1,28 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+title Class structure — Tab strip component
+
+class TabStripComponent <<Angular>> {
+  +selectedIndex: number
+  +selectedIndexChange: EventEmitter<number>
+  +tabs: QueryList<TabComponent>
+  +onKeydown(event: KeyboardEvent): void
+  +onTabClick(index: number): void
+  -select(index: number): void
+  -nextIndex(current: number, step: number): number
+}
+class TabComponent <<Angular>> {
+  +title: string
+  +selected: boolean
+}
+TabStripComponent o-- TabComponent : 1..*
+@enduml

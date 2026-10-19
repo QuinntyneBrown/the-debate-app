@@ -1,0 +1,30 @@
+@startuml
+title UML sequence behaviour — Edit content
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Club administrator" as actor
+box "Frontend — projects/components" #E0F2FE
+  participant "RichTextEditorComponent" as rte
+  participant "RichTextEngine" as lib
+end box
+box "Frontend — Parent component" #D1FADF
+  participant "MeetingEditComponent" as parent
+end box
+actor -> lib : Type or apply formatting
+lib -> rte : onChange
+rte -> rte : text = innerHTML of content element (L2-024 criterion 5)
+rte -> parent : valueChange(text)
+
+@enduml

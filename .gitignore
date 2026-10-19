@@ -250,3 +250,7 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+# HTML mock screenshots (generated, never committed)
+docs/mocks/.cache/
+docs/design-system/.cache/

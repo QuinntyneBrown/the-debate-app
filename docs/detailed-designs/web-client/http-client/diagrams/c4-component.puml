@@ -1,0 +1,25 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — HTTP client
+
+Container_Boundary(spa, "Web client (api library, feature libraries)") {
+  Component(feature, "Feature component", "Angular standalone component, meetings or login", "Calls a resource service and handles ApiError")
+  Component(msvc, "MeetingsService", "Angular service, api", "Resource service for meetings")
+  Component(auth, "AuthService", "Angular service, api", "Token and current user requests")
+  Component(client, "ApiClient", "Angular service, api", "Wraps HttpClient, applies defaults, maps errors")
+  Component(defaults, "defaultHeadersInterceptor", "HttpInterceptorFn, api", "Sets Content-Type unless headers are supplied")
+  Component(bearer, "bearerInterceptor", "HttpInterceptorFn, api", "Attaches the bearer token")
+  Component(conn, "ConnectivityService", "Angular service, api", "Online signal")
+}
+Container_Boundary(api, "REST API") {
+  Component(routes, "Express routers", "api/{resource}/{action}", "Return JSON")
+}
+Rel(feature, msvc, "Calls")
+Rel(msvc, client, "Calls request()")
+Rel(auth, client, "Calls request() with explicit headers")
+Rel(client, defaults, "Passes through")
+Rel(defaults, bearer, "Passes through")
+Rel(bearer, routes, "Sends HTTP request", "JSON/HTTPS")
+Rel(client, conn, "Reports status 0 to")
+@enduml

@@ -1,0 +1,16 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Save a meeting
+
+Person(admin, "Club administrator", "Creates and edits debate meetings")
+System_Boundary(app, "The Debate App") {
+  Container(spa, "Web client", "Angular", "Meeting edit page, rich-text editors, date and time inputs")
+  Container(api, "REST API", "Node.js, TypeScript, Express", "Meeting routes, service and repository")
+  ContainerDb(db, "Database", "PostgreSQL", "meetings table with is_deleted flag")
+}
+
+Rel(admin, spa, "Uses", "HTTPS")
+Rel(spa, api, "POST api/meeting/add, PUT api/meeting/update", "JSON/HTTPS")
+Rel(api, db, "Inserts and updates rows", "SQL")
+@enduml

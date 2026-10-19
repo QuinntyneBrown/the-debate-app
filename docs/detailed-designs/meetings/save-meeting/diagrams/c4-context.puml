@@ -1,0 +1,10 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Save a meeting
+
+Person(admin, "Club administrator", "Creates and edits debate meetings")
+System(app, "The Debate App", "Organises debate meetings and publishes related content")
+
+Rel(admin, app, "Creates and edits meetings using", "HTTPS")
+@enduml

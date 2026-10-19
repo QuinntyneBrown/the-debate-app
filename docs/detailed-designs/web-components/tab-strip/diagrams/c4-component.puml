@@ -1,0 +1,14 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Tab strip component
+
+Container_Boundary(spa, "Web client (projects/components, projects/the-debate-app and feature libraries)") {
+  Component(edit, "MeetingEditComponent", "Angular standalone component (projects/meetings)", "Projects tabs and panels")
+  Component(strip, "TabStripComponent", "Angular standalone component", "Selection, ARIA state, keyboard and focus")
+  Component(tab, "TabComponent", "Angular standalone component", "One tab title and its panel")
+}
+
+Rel(edit, strip, "Projects tabs, binds selectedIndex")
+Rel(strip, tab, "Reads title, selected and panel")
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Save a meeting
+
+Container_Boundary(spa, "Web client (projects/meetings, projects/api, projects/components)") {
+  Component(edit, "MeetingEditComponent", "Angular standalone component", "Form for date, start, end, name, abstract, agenda and minutes")
+  Component(editor, "RichTextEditorComponent", "Angular standalone component", "Wraps the rich-text editor for abstract, agenda and minutes")
+  Component(msvc, "MeetingsService", "Angular HTTP service", "Calls the meeting endpoints")
+}
+
+Container_Boundary(api, "REST API (backend/src/meetings)") {
+  Component(routes, "meetings.routes", "Express router", "Maps POST add and PUT update to one handler")
+  Component(service, "MeetingService", "TypeScript class", "Add-or-update logic")
+  Component(repo, "MeetingRepository", "TypeScript class", "Finds non-deleted meetings, inserts and updates")
+}
+ContainerDb(db, "PostgreSQL", "meetings table", "Persists meetings")
+
+Rel(edit, editor, "Binds abstract, agenda and minutes to")
+Rel(edit, msvc, "Calls add on save")
+Rel(msvc, routes, "POST api/meeting/add", "JSON/HTTPS")
+Rel(routes, service, "Calls addOrUpdate")
+Rel(service, repo, "Calls findById, insert, update")
+Rel(repo, db, "Reads and writes", "SQL")
+@enduml

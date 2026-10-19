@@ -1,0 +1,72 @@
+@startuml
+title UML sequence behaviour — Issue a token
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Visitor" as actor
+box "Frontend — Web client (login and api libraries)" #E0F2FE
+  participant "LoginComponent" as page
+  participant "AuthService" as client
+  participant "SessionService" as session
+end box
+box "Backend — REST API application" #D1FADF
+  participant "auth.routes" as routes
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "IdentityService" as ident
+  participant "TokenService" as tok
+end box
+box "Backend — Infrastructure" #FFF4E5
+  participant "UserRepository" as repo
+  database "PostgreSQL" as db
+end box
+actor -> page : Submit username and password
+page -> client : login(username, password)
+client -> routes : POST /api/user/token (form-urlencoded)
+routes -> ident : validate(username, password)
+alt claims cached under User: {username} (L2-013 criterion 8)
+  ident -> ident : Read user and roles from cache
+else not cached
+  ident -> repo : findByUsername(username), case-insensitive, non-deleted
+  repo -> db : SELECT user and roles
+  db --> repo : Row or none
+  repo --> ident : User or null
+end
+alt validation throws (L2-013 criterion 4)
+  ident --> routes : Exception
+  routes --> client : OAuth error, description is exception message
+  client --> page : Error
+  page --> actor : Show error state
+else user not found (L2-013 criterion 2)
+  ident --> routes : null
+  routes --> client : OAuth error invalid_grant, Invalid credentials
+  client --> page : Error
+  page --> actor : Show summary and password error
+else transformed password differs (L2-013 criterion 3)
+  ident -> ident : transform(password) and compare (L2-015)
+  ident --> routes : null
+  routes --> client : OAuth error invalid_grant, Invalid credentials
+  client --> page : Error
+  page --> actor : Show summary and password error
+else credentials valid (L2-013 criterion 1)
+  ident -> ident : transform(password) equals stored password (L2-015)
+  ident --> routes : IdentityClaims
+  routes -> tok : sign(claims) with iss, aud, 120 min exp, name and role claims (L2-013 criteria 5 and 6)
+  tok --> routes : TokenResponse
+  routes --> client : 200 access_token, token_type, expires_in
+  client -> session : Store access_token
+  client --> page : Signed in
+  page --> actor : Navigate away from sign-in
+end
+@enduml

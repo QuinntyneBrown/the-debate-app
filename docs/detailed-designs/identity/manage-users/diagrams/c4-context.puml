@@ -1,0 +1,9 @@
+@startuml
+!include <C4/C4_Context>
+LAYOUT_WITH_LEGEND()
+title System Context — Manage users
+
+Person(admin, "Administrator", "Manages users")
+System(app, "The Debate App", "User endpoints")
+Rel(admin, app, "Manages users through", "JSON/HTTPS")
+@enduml

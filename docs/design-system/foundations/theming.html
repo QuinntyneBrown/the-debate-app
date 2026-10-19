@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Theming — Debate App design system</title>
+<meta name="description" content="Debate App theming: data-theme, prefers-color-scheme and color-scheme, the three token tiers, adding a theme and consuming tokens.json.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Debate App DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/save-bar.html">Save bar</a></li>
+      <li><a href="../components/rich-text-editor.html">Rich-text editor</a></li>
+      <li><a href="../components/prose.html">Prose</a></li>
+      <li><a href="../components/tab-strip.html">Tab strip</a></li>
+      <li><a href="../components/meeting-row.html">Meeting row</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/navigation.html">Navigation</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Foundation · Theming</p>
+      <h1>Theming</h1>
+      <p class="ds-lead">Light and dark are the same components reading the same token names; a theme is a block of semantic overrides applied with data-theme or the OS preference.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Foundation</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#how">How a theme applies</a></li><li><a href="#tiers">Token tiers</a></li><li><a href="#add-theme">Adding a theme</a></li><li><a href="#json">Consuming tokens.json</a></li><li><a href="#usage">Do and don't</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The Debate App ships a light and a dark theme. Both are the same components reading the same token names; only the semantic colour and shadow values change. The app follows the device setting by default; the mocks add a Light / Dark toggle (<code>data-theme</code> on the root element) to show both.</p>
+      <div class="ds-themes">
+        <div data-theme="light"><div class="card stack"><h3 class="card__title" style="margin: 0;">Universal basic income</h3><p class="text-muted" style="margin: 0;">Tue 13 Oct · 7:00 pm–8:30 pm</p><div class="cluster"><a class="btn btn--primary" href="../../mocks/pages/meeting-edit/default.html">Edit meeting</a><a class="btn" href="../../mocks/pages/meetings/default.html">Back to meetings</a></div></div></div>
+        <div data-theme="dark"><div class="card stack"><h3 class="card__title" style="margin: 0;">Universal basic income</h3><p class="text-muted" style="margin: 0;">Tue 13 Oct · 7:00 pm–8:30 pm</p><div class="cluster"><a class="btn btn--primary" href="../../mocks/pages/meeting-edit/default.html?theme=dark">Edit meeting</a><a class="btn" href="../../mocks/pages/meetings/default.html?theme=dark">Back to meetings</a></div></div></div>
+      </div>
+    </section>
+
+    <section class="ds-section" id="how"><h2><a href="#how">How a theme applies</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Mechanism</th><th scope="col">What it does</th></tr></thead>
+        <tbody>
+          <tr><td><code>:root</code></td><td>Light values; the default.</td></tr>
+          <tr><td><code>[data-theme="dark"]</code></td><td>Dark values on any element and everything inside it. Set on <code>&lt;html&gt;</code> when Dark is chosen.</td></tr>
+          <tr><td><code>@media (prefers-color-scheme: dark)</code> on <code>:root:not([data-theme="light"])</code></td><td>"Match device": dark when the OS is dark, unless Light is forced.</td></tr>
+          <tr><td><code>color-scheme: light | dark</code></td><td>Set inside each theme so scrollbars, form controls and the default canvas match.</td></tr>
+          <tr><td><code>@media (prefers-contrast: more)</code></td><td>Decorative borders become strong; muted and subtle text become default.</td></tr>
+          <tr><td><code>@media (forced-colors: active)</code></td><td>Focus ring and borders hand over to system colours; key components draw a <code>CanvasText</code> border.</td></tr>
+        </tbody>
+      </table></div>
+      <pre><code>&lt;!-- Match device: no attribute --&gt;
+&lt;html lang="en"&gt;
+
+&lt;!-- Dark or Light chosen by the person --&gt;
+&lt;html lang="en" data-theme="dark"&gt;
+&lt;html lang="en" data-theme="light"&gt;</code></pre>
+      <p>The app sets the attribute before first paint (from the saved preference) so there is no flash of the wrong theme. These docs and the mocks also accept <code>?theme=dark</code> and the <kbd>t</kbd> key to preview.</p>
+    </section>
+
+    <section class="ds-section" id="tiers"><h2><a href="#tiers">Token tiers</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table">
+        <thead><tr><th scope="col">Tier</th><th scope="col">Examples</th><th scope="col">Who reads it</th><th scope="col">Changes per theme?</th></tr></thead>
+        <tbody>
+          <tr><td>1 · Primitives</td><td><code>--palette-violet-600</code>, <code>--font-size-md</code>, <code>--size-cover-md</code></td><td>Only semantic tokens</td><td>No</td></tr>
+          <tr><td>2 · Semantic</td><td><code>--color-accent</code>, <code>--text-body</code>, <code>--space-4</code>, <code>--radius-md</code>, <code>--shadow-1</code></td><td>Components and pages</td><td>Colour and shadow do</td></tr>
+          <tr><td>3 · Component</td><td><code>--btn-bg</code>, <code>--field-border</code>, <code>--alert-icon</code>, <code>--cover</code>, <code>--avatar-size</code></td><td>One component; declared in <code>components.css</code></td><td>No; they alias semantic tokens</td></tr>
+        </tbody>
+      </table></div>
+      <p>A theme overrides tier 2. A one-off re-skin of a single component overrides tier 3 in a scoped selector. Nothing outside <code>tokens.css</code> names a tier 1 token.</p>
+    </section>
+
+    <section class="ds-section" id="add-theme"><h2><a href="#add-theme">Adding a theme</a></h2>
+      <ol>
+        <li>Copy the <code>[data-theme="dark"]</code> block in <code>tokens/tokens.css</code> and rename the selector, for example <code>[data-theme="sunrise"]</code>.</li>
+        <li>Point each <code>--color-*</code> token at a palette step. Add a new ramp under Primitives if the brand needs a hue the palette does not have; never put a raw value in the theme block.</li>
+        <li>Set <code>color-scheme</code> and, for a dark-based theme, <code>--shadow-color</code> and the four shadows.</li>
+        <li>Keep the cover pastels and <code>--color-fg-on-cover</code> as they are; covers look the same in every theme.</li>
+        <li>Run <code>python3 .claude/skills/extracting-design-systems/scripts/check_contrast.py docs/design-system</code>; every pair in <code>contrast-pairs.json</code> must pass in the new theme.</li>
+        <li>Add the theme to the Appearance setting and to the docs' theme previews.</li>
+      </ol>
+    </section>
+
+    <section class="ds-section" id="json"><h2><a href="#json">Consuming tokens.json</a></h2>
+      <p><code>tokens/tokens.json</code> is a DTCG export of <code>tokens.css</code> for tools that cannot read CSS (design tools, native shells, tests). Each token has <code>$type</code>, <code>$value</code> (an alias such as <code>{palette.violet.600}</code> or a raw value) and, under <code>$extensions["com.agent-toolkit"]</code>, its CSS name, the resolved value and any theme overrides.</p>
+      <pre><code>"accent": {
+  "$type": "color",
+  "$value": "{palette.violet.600}",
+  "$extensions": {
+    "com.agent-toolkit": {
+      "css": "--color-accent",
+      "themes": { "dark": { "$value": "{palette.violet.300}" } }
+    }
+  }
+}</code></pre>
+      <ul>
+        <li><code>tokens.css</code> is the source of truth; regenerate the JSON with <code>scripts/tokens_to_json.py</code> after every change and never edit it by hand.</li>
+        <li>In the Angular app, import <code>tokens.css</code> once in the global styles and read tokens with <code>var()</code>; components never import the JSON.</li>
+        <li>Playwright tests that need a value read it with <code>getComputedStyle</code>, so they follow the active theme.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="usage"><h2><a href="#usage">Do and don't</a></h2>
+      <ul>
+        <li><b>Do</b> read semantic tokens in components; <b>don't</b> read <code>--palette-*</code> outside <code>tokens.css</code>.</li>
+        <li><b>Do</b> set <code>data-theme</code> on <code>&lt;html&gt;</code>; <b>don't</b> scatter it on individual components in the product (the docs use it on preview frames only).</li>
+        <li><b>Do</b> check both themes for every new pair; <b>don't</b> assume a pair that passes in light passes in dark.</li>
+        <li><b>Do</b> let <code>prefers-reduced-motion</code>, <code>prefers-contrast</code> and <code>forced-colors</code> adjust tokens; <b>don't</b> write theme-specific component CSS such as <code>[data-theme="dark"] .card { … }</code>.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <p>This page owns no tokens. Colour tokens are on <a href="color.html#tokens">Color</a>, layout tokens on <a href="layout.html#tokens">Layout</a>, motion on <a href="motion.html#tokens">Motion</a>, and the interaction tokens (targets, control heights, focus ring) on <a href="accessibility.html#tokens">Accessibility</a>.</p>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Mocks this foundation was checked against:</p>
+      <ul><li><a href="../../mocks/pages/meetings/default.html">pages/meetings/default</a></li><li><a href="../../mocks/pages/meeting-edit/default.html">pages/meeting-edit/default</a></li><li><a href="../../mocks/pages/sign-in/default.html">pages/sign-in/default</a></li><li><a href="../../mocks/notifications/toast/success.html">notifications/toast/success</a></li></ul>
+    </section>
+
+    <footer class="ds-footer"><span>Debate App design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 2026-10-19</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

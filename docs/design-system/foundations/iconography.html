@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iconography — Debate App design system</title>
+<meta name="description" content="Debate App icons: style, sizes, labelling rules and a sheet of every inline SVG icon used in the mocks.">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/ds.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-nav" aria-label="Design system">
+    <div class="ds-nav__brand"><a href="../index.html">Debate App DS</a><button class="ds-theme-toggle" type="button" aria-pressed="false">☾ Dark</button></div>
+    <details open><summary>Foundations</summary><ul>
+      <li><a href="../foundations/color.html">Color</a></li>
+      <li><a href="../foundations/typography.html">Typography</a></li>
+      <li><a href="../foundations/spacing.html">Spacing</a></li>
+      <li><a href="../foundations/layout.html">Layout</a></li>
+      <li><a href="../foundations/elevation.html">Elevation</a></li>
+      <li><a href="../foundations/shape.html">Shape</a></li>
+      <li><a href="../foundations/motion.html">Motion</a></li>
+      <li><a href="../foundations/iconography.html">Iconography</a></li>
+      <li><a href="../foundations/theming.html">Theming</a></li>
+      <li><a href="../foundations/responsive.html">Responsive</a></li>
+      <li><a href="../foundations/accessibility.html">Accessibility</a></li>
+      <li><a href="../foundations/content.html">Content</a></li>
+    </ul></details>
+    <details open><summary>Components</summary><ul>
+      <li><a href="../components/button.html">Button</a></li>
+      <li><a href="../components/link.html">Link</a></li>
+      <li><a href="../components/menu.html">Menu</a></li>
+      <li><a href="../components/form-field.html">Form field</a></li>
+      <li><a href="../components/text-field.html">Text field</a></li>
+      <li><a href="../components/form-layout.html">Form layout</a></li>
+      <li><a href="../components/save-bar.html">Save bar</a></li>
+      <li><a href="../components/rich-text-editor.html">Rich-text editor</a></li>
+      <li><a href="../components/prose.html">Prose</a></li>
+      <li><a href="../components/tab-strip.html">Tab strip</a></li>
+      <li><a href="../components/meeting-row.html">Meeting row</a></li>
+      <li><a href="../components/list.html">List</a></li>
+      <li><a href="../components/card.html">Card</a></li>
+      <li><a href="../components/avatar.html">Avatar</a></li>
+      <li><a href="../components/alert.html">Alert</a></li>
+      <li><a href="../components/inline-message.html">Inline message</a></li>
+      <li><a href="../components/toast.html">Toast</a></li>
+      <li><a href="../components/dialog.html">Dialog</a></li>
+      <li><a href="../components/skeleton.html">Skeleton</a></li>
+      <li><a href="../components/empty-state.html">Empty state</a></li>
+      <li><a href="../components/error-page.html">Error page</a></li>
+      <li><a href="../components/top-bar.html">Top bar</a></li>
+      <li><a href="../components/logo-mark.html">Logo mark</a></li>
+      <li><a href="../components/skip-link.html">Skip link</a></li>
+      <li><a href="../components/layout.html">Layout</a></li>
+    </ul></details>
+    <details open><summary>Patterns</summary><ul>
+      <li><a href="../patterns/content-and-tone.html">Content and tone</a></li>
+      <li><a href="../patterns/dialogs-and-overlays.html">Dialogs and overlays</a></li>
+      <li><a href="../patterns/empty-and-error-states.html">Empty and error states</a></li>
+      <li><a href="../patterns/feedback-and-loading.html">Feedback and loading</a></li>
+      <li><a href="../patterns/forms.html">Forms</a></li>
+      <li><a href="../patterns/lists-and-tables.html">Lists and tables</a></li>
+      <li><a href="../patterns/navigation.html">Navigation</a></li>
+      <li><a href="../patterns/notifications.html">Notifications</a></li>
+    </ul></details>
+  </nav>
+
+  <main id="main" class="ds-main">
+    <header class="ds-header">
+      <p class="ds-kicker">Foundation · Iconography</p>
+      <h1>Iconography</h1>
+      <p class="ds-lead">Twenty-three plain line icons on a 24-unit grid with a 2px stroke, coloured by the text beside them, each with one meaning.</p>
+      <div class="ds-meta"><span class="ds-pill ds-pill--ok">WCAG 2.2 AA</span><span class="ds-pill">Foundation</span></div>
+      <ul class="ds-toc">
+        <li><a href="#overview">Overview</a></li><li><a href="#style">Style</a></li><li><a href="#sizes">Sizes</a></li><li><a href="#sheet">Icon sheet</a></li><li><a href="#labelling">Labelling</a></li><li><a href="#usage">Usage</a></li><li><a href="#accessibility">Accessibility</a></li><li><a href="#tokens">Tokens</a></li><li><a href="#sources">Sources</a></li>
+      </ul>
+    </header>
+
+    <section class="ds-section" id="overview"><h2><a href="#overview">Overview</a></h2>
+      <p>The Debate App uses 20 line icons, drawn inline as SVG so they inherit text colour and need no icon font or sprite request. Each icon means exactly one thing everywhere it appears. Icons stay plain and functional; the writing carries the personality.</p>
+    </section>
+
+    <section class="ds-section" id="style"><h2><a href="#style">Style</a></h2>
+      <ul>
+        <li><b>Grid:</b> 24 × 24 viewBox, about 2px of padding inside it.</li>
+        <li><b>Stroke:</b> 2 units, round caps and joins, no fill (<code>.icon</code> sets <code>fill: none; stroke: currentColor</code>).</li>
+        <li><b>Colour:</b> <code>currentColor</code>, so an icon is always the colour of the text beside it; alerts and toasts set it from their <code>*-icon</code> tokens.</li>
+        <li><b>Markup:</b> <code>&lt;svg class="icon" aria-hidden="true" viewBox="0 0 24 24"&gt;</code> with paths only; no <code>width</code>, <code>height</code> or <code>fill</code> attributes.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="sizes"><h2><a href="#sizes">Sizes</a></h2>
+      <div class="ds-example"><div class="ds-example__canvas">
+        <span class="text-muted cluster"><svg class="icon icon--sm" aria-hidden="true" viewBox="0 0 24 24"><path d="m8 12 3 3 5-6"/><circle cx="12" cy="12" r="9"/></svg> Saved just now</span>
+        <button class="btn" type="button"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New meeting</button>
+        <span class="cluster"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><b>Meetings</b></span>
+      </div><div class="ds-example__caption"><span>sm 16px beside small text (save status, helper text); md 20px default (buttons, alerts, menus, toasts; inside buttons it is 1.25em); lg 24px in the brand mark, the date badge and empty states.</span></div></div>
+    </section>
+
+    <section class="ds-section" id="sheet"><h2><a href="#sheet">Icon sheet</a></h2>
+      <p>Every icon used in the mocks, deduplicated by path. Nothing else is in the set; add an icon only when a mock needs one.</p>
+      <div class="ds-swatches"><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h9a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3H9l-4 3v-3a3 3 0 0 1-1-2.2V8a3 3 0 0 1 0-3z"/><path d="M16 9h2a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3h-1l-3 3v-3"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">The Debate App</span><span>Brand mark in the top bar</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Add</span><span>New meeting</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Edit</span><span>Edit a meeting</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Delete</span><span>Delete a meeting</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Close</span><span>Close a dialog, dismiss a toast or banner</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Back</span><span>Back to meetings</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4M15 8l4 4-4 4M19 12H9"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Sign out</span><span>Account menu</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Show password</span><span>Sign-in password field</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Try again</span><span>Retry after a load or save failed</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Calendar</span><span>Empty meeting list</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Search</span><span>Page not found</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Lock</span><span>Forbidden: sign in to continue</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M2 2l20 20M7 18h11a4 4 0 0 0 1.5-7.7A7 7 0 0 0 8 8.5M4.5 10.5A4 4 0 0 0 7 18"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Cloud off</span><span>Server error and load failures</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M2 2l20 20M9 17a4 4 0 0 1 6 0M5 12a9 9 0 0 1 4-2.5M19 12a9 9 0 0 0-3-2M2 8a14 14 0 0 1 5-3M22 8a14 14 0 0 0-8-4"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Offline</span><span>No internet connection</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Information</span><span>Info banner and toast</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Success</span><span>Success banner and toast</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Warning</span><span>Warning banner and toast</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Error</span><span>Failed dialog, danger toast and banner, form summary</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-8 8"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Image</span><span>Editor toolbar: insert image</span></div></div><div class="ds-swatch"><div class="ds-swatch__chip" style="--swatch: var(--color-bg-surface-sunken); justify-content: center; align-items: center; color: var(--color-fg-default);"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"/></svg></div><div class="ds-swatch__body"><span class="ds-swatch__name">Code</span><span>Editor toolbar: code</span></div></div></div>
+    </section>
+
+    <section class="ds-section" id="labelling"><h2><a href="#labelling">Labelling</a></h2>
+      <ul>
+        <li>An icon beside visible text is decoration: <code>aria-hidden="true"</code>, and the text is the name.</li>
+        <li>An icon-only button (close, edit, remove) has <code>aria-label</code> with the verb and the object: "Edit meeting", "Delete meeting", "Dismiss", "Close".</li>
+        <li>An icon that carries status (the cloud-off icon on a failed load) always sits next to words ("We couldn’t load the meetings").</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="usage"><h2><a href="#usage">Usage</a></h2>
+      <ul>
+        <li>Lead with the icon in buttons and menu items; the label follows.</li>
+        <li>Use one icon per meaning: the check is "done", the check in a circle is "success"; do not swap them.</li>
+        <li>Never use an emoji where an icon has a job (close, back, retry), and never use an icon as decoration with no meaning.</li>
+        <li>Copy paths from this sheet; do not redraw or import icons from another set.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="accessibility"><h2><a href="#accessibility">Accessibility</a></h2>
+      <ul>
+        <li>Meaningful icons reach 3:1 against their background (1.4.11); the toast icons have dedicated tokens for this.</li>
+        <li>Icon-only buttons are at least 24px (<code>--target-min</code>) and usually 44px.</li>
+        <li>In forced-colours mode icons follow <code>currentColor</code> and stay visible.</li>
+      </ul>
+    </section>
+
+    <section class="ds-section" id="tokens"><h2><a href="#tokens">Tokens</a></h2>
+      <div class="ds-table-wrap"><table class="ds-table"><caption class="visually-hidden">Icon size tokens</caption>
+        <thead><tr><th scope="col">Role</th><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead>
+        <tbody>
+          <tr><td>Inline with small text</td><td><code>--size-icon-sm</code></td><td colspan="2"><span data-token="--size-icon-sm"></span></td></tr>
+          <tr><td>Default, buttons and alerts</td><td><code>--size-icon-md</code></td><td colspan="2"><span data-token="--size-icon-md"></span></td></tr>
+          <tr><td>Brand mark, empty states</td><td><code>--size-icon-lg</code></td><td colspan="2"><span data-token="--size-icon-lg"></span></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="ds-section" id="sources"><h2><a href="#sources">Sources</a></h2>
+      <p>Mocks this foundation was checked against:</p>
+      <ul><li><a href="../../mocks/pages/sign-in/default.html">pages/sign-in/default</a></li><li><a href="../../mocks/dialogs/account-menu/default.html">dialogs/account-menu/default</a></li><li><a href="../../mocks/dialogs/delete-meeting/default.html">dialogs/delete-meeting/default</a></li><li><a href="../../mocks/pages/meeting-edit/default.html">pages/meeting-edit/default</a></li><li><a href="../../mocks/pages/meetings/empty.html">pages/meetings/empty</a></li><li><a href="../../mocks/pages/not-found/default.html">pages/not-found/default</a></li><li><a href="../../mocks/pages/forbidden/default.html">pages/forbidden/default</a></li><li><a href="../../mocks/pages/offline/default.html">pages/offline/default</a></li><li><a href="../../mocks/pages/server-error/default.html">pages/server-error/default</a></li><li><a href="../../mocks/notifications/banner/info.html">notifications/banner/info</a></li><li><a href="../../mocks/notifications/banner/warning.html">notifications/banner/warning</a></li></ul>
+    </section>
+
+    <footer class="ds-footer"><span>Debate App design system · extracted from <a href="../../mocks/index.html">docs/mocks</a> on 2026-10-19</span><a href="#top">Back to top</a></footer>
+  </main>
+</div>
+<script src="../assets/ds.js"></script>
+</body>
+</html>

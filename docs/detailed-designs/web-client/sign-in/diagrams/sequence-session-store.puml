@@ -1,0 +1,47 @@
+@startuml
+title UML sequence behaviour — Session storage
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Club administrator" as actor
+box "Frontend — Web client (api library)" #E0F2FE
+  participant "SessionService" as session
+  participant "AuthService" as auth
+end box
+box "Frontend — Browser" #E0F2FE
+  participant "window" as win
+  database "localStorage theDebateApp" as ls
+end box
+session -> ls : getItem (first read)
+alt nothing stored or literal "null" (L2-026 criterion 4)
+  ls --> session : null
+  session -> session : items = []
+else stored JSON
+  ls --> session : JSON array
+  session -> session : items = parsed array
+end
+auth -> session : put(name, value) (L2-026 criterion 1)
+alt name is new
+  session -> session : append item
+else name exists
+  session -> session : replace value
+end
+auth -> session : get(name) (L2-026 criterion 2)
+session --> auth : value or null
+auth -> session : clear() (L2-026 criterion 5)
+session -> session : items = []
+actor -> win : Close or reload tab
+win -> session : beforeunload (L2-026 criterion 3)
+session -> ls : setItem(JSON items)
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+!include <C4/C4_Container>
+LAYOUT_WITH_LEGEND()
+title Containers — Sign in
+
+Person(admin, "Club administrator", "Uses a browser")
+System_Boundary(app, "The Debate App") {
+  Container(spa, "Web client", "Angular standalone SPA", "Login page, session store, bearer interceptor, account menu")
+  Container(api, "REST API", "Node.js, Express", "Token endpoint /api/user/token and current user endpoint")
+  ContainerDb(db, "Database", "PostgreSQL", "Users and password hashes")
+}
+Rel(admin, spa, "Types credentials into", "HTTPS")
+Rel(spa, api, "Requests token and current user", "form-urlencoded and JSON/HTTPS")
+Rel(api, db, "Validates credentials against", "SQL")
+@enduml

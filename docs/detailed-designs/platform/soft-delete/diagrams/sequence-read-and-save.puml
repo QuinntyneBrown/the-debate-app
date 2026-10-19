@@ -1,0 +1,52 @@
+@startuml
+title UML sequence behaviour — Read and add-or-update exclude deleted records
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "API client" as actor
+box "Frontend — Web client (api library)" #E0F2FE
+  participant "MeetingsService" as client
+end box
+box "Backend — REST API application" #D1FADF
+  participant "meetings.routes" as routes
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "MeetingService" as service
+end box
+box "Backend — Infrastructure" #FFF4E5
+  participant "MeetingRepository" as repo
+  database "PostgreSQL" as db
+end box
+actor -> client : get() and add(meeting)
+client -> routes : GET api/meeting/get
+routes -> service : get()
+service -> repo : getAll()
+repo -> db : SELECT ... WHERE NOT is_deleted (L2-016 criterion 2)
+db --> repo : Non-deleted rows
+repo --> service : Meetings
+service --> routes : MeetingDto list
+routes --> client : 200 JSON
+client -> routes : POST api/meeting/add with id of a deleted meeting
+routes -> service : addOrUpdate(dto)
+service -> repo : findForUpdate(id)
+repo -> db : SELECT ... WHERE id AND NOT is_deleted
+db --> repo : No row
+repo --> service : null (L2-016 criterion 4)
+service -> repo : insert(new meeting) (L2-016 criterion 3)
+repo -> db : INSERT INTO meetings
+db --> repo : New row
+service --> routes : MeetingDto
+routes --> client : 200 JSON
+client --> actor : Result
+@enduml

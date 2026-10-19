@@ -1,0 +1,17 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Seed data
+
+Container_Boundary(api, "REST API (backend)") {
+  Component(main, "main.ts", "TypeScript module", "Bootstrap; migrates before listen")
+  Component(migrate, "migrate", "TypeScript function", "Applies unapplied SQL files in order")
+  Component(dbc, "dbConfig", "TypeScript module", "Builds the pg pool from DATABASE_URL")
+  Component(files, "migrations/*.sql", "SQL files", "Schema and seed upserts")
+}
+ContainerDb(db, "PostgreSQL", "PostgreSQL", "Stores schema and data")
+Rel(main, migrate, "Calls")
+Rel(migrate, dbc, "Gets pool from")
+Rel(migrate, files, "Reads in order")
+Rel(migrate, db, "Executes", "SQL")
+@enduml

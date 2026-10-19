@@ -1,0 +1,42 @@
+@startuml
+title UML sequence behaviour — List users anonymously
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+actor "Caller" as actor
+box "Frontend — API client (api library)" #E0F2FE
+  participant "UsersService" as client
+end box
+box "Backend — REST API application" #D1FADF
+  participant "users.routes" as routes
+end box
+box "Backend — Application and Domain" #ECFDF3
+  participant "UserService" as service
+end box
+box "Backend — Infrastructure" #FFF4E5
+  participant "UserRepository" as repo
+  database "PostgreSQL" as db
+end box
+actor -> client : get()
+client -> routes : GET api/user/get (no Authorization header)
+routes -> service : get()
+service -> repo : getAll()
+repo -> db : SELECT ... WHERE NOT is_deleted
+db --> repo : Rows
+repo --> service : Users
+service -> service : Map to { id, name } only (L2-008 criterion 3)
+service --> routes : UserDto list
+routes --> client : 200 JSON without username, password, email
+client --> actor : Users
+@enduml

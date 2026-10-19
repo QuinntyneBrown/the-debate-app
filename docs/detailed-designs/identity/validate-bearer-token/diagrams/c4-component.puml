@@ -1,0 +1,17 @@
+@startuml
+!include <C4/C4_Component>
+LAYOUT_WITH_LEGEND()
+title Components — Validate a bearer token
+
+Container_Boundary(api, "REST API (backend/src)") {
+  Component(jwt, "jwtAuth", "Express middleware", "Verifies signature, expiry, issuer, audience")
+  Component(guard, "requireAuth", "Express middleware", "Returns 401 when no user")
+  Component(cfg, "authConfig", "TypeScript module", "Loads issuer, audience, key; fails if missing")
+  Component(router, "Resource router", "Express router", "Protected and anonymous actions")
+  Component(err, "errorHandler", "Express middleware", "Renders 401 responses")
+}
+Rel(jwt, cfg, "Reads settings from")
+Rel(router, jwt, "Runs first")
+Rel(router, guard, "Applies to protected actions")
+Rel(guard, err, "Passes 401 to")
+@enduml
