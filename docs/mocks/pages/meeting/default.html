@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meeting · default — The Debate App mocks</title>
+<meta name="mock:kind" content="page">
+<meta name="mock:screen" content="meeting">
+<meta name="mock:state" content="default">
+<meta name="mock:requirements" content="L2-003 L2-023 L2-030">
+<meta name="description" content="Universal basic income, read-only, with abstract, agenda and minutes behind three tabs.">
+<link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/ui.css">
+<link rel="stylesheet" href="../../assets/mock.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__brand" href="../../pages/meetings/default.html"><svg class="icon icon--lg" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h9a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3H9l-4 3v-3a3 3 0 0 1-1-2.2V8a3 3 0 0 1 0-3z"/><path d="M16 9h2a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3h-1l-3 3v-3"/></svg> The Debate App</a>
+  <nav class="topbar__nav" aria-label="Primary">
+    <a class="nav-link" href="../../pages/meetings/default.html" aria-current="page">Meetings</a>
+    <a class="nav-link" href="../../pages/meeting-create/default.html">New meeting</a>
+  </nav>
+  <span class="topbar__spacer"></span>
+  <button class="avatar avatar--sm avatar--sky" type="button" aria-label="Account menu for Jordan Reyes" aria-haspopup="menu" aria-expanded="false">J</button>
+</header>
+
+<main id="main" class="container">
+  <a class="btn btn--ghost btn--sm" href="../../pages/meetings/default.html" style="margin-top: var(--space-4);"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></svg>Meetings</a>
+  <div class="page-header">
+    <div><h1>Universal basic income</h1><p class="subtitle">Tue 13 Oct · 7:00 pm–8:30 pm</p></div>
+    <div class="cluster"><a class="btn btn--primary" href="../../pages/meeting-edit/default.html"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="m13 7 3 3"/></svg>Edit</a></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tabs__list" role="tablist" aria-label="Meeting sections"><button class="tabs__tab" role="tab" type="button" id="view-abstract" aria-controls="view-panel-abstract" aria-selected="false" tabindex="-1">Abstract</button><button class="tabs__tab" role="tab" type="button" id="view-agenda" aria-controls="view-panel-agenda" aria-selected="false" tabindex="-1">Agenda</button><button class="tabs__tab" role="tab" type="button" id="view-minutes" aria-controls="view-panel-minutes" aria-selected="true">Minutes</button></div>
+<div class="tabs__panel" role="tabpanel" id="view-panel-abstract" aria-labelledby="view-abstract" hidden><div class="card prose"><p>This house would introduce a universal basic income. Priya Nair proposes; Samir Haddad opposes. Two speakers a side, eight minutes each, then open floor.</p></div></div>
+<div class="tabs__panel" role="tabpanel" id="view-panel-agenda" aria-labelledby="view-agenda" hidden><div class="card prose"><h2>Order of play</h2><ol><li>Welcome and house rules (5 min)</li><li>Proposition, Priya Nair (8 min)</li><li>Opposition, Samir Haddad (8 min)</li><li>Second speakers, Lena Fischer and Tom Okafor (8 min each)</li><li>Open floor (20 min)</li><li>Summaries and vote (10 min)</li></ol><h2>Before the meeting</h2><p>Read the two-page brief Priya circulated on Friday.</p></div></div>
+<div class="tabs__panel" role="tabpanel" id="view-panel-minutes" aria-labelledby="view-minutes"><div class="card prose"><p>Fourteen members attended. The motion carried 9–5 after a close open floor.</p><h2>Highlights</h2><ul><li>Priya's strongest point was the administrative saving from replacing means-tested benefits.</li><li>Samir's objection about inflation drew the most questions from the floor.</li><li>Lena proposed a pilot-scheme compromise that several members said changed their vote.</li></ul><h2>Actions</h2><ul><li>Tom to post the reading list for the AI motion by Wednesday.</li><li>Jordan to confirm the room for 27 October.</li></ul></div></div>
+  </div>
+</main>
+<p class="mock-note" style="top: 5.5rem; right: 1rem;">Minutes open first for a past meeting; Abstract opens first for an upcoming one. Left and Right arrows move between tabs.</p>
+
+<nav class="mock-bar" aria-label="Mock navigation">
+  <a class="mock-bar__home" href="../../index.html" aria-label="All mocks">⌂</a>
+  <span class="mock-bar__screen">Meeting</span>
+  <ul class="mock-bar__states"><li><a href="default.html" aria-current="page">default</a></li><li><a href="loading.html">loading</a></li><li><a href="error.html">error</a></li><li><a href="edge.html">edge</a></li></ul>
+  <button type="button" data-theme-toggle aria-pressed="false">☾ Dark</button>
+  <button type="button" data-chrome-toggle aria-label="Hide mock chrome">×</button>
+</nav>
+<script src="../../assets/mock.js"></script>
+</body>
+</html>
